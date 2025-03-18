@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const gameController = require('../controllers/gameController');
-const { authMiddleware, adminMiddleware } = require('../middleware/auth');
+const { authMiddleware, adminMiddleware } = require('../controllers/userController');
 
 // Public routes
 router.get('/', gameController.getAllGames);
