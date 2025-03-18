@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const electronicsController = require('../controllers/electronicsController');
-const { authMiddleware, adminMiddleware } = require('../middleware/auth');
+const { authMiddleware, adminMiddleware } = require('../controllers/userController');
 
 // Public routes
 router.get('/', electronicsController.getAllElectronics);
