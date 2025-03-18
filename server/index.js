@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const cloudinaryRoutes = require("./routers/cloudinary.js");
 const connection=require('./database/index.js')
 require('./database/user.js')
 require('./database/game.js')
@@ -13,7 +14,7 @@ app.use(express.json());
 app.use(cors());
 
 // app.use('/aa/',Router)
-
+app.use("/api/cloudinary", cloudinaryRoutes);
 app.listen(PORT, () => {
     console.log(`Server listening at http://localhost:${PORT}`);
   });
