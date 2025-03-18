@@ -1,15 +1,14 @@
-const mysql=require('mysql2')
-const {Sequelize,DataTypes}=require('sequelize')
+const { Sequelize, DataTypes } = require('sequelize');
 
-const connection =new Sequelize (
+const connection = new Sequelize(
     "store",
     "root",
     "root",     
     {
-        host:"localhost",
-        dialect:"mysql"
+        host: "localhost",
+        dialect: "mysql"
     }
-)
+);
 
 // Test the connection
 const testConnection = async () => {
@@ -23,8 +22,22 @@ const testConnection = async () => {
 
 testConnection();
 
+// Import and initialize models
+const User = require('./user')(connection, DataTypes);
+const Game = require('./game')(connection, DataTypes);
+const Electronics = require('./electronics')(connection, DataTypes);
 
-connection.sync({ force: true });
-console.log('All models were synchronized successfully.');
+// Set up relationships
+User.hasMany(Electronics);
+Electronics.belongsTo(User);
 
-module.exports=connection
+User.hasMany(Game);
+Game.belongsTo(User);
+
+Electronics.hasMany(Game);
+Game.belongsTo(Electronics);
+
+// connection.sync({ force: true });
+// console.log('All models were synchronized successfully.');
+
+module.exports = { connection, DataTypes, User, Game, Electronics };
