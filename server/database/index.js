@@ -11,10 +11,20 @@ const connection =new Sequelize (
     }
 )
 
-connection.authenticate()
-.then(console.log("connected"))
-.catch(console.log("failed to connect"))
+// Test the connection
+const testConnection = async () => {
+    try {
+        await connection.authenticate();
+        console.log('Database connection has been established successfully.');
+    } catch (error) {
+        console.error('Unable to connect to the database:', error.message);
+    }
+}
 
-// connection.sync()
+testConnection();
+
+
+connection.sync({ force: true });
+console.log('All models were synchronized successfully.');
 
 module.exports=connection
