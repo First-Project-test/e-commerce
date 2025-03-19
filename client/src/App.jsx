@@ -4,7 +4,7 @@ import Login from './login-and-signup/login';
 import Signup from './login-and-signup/signup';
 import './App.css';
 
-function App() {
+const App=() =>{
   return (
     <Router>
       <div className="App">
