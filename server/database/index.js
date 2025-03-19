@@ -1,9 +1,10 @@
 const { Sequelize, DataTypes } = require('sequelize');
+require('dotenv').config();
 
 const connection = new Sequelize(
-    "store",
-    "root",
-    "root",     
+    process.env.DB_NAME || "store",
+    process.env.DB_USER || "root",
+    process.env.DB_PASSWORD || "root",     
     {
         host: "localhost",
         dialect: "mysql",
