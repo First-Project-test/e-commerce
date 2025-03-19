@@ -1,30 +1,33 @@
-const Game = require('../database/game');
+const { Game, Category } = require('../database');
 
 const gameController = {
-    // Create new game
+    // Create a new game
     createGame: async (req, res) => {
         try {
-            // Check if user is admin
-            // if (req.user.role !== 'admin') {
-            //     return res.status(403).json({ message: 'Access denied' });
-            // }
+            const { name, release, quantity, price, categoryId, rating, description } = req.body;
+            
+            // Validate required fields
+            if (!name || !quantity || !price || !categoryId || !description) {
+                return res.status(400).json({ message: 'Required fields are missing' });
+            }
 
-            const { name, release, quantity, price, category, rating, description } = req.body;
+            // Check if category exists
+            const category = await Category.findByPk(categoryId);
+            if (!category) {
+                return res.status(404).json({ message: 'Category not found' });
+            }
 
             const game = await Game.create({
                 name,
                 release,
                 quantity,
                 price,
-                category,
+                categoryId,
                 rating,
                 description
             });
 
-            res.status(201).json({
-                message: 'Game created successfully',
-                game
-            });
+            res.status(201).json(game);
         } catch (error) {
             res.status(500).json({ message: 'Error creating game', error: error.message });
         }
@@ -33,72 +36,88 @@ const gameController = {
     // Get all games
     getAllGames: async (req, res) => {
         try {
-            const games=Game.findAll()
-            res.status(200).send(games)
+            const games = await Game.findAll({
+                include: [{
+                    model: Category,
+                    attributes: ['id', 'name']
+                }]
+            });
+            res.json(games);
         } catch (error) {
             res.status(500).json({ message: 'Error fetching games', error: error.message });
         }
     },
 
-    // Get single game by ID
+    // Get games by category
+    getGamesByCategory: async (req, res) => {
+        try {
+            const { categoryId } = req.params;
+            const games = await Game.findAll({
+                where: { categoryId },
+                include: [{
+                    model: Category,
+                    attributes: ['id', 'name']
+                }]
+            });
+            res.json(games);
+        } catch (error) {
+            res.status(500).json({ message: 'Error fetching games by category', error: error.message });
+        }
+    },
+
+    // Get a single game by ID
     getGameById: async (req, res) => {
         try {
-            const { id } = req.params;
-            const game = await Game.findByPk(id);
-
+            const game = await Game.findByPk(req.params.id, {
+                include: [{
+                    model: Category,
+                    attributes: ['id', 'name']
+                }]
+            });
             if (!game) {
                 return res.status(404).json({ message: 'Game not found' });
             }
-
-            res.status(200).json(game);
+            res.json(game);
         } catch (error) {
             res.status(500).json({ message: 'Error fetching game', error: error.message });
         }
     },
 
-    // Update game
+    // Update a game
     updateGame: async (req, res) => {
         try {
-            // Check if user is admin
-            if (req.user.role !== 'admin') {
-                return res.status(403).json({ message: 'Access denied' });
-            }
-
-            const { id } = req.params;
-            const updateData = req.body;
-
-            const game = await Game.findByPk(id);
+            const { name, release, quantity, price, categoryId, rating, description } = req.body;
+            const game = await Game.findByPk(req.params.id);
+            
             if (!game) {
                 return res.status(404).json({ message: 'Game not found' });
             }
 
-            await game.update(updateData);
-            res.status(200).json({
-                message: 'Game updated successfully',
-                game
+            await game.update({
+                name,
+                release,
+                quantity,
+                price,
+                categoryId,
+                rating,
+                description
             });
+
+            res.json(game);
         } catch (error) {
             res.status(500).json({ message: 'Error updating game', error: error.message });
         }
     },
 
-    // Delete game
+    // Delete a game
     deleteGame: async (req, res) => {
         try {
-            // Check if user is admin
-            if (req.user.role !== 'admin') {
-                return res.status(403).json({ message: 'Access denied' });
-            }
-
-            const { id } = req.params;
-            const game = await Game.findByPk(id);
-
+            const game = await Game.findByPk(req.params.id);
             if (!game) {
                 return res.status(404).json({ message: 'Game not found' });
             }
-
             await game.destroy();
-            res.status(200).json({ message: 'Game deleted successfully' });
+            res.json({ message: 'Game deleted successfully' });
         } catch (error) {
             res.status(500).json({ message: 'Error deleting game', error: error.message });
         }
