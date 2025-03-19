@@ -13,7 +13,7 @@ function UploadImages() {
         formData.append("image", image);
 
         try {
-            const response = await fetch("http://localhost:3000/api/cloudinary/upload", { 
+            const response = await fetch("http://localhost:3030/api/cloudinary/upload", { 
                 method: "POST",
                 body: formData,
             });
@@ -36,7 +36,7 @@ function UploadImages() {
         });
 
         try {
-            const response = await fetch("http://localhost:3000/api/cloudinary/upload-multiple", { 
+            const response = await fetch("http://localhost:3030/api/cloudinary/upload-multiple", { 
                 method: "POST",
                 body: formData,
             });
