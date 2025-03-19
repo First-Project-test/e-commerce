@@ -1,4 +1,4 @@
-const { Game, Category } = require('../database');
+const { Game, Category, GameCategory } = require('../database');
 
 const gameController = {
     // Create a new game
@@ -33,16 +33,16 @@ const gameController = {
         }
     },
 
-    // Get all games
+    // Get all games with their categories
     getAllGames: async (req, res) => {
         try {
             const games = await Game.findAll({
                 include: [{
-                    model: Category,
+                    model: GameCategory,
                     attributes: ['id', 'name']
                 }]
             });
-            res.json(games);
+            res.status(200).json(games);
         } catch (error) {
             res.status(500).json({ message: 'Error fetching games', error: error.message });
         }
@@ -65,19 +65,19 @@ const gameController = {
         }
     },
 
-    // Get a single game by ID
+    // Get game by ID with its categories
     getGameById: async (req, res) => {
         try {
             const game = await Game.findByPk(req.params.id, {
                 include: [{
-                    model: Category,
+                    model: GameCategory,
                     attributes: ['id', 'name']
                 }]
             });
             if (!game) {
                 return res.status(404).json({ message: 'Game not found' });
             }
-            res.json(game);
+            res.status(200).json(game);
         } catch (error) {
             res.status(500).json({ message: 'Error fetching game', error: error.message });
         }
@@ -86,24 +86,12 @@ const gameController = {
     // Update a game
     updateGame: async (req, res) => {
         try {
-            const { name, release, quantity, price, categoryId, rating, description } = req.body;
             const game = await Game.findByPk(req.params.id);
-            
             if (!game) {
                 return res.status(404).json({ message: 'Game not found' });
             }
-
-            await game.update({
-                name,
-                release,
-                quantity,
-                price,
-                categoryId,
-                rating,
-                description
-            });
-
-            res.json(game);
+            await game.update(req.body);
+            res.status(200).json(game);
         } catch (error) {
             res.status(500).json({ message: 'Error updating game', error: error.message });
         }
@@ -117,7 +105,7 @@ const gameController = {
                 return res.status(404).json({ message: 'Game not found' });
             }
             await game.destroy();
-            res.json({ message: 'Game deleted successfully' });
+            res.status(200).json({ message: 'Game deleted successfully' });
         } catch (error) {
             res.status(500).json({ message: 'Error deleting game', error: error.message });
         }
