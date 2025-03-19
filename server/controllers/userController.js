@@ -40,6 +40,7 @@ const userController = {
             const existingUser = await User.findOne({
                 where: { [Op.or]: [{ email }, { username }] }
             });
+            ////
 
             if (existingUser) {
                 const message = existingUser.email === email
