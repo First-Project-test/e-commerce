@@ -4,29 +4,30 @@ module.exports = (connection, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        release: {
-            type: DataTypes.DATEONLY,
-            allowNull: true
+        releaseDate: {
+            type: DataTypes.DATE,
+            allowNull: false
         },
         quantity: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            defaultValue: 0
         },
         price: {
             type: DataTypes.FLOAT,
             allowNull: false
         },
-        category: {
-            type: DataTypes.JSON,
-            allowNull: false
-        },
         rating: {
-            type: DataTypes.INTEGER,
-            allowNull: true
+            type: DataTypes.FLOAT,
+            allowNull: true,
+            validate: {
+                min: 0,
+                max: 5
+            }
         },
         description: {
             type: DataTypes.TEXT,
-            allowNull: false
+            allowNull: true
         }
     });
 

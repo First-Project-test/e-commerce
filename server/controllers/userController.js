@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { User } = require('../database/index');
+const { User } = require('../database');
 const bcrypt = require('bcrypt');
 const { Op } = require('sequelize');
 
