@@ -5,9 +5,9 @@ const gameController = {
     createGame: async (req, res) => {
         try {
             // Check if user is admin
-            if (req.user.role !== 'admin') {
-                return res.status(403).json({ message: 'Access denied' });
-            }
+            // if (req.user.role !== 'admin') {
+            //     return res.status(403).json({ message: 'Access denied' });
+            // }
 
             const { name, release, quantity, price, category, rating, description } = req.body;
 
@@ -33,48 +33,8 @@ const gameController = {
     // Get all games
     getAllGames: async (req, res) => {
         try {
-            const { category, sort, page = 1, limit = 10 } = req.query;
-            const offset = (page - 1) * limit;
-            
-            let whereClause = {};
-            let orderClause = [];
-
-            // Apply category filter if provided
-            if (category) {
-                whereClause.category = category;
-            }
-
-            // Apply sorting if provided
-            if (sort) {
-                switch (sort) {
-                    case 'price_asc':
-                        orderClause.push(['price', 'ASC']);
-                        break;
-                    case 'price_desc':
-                        orderClause.push(['price', 'DESC']);
-                        break;
-                    case 'rating':
-                        orderClause.push(['rating', 'DESC']);
-                        break;
-                    case 'release':
-                        orderClause.push(['release', 'DESC']);
-                        break;
-                }
-            }
-
-            const games = await Game.findAndCountAll({
-                where: whereClause,
-                order: orderClause,
-                limit: parseInt(limit),
-                offset: parseInt(offset)
-            });
-
-            res.status(200).json({
-                games: games.rows,
-                total: games.count,
-                currentPage: page,
-                totalPages: Math.ceil(games.count / limit)
-            });
+            const games=Game.findAll()
+            res.status(200).send(games)
         } catch (error) {
             res.status(500).json({ message: 'Error fetching games', error: error.message });
         }

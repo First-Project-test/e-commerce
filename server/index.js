@@ -7,7 +7,7 @@ require('./database/electronics.js');
 
 const routes = require('./routers');
 
-const PORT = 3000;
+const PORT = 4000;
 const app = express();
 
 app.use(express.json());
@@ -19,9 +19,8 @@ app.use('/api', routes);
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).json({ message: 'Something went wrong!' });
-});
-
+    res.status(500).json({ message: 'Something went wrong!' })
+})
 app.listen(PORT, () => {
-    console.log(`Server listening at http://localhost:${PORT}`);
-});
+    console.log(`Server listening at http://localhost:${PORT}`)
+})
