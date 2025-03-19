@@ -16,10 +16,6 @@ module.exports = (connection, DataTypes) => {
             type: DataTypes.FLOAT,
             allowNull: false
         },
-        category: {
-            type: DataTypes.JSON,
-            allowNull: false
-        },
         rating: {
             type: DataTypes.INTEGER,
             allowNull: true

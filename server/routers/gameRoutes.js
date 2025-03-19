@@ -5,13 +5,12 @@ const { authMiddleware, adminMiddleware } = require('../controllers/userControll
 
 // Public routes
 router.get('/', gameController.getAllGames);
-router.get('/search', gameController.searchGames);
+router.get('/category/:categoryId', gameController.getGamesByCategory);
 router.get('/:id', gameController.getGameById);
 
-// Admin routes (require authentication and admin role)
-router.use(authMiddleware, adminMiddleware);
-router.post('/', gameController.createGame);
-router.put('/:id', gameController.updateGame);
-router.delete('/:id', gameController.deleteGame);
+// Protected routes (admin only)
+router.post('/', authMiddleware, adminMiddleware, gameController.createGame);
+router.put('/:id', authMiddleware, adminMiddleware, gameController.updateGame);
+router.delete('/:id', authMiddleware, adminMiddleware, gameController.deleteGame);
 
 module.exports = router; 

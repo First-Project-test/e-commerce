@@ -1,32 +1,35 @@
-const Electronics = require('../database/electronics');
+const { Electronics, Category } = require('../database');
 
 const electronicsController = {
-    // Create new electronics item
+    // Create a new electronic item
     createElectronics: async (req, res) => {
         try {
-            // Check if user is admin
-            if (req.user.role !== 'admin') {
-                return res.status(403).json({ message: 'Access denied' });
+            const { name, release, quantity, price, CategoryId, rating, description } = req.body;
+            
+            // Validate required fields
+            if (!name || !quantity || !price || !CategoryId || !description) {
+                return res.status(400).json({ message: 'Required fields are missing' });
             }
 
-            const { name, release, quantity, price, category, rating, description } = req.body;
+            // Check if category exists
+            const category = await Category.findByPk(CategoryId);
+            if (!category) {
+                return res.status(404).json({ message: 'Category not found' });
+            }
 
             const electronics = await Electronics.create({
                 name,
                 release,
                 quantity,
                 price,
-                category,
+                CategoryId,
                 rating,
                 description
             });
 
-            res.status(201).json({
-                message: 'Electronics item created successfully',
-                electronics
-            });
+            res.status(201).json(electronics);
         } catch (error) {
-            res.status(500).json({ message: 'Error creating electronics item', error: error.message });
+            res.status(500).json({ message: 'Error creating electronic item', error: error.message });
         }
     },
 
@@ -41,7 +44,7 @@ const electronicsController = {
 
             // Apply category filter if provided
             if (category) {
-                whereClause.category = category;
+                whereClause.CategoryId = category;
             }
 
             // Apply sorting if provided
@@ -66,7 +69,11 @@ const electronicsController = {
                 where: whereClause,
                 order: orderClause,
                 limit: parseInt(limit),
-                offset: parseInt(offset)
+                offset: parseInt(offset),
+                include: [{
+                    model: Category,
+                    attributes: ['name']
+                }]
             });
 
             res.status(200).json({
@@ -84,7 +91,12 @@ const electronicsController = {
     getElectronicsById: async (req, res) => {
         try {
             const { id } = req.params;
-            const electronics = await Electronics.findByPk(id);
+            const electronics = await Electronics.findByPk(id, {
+                include: [{
+                    model: Category,
+                    attributes: ['name']
+                }]
+            });
 
             if (!electronics) {
                 return res.status(404).json({ message: 'Electronics item not found' });

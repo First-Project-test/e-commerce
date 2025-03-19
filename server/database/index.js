@@ -3,7 +3,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 const connection = new Sequelize(
     "store",
     "root",
-    "root",     
+    "oussama",     
     {
         host: "localhost",
         dialect: "mysql"
@@ -26,6 +26,9 @@ testConnection();
 const User = require('./user')(connection, DataTypes);
 const Game = require('./game')(connection, DataTypes);
 const Electronics = require('./electronics')(connection, DataTypes);
+const Category = require('./category')(connection, DataTypes);
+const Cart = require('./cart')(connection, DataTypes);
+const GameCategory = require('./gameCategory')(connection, DataTypes);
 
 // Set up relationships
 User.hasMany(Electronics);
@@ -37,7 +40,34 @@ Game.belongsTo(User);
 Electronics.hasMany(Game);
 Game.belongsTo(Electronics);
 
+// Category relationships
+Category.hasMany(Electronics, {
+    foreignKey: 'CategoryId'
+});
+Electronics.belongsTo(Category, {
+    foreignKey: 'CategoryId'
+});
+
+// Game Category relationships
+GameCategory.hasMany(Game, {
+    foreignKey: 'GameCategoryId'
+});
+Game.belongsTo(GameCategory, {
+    foreignKey: 'GameCategoryId'
+});
+
+// Cart relationships
+User.hasMany(Cart);
+Cart.belongsTo(User);
+
+Electronics.hasMany(Cart);
+Cart.belongsTo(Electronics);
+
+Game.hasMany(Cart);
+Cart.belongsTo(Game);
+
+// Sync database
 // connection.sync({ force: true });
 // console.log('All models were synchronized successfully.');
 
-module.exports = { connection, DataTypes, User, Game, Electronics };
+module.exports = { connection, DataTypes, User, Game, Electronics, Category, Cart, GameCategory };
