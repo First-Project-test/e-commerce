@@ -10,6 +10,7 @@ const connection = new Sequelize(
         logging: false
     }
 );
+/////
 
 // Test the connection
 const testConnection = async () => {

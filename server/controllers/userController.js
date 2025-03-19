@@ -48,6 +48,7 @@ const userController = {
                     ]
                 }
             });
+            ////
 
             if (existingUser) {
                 return res.status(400).json({ 
