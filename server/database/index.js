@@ -3,10 +3,11 @@ const { Sequelize, DataTypes } = require('sequelize');
 const connection = new Sequelize(
     "store",
     "root",
-    "oussama",     
+    "root",     
     {
         host: "localhost",
-        dialect: "mysql"
+        dialect: "mysql",
+        logging: false
     }
 );
 
@@ -70,4 +71,13 @@ Cart.belongsTo(Game);
 // connection.sync({ force: true });
 // console.log('All models were synchronized successfully.');
 
-module.exports = { connection, DataTypes, User, Game, Electronics, Category, Cart, GameCategory };
+module.exports = { 
+    connection, 
+    DataTypes, 
+    User, 
+    Game, 
+    Electronics, 
+    Category, 
+    Cart, 
+    GameCategory 
+};

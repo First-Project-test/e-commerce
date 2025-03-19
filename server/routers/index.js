@@ -19,3 +19,4 @@ router.use('/cart', cartRoutes);
 router.use('/game-categories', gameCategoryRoutes);
 
 module.exports = router;
+
