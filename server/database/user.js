@@ -14,7 +14,8 @@ module.exports = (connection, DataTypes) => {
             allowNull: false
         },
         role: {
-            type: DataTypes.STRING,
+            type: DataTypes.ENUM('admin', 'user'),
+            defaultValue: 'user',
             allowNull: false
         },
         cart: {
