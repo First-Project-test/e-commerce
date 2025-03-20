@@ -15,19 +15,14 @@ const Login = () => {
     setError('');
     setLoading(true);
     console.log('Attempting login...');
-
+  
     try {
-
-      const response = await axios.post('http://localhost:3030/api/users/login', { email, password });
-      console.log('Login successful:', response.data);
-      
-
       const response = await axios.post('http://localhost:2080/api/users/login', { email, password });
-
+  
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
       console.log('Token and user data stored in localStorage');
-      
+  
       console.log('Navigating to home page...');
       navigate('/');
     } catch (error) {
