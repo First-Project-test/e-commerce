@@ -19,21 +19,19 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-
+  
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
       return;
     }
-
+  
     try {
-
-
       const response = await axios.post('http://localhost:2080/api/users/register', {
-
         email: formData.email,
         username: formData.username,
         password: formData.password
       });
+  
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
       navigate('/');
