@@ -5,8 +5,6 @@ import { useNavigate } from 'react-router-dom'
 
 function Oneproduct({el,i,setprod}) {
     const navigate=useNavigate()
-    
-
   return (
     <div className='onecard' >
       <img src={el.image[Math.floor(Math.random()*el.image.length)]} 
@@ -24,7 +22,7 @@ function Oneproduct({el,i,setprod}) {
         navigate('/products/:id')
       } } >{el.name}</h1>
         <p>Price: ${el.price}</p>
-        <p>Rating: {el.rating ? `${el.rating}/5` : 'No rating available'}</p>
+        <p>Rating: {el.rating ? `${el.rating/10}/10` : 'No rating available'}</p>
       <button onClick={
         async()=>{ try {
             await axios.post(``)
