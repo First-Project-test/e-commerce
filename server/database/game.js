@@ -39,7 +39,7 @@ module.exports = (connection, DataTypes) => {
             defaultValue:[],
             allowNull:true
         },
-        
+
     });
 
     return Game;

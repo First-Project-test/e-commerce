@@ -56,14 +56,14 @@ function UploadImages() {
                 <h3>Upload Single Image</h3>
                 <input type="file" onChange={(e) => setImage(e.target.files[0])} />
                 <button onClick={handleSingleUpload}>Upload</button>
-                {imageUrl && <img src={imageUrl} alt="Uploaded" style={{ width: "200px", marginTop: "10px" }} />}
+                {imageUrl && <img src={imageUrl} alt="Uploaded" style={{ width: "200px" }} />}
             </div>
             <div>
                 <h3>Upload Multiple Images</h3>
                 <input type="file" multiple onChange={(e) => setImages(Array.from(e.target.files))} />
                 <button onClick={handleMultipleUpload}>Upload</button>
                 {imageUrls.map((url, index) => (
-                    <img key={index} src={url} alt={`Uploaded ${index}`} style={{ width: "200px", marginTop: "10px" }} />
+                    <img key={index} src={url} alt={`Uploaded ${index}`} style={{ width: "200px" }} />
                 ))}
             </div>
         </div>
