@@ -1,5 +1,4 @@
 
-
 import Login from './login-and-signup/login';
 import Signup from './login-and-signup/signup';
 import Home from './components/Home';
@@ -8,42 +7,41 @@ import './App.css';
 // import axios from 'axios'
 import Products from './components/Products.jsx';
 import Detailsproduct from './components/detailsproduct.jsx'
-import { BrowserRouter, Route, Routes  } from 'react-router-dom';
+import { BrowserRouter, Route, Routes,Navigate  } from 'react-router-dom';
+import { useState } from 'react';
 
 const App = () => {
   const [prod, setprod] = useState({});
-
   //
 
 
 // Protected Route component
-const ProtectedRoute = ({ children }) => {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    return <Navigate to="/login" />;
-  }
-  return children;
-};
-const App = () => {
+// const ProtectedRoute = ({ children }) => {
+//   const token = localStorage.getItem('token');
+//   if (!token) {
+//     return <Navigate to="/login" />;
+//   }
+//   return children;
+// }
   return (
     <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
 
-          <Route path="/" element={
+          {/* <Route path="/" element={
             <ProtectedRoute>
               <Home />
             </ProtectedRoute>
-          } />
-          <Route 
+          } /> */}
+          {/* <Route 
             path="/games" 
             element={
               <ProtectedRoute>
                 <GamesPage />
               </ProtectedRoute>
             } 
-          />
+          /> */}
           <Route path="/products/:id" element={<Detailsproduct el={prod} />} />
           <Route path="/" element={<Products prod={prod} setprod={setprod} />} />
         </Routes>
@@ -51,5 +49,6 @@ const App = () => {
   );
 }
 
-export default App;
+
+export default App
 
