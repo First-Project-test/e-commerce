@@ -4,7 +4,7 @@ const gameController = {
     // Create a new game
     createGame: async (req, res) => {
         try {
-            const { name, release, quantity, price, categoryId, rating, description } = req.body;
+            const { name, release, quantity, price, categoryId, rating, description,image } = req.body;
             
             // Validate required fields
             if (!name || !quantity || !price || !categoryId || !description) {
@@ -24,7 +24,8 @@ const gameController = {
                 price,
                 categoryId,
                 rating,
-                description
+                description,
+                image
             });
 
             res.status(201).json(game);
