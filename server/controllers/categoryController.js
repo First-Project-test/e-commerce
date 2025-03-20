@@ -53,6 +53,25 @@ const categoryController = {
         }
     },
 
+    getCategoryByName: async (req, res) => {
+        try {
+            const category = await Category.findByPk(req.params.name, {
+                include: [{
+                    model: Electronics,
+                    attributes: ['id', 'name', 'price', 'description']
+                }]
+            });
+
+            if (!category) {
+                return res.status(404).json({ message: 'Category not found' });
+            }
+
+            res.json(category);
+        } catch (error) {
+            res.status(500).json({ message: 'Error fetching category', error: error.message });
+        }
+    },
+
     // Update category
     updateCategory: async (req, res) => {
         try {
