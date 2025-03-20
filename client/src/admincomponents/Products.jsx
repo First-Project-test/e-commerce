@@ -6,6 +6,8 @@ function Products({setprod,cat}) {
   //oussema ye5dem l categories w baad on click on a category i get the prop cat 
   //with cat is the category name 
   //
+
+
     const [products,setproducts]=useState([])
 
     useEffect(()=>(async()=>{
@@ -14,14 +16,13 @@ function Products({setprod,cat}) {
             let datag= await axios.get(`http://localhost:2080/api/games`)
             let d=data.data.electronics.concat(datag.data)
             console.log(d);
-            
             console.log(data.data.electronics);
             console.log(datag.data);
             setproducts(d)
 
             // will be filtered later according to our needs
 
-
+            
         } catch (error) {
             console.log(error)
         }
@@ -29,10 +30,7 @@ function Products({setprod,cat}) {
   return (
     <div>
       {products.map((el,i)=>(
-
-        <div key={i}>
-          <OneProduct el={el} i={i} setprod={setprod}  />
-        </div>
+        <OneProduct el={el} i={i} setprod={setprod} />
         //mazelt mosh aref oussema shnaya 5dem ma na3resh shanya data jeya w besh 
       ))}
     </div>
