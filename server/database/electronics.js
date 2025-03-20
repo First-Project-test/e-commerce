@@ -1,3 +1,5 @@
+const { json } = require("sequelize");
+
 module.exports = (connection, DataTypes) => {
     const Electronics = connection.define('Electronics', {
         name: {
@@ -23,6 +25,11 @@ module.exports = (connection, DataTypes) => {
         description: {
             type: DataTypes.TEXT,
             allowNull: false
+        },
+        image:{
+            type:DataTypes.JSON,
+            defaultValue:[],
+            allowNull:true
         }
     });
 

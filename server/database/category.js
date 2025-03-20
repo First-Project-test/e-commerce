@@ -4,6 +4,12 @@ module.exports = (connection, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true
+        },
+        image:{
+            type:DataTypes.JSON,
+            defaultValue:[],
+            allowNull:true
+
         }
     });
 
