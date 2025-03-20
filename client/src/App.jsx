@@ -1,20 +1,27 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React, { useState } from 'react';
+
 import Login from './login-and-signup/login';
 import Signup from './login-and-signup/signup';
 import './App.css';
+// import axios from 'axios'
+import Products from './components/Products.jsx';
+import Detailsproduct from './components/detailsproduct.jsx'
+import { BrowserRouter, Route, Routes  } from 'react-router-dom';
 
-const App=() =>{
+const App = () => {
+  const [prod, setprod] = useState({});
+
   return (
-    <Router>
-      <div className="App">
+
+    <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/products/:id" element={<Detailsproduct el={prod} />} />
+          <Route path="/" element={<Products prod={prod} setprod={setprod} />} />
         </Routes>
-      </div>
-    </Router>
+    
+    </BrowserRouter>
   );
 }
 

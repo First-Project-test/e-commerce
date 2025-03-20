@@ -36,10 +36,10 @@ module.exports = (connection, DataTypes) => {
         },
         gamecat:{
             type:DataTypes.JSON,
-            defaultValue:[fps],
+            defaultValue:[],
             allowNull:true
         },
-        cat
+        
     });
 
     return Game;
