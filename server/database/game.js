@@ -28,7 +28,18 @@ module.exports = (connection, DataTypes) => {
         description: {
             type: DataTypes.TEXT,
             allowNull: true
-        }
+        },
+        image:{
+            type:DataTypes.JSON,
+            defaultValue:[],
+            allowNull:true
+        },
+        gamecat:{
+            type:DataTypes.JSON,
+            defaultValue:[],
+            allowNull:true
+        },
+
     });
 
     return Game;
