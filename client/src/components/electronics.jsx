@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Oneproduct from './Oneproduct'
 import axios from 'axios'
+import '../css/Electronics.css'
 
 function Electronics({setprod}) {
 
@@ -22,14 +23,14 @@ function Electronics({setprod}) {
         }
 }),[])
   return (
-    <div>
-      {products.map((el,i)=>(
-        <div key={i}>
-          <Oneproduct el={el} i={i} setprod={setprod} />
+    <div className="electronics-container">
+        <div className="electronics-content">
+            {products.map((el,i)=>(
+                <div key={i}>
+                    <Oneproduct el={el} i={i} setprod={setprod} />
+                </div>
+            ))}
         </div>
-
-        //mazelt mosh aref oussema shnaya 5dem ma na3resh shanya data jeya w besh 
-      ))}
     </div>
   )
 }

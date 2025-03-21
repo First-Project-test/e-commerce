@@ -1,4 +1,5 @@
 import React, { useState,useEffect } from 'react'
+import '../css/DetailsProduct.css'
 
 function Detailsproduct({el,i}) {
     const [currentimage,setCurrentImage]=useState(null)
@@ -14,18 +15,36 @@ function Detailsproduct({el,i}) {
         return () => clearInterval(interval);
       }, [el.image])
 
-
   return (
-    <div>
-    <img src={currentimage} alt={el.name}/>
+    <div className="details-container">
+      <div className="product-image">
+        <img src={currentimage} alt={el.name} className="main-image"/>
+      </div>
 
-    <h1>{el.name}</h1>
-    <p>Price: ${el.price}</p>
-    <p>Rating: {el.rating ? `${el.rating}/5` : 'No rating available'}</p>
-    <p>Description: {el.description}</p>
-    <p>Release Date: {el.release || 'Not specified'}</p>
-    <p>Quantity Available: {el.quantity}</p>
-  </div>
+      <div className="product-info">
+        <h1 className="product-title">{el.name}</h1>
+        
+        <div className="info-section price-section">
+          <p className="info-label">Price: ${el.price}</p>
+        </div>
+
+        <div className="info-section rating-section">
+          <p className="info-label">Rating: {el.rating ? `${el.rating}/5` : 'No rating available'}</p>
+        </div>
+
+        <div className="info-section description-section">
+          <p className="info-label">Description: {el.description}</p>
+        </div>
+
+        <div className="info-section release-section">
+          <p className="info-label">Release Date: {el.release || 'Not specified'}</p>
+        </div>
+
+        <div className="info-section quantity-section">
+          <p className="info-label">Quantity Available: {el.quantity}</p>
+        </div>
+      </div>
+    </div>
   )
 }
 

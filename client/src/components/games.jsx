@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Oneproduct from './Oneproduct'
 import axios from 'axios'
+import '../css/Games.css'
+
 function Games({setprod,cat}) {
         const [products,setproducts]=useState([])
 
@@ -24,12 +26,14 @@ function Games({setprod,cat}) {
         }
 }),[])
   return (
-    <div>
-      {products.filter((e)=>e.ElectronicId===cat.id).map((el,i)=>(
-        <div key={i}>
-          <Oneproduct el={el} i={i} setprod={setprod} />
-        </div>
-      ))}
+    <div className="games-container">
+      <div className="games-content">
+        {products.filter((e)=>e.ElectronicId===cat.id).map((el,i)=>(
+          <div key={i} >
+            <Oneproduct el={el} i={i} setprod={setprod} />
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
