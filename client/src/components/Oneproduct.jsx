@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom'
 
 function Oneproduct({el,i,setprod}) {
     const navigate=useNavigate()
+    console.log(el.id)
+
   return (
     <div className='onecard' >
       <img src={el.image[Math.floor(Math.random()*el.image.length)]} 
@@ -24,8 +26,10 @@ function Oneproduct({el,i,setprod}) {
         <p>Price: ${el.price}</p>
         <p>Rating: {el.rating ? `${el.rating/10}/10` : 'No rating available'}</p>
       <button onClick={
+        
         async()=>{ try {
-            await axios.post(``)
+            let prd=el.id
+            await axios.post(`http://localhost:2080/api/cart/add`,{prd})
             //post element to cart 
         } catch (error) {
             console.log(error)

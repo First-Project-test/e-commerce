@@ -11,7 +11,7 @@ function Oneproduct({el,i,setprod}) {
     <div className='onecard' >
       <img src={el.image[Math.floor(Math.random()*el.image.length)]} 
       onClick={()=>{
-        setprod(el)
+        setprod(el) 
         // navigate to the detail page
         navigate('/products/:id')
       } } 
@@ -29,12 +29,22 @@ function Oneproduct({el,i,setprod}) {
 
       <button onClick={
         async()=>{ try {
-            await axios.post(``)
+          let prd=el.id
+          await axios.post(`http://localhost:2080/api/cart/add`,{prd})
             //post element to cart 
         } catch (error) {
             console.log(error)
         }  }
       }>add to cart</button>
+
+      <button onClick={async()=>{
+        try {
+          await axios.delete(`http://localhost:5000/api/products/${el._id}`)
+          window.location.reload()
+        } catch (error) {
+          console.log(error);
+        }
+      }}>delete</button>
     </div>
   )
 }
