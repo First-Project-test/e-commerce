@@ -12,6 +12,7 @@ function Products({setprod,cat}) {
 
     useEffect(()=>(async()=>{
         try {
+          
             let data = await axios.get(`http://localhost:2080/api/electronics`)
             let datag= await axios.get(`http://localhost:2080/api/games`)
             let d=data.data.electronics.concat(datag.data)

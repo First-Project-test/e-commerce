@@ -149,7 +149,6 @@ function Addelectronic() {
             name="CategoryId"
             value={formData.CategoryId}
             onChange={handleChange}
-            required
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
           >
             <option value="">Select a category</option>

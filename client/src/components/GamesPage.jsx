@@ -49,8 +49,9 @@ const GamesPage = ({setcat}) => {
           <div className="platforms-grid">
             {gamePlatforms.map((platform) => (
               <div key={platform.id} className="platform-card" onClick={() => {
+                //usecontext
+
                 setcat(platform)
-                
                 navigate(`/games/${platform.id}`)}}>
                 <div className="platform-image">
                   <img src={platform.image} alt={platform.name} />

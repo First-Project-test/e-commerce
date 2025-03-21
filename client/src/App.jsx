@@ -3,6 +3,8 @@ import Login from './login-and-signup/login';
 import Signup from './login-and-signup/signup';
 import Home from './components/Home';
 import GamesPage from './components/GamesPage';
+import Games from './components/games.jsx';
+import Electronics from './components/electronics.jsx';
 import './App.css';
 // import axios from 'axios'
 import Products from './components/Products.jsx';
@@ -31,7 +33,7 @@ const App = () => {
 
         <Route path="/" element={
           <ProtectedRoute>
-            <Home />
+            <Home setcat={setcat} />
           </ProtectedRoute>
         } />
         <Route 
@@ -51,7 +53,10 @@ const App = () => {
   } 
 />
         <Route path="/products/:id" element={<Detailsproduct el={prod} />} />
-        <Route path="/products" element={<Products prod={prod} setprod={setprod} cat={cat} />} />
+        <Route path="/shop" element={<Products prod={prod} setprod={setprod} cat={cat} />} />
+        <Route path="/games/:id" element={<Games prod={prod} setprod={setprod} cat={cat} />} />
+        <Route path="/electronics" element={<Electronics prod={prod} setprod={setprod} cat={cat} />} />
+
       </Routes>
     </BrowserRouter>
   );

@@ -3,9 +3,7 @@ import axios from 'axios'
 import OneProduct from './Oneproduct'
 
 function Products({setprod,cat}) {
-  //oussema ye5dem l categories w baad on click on a category i get the prop cat 
-  //with cat is the category name 
-  //
+
     const [products,setproducts]=useState([])
 
     useEffect(()=>(async()=>{
@@ -33,7 +31,6 @@ function Products({setprod,cat}) {
         <div key={i}>
           <OneProduct el={el} i={i} setprod={setprod}  />
         </div>
-        //mazelt mosh aref oussema shnaya 5dem ma na3resh shanya data jeya w besh 
       ))}
     </div>
   )

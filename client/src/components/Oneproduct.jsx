@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom'
 
 function Oneproduct({el,i,setprod}) {
     const navigate=useNavigate()
-    console.log(el.id)
 
   return (
     <div className='onecard' >

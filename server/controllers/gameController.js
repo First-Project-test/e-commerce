@@ -38,7 +38,7 @@ const gameController = {
     getAllGames: async (req, res) => {
         try {
             const games = await Game.findAll({
-                attributes: ['id', 'name', 'releaseDate', 'quantity', 'price', 'rating', 'description', 'image']
+                // attributes: ['id', 'name', 'releaseDate', 'quantity', 'price', 'rating', 'description', 'image']
                 // Removed the include for now until we fix the association
             });
             
