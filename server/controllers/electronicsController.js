@@ -4,10 +4,10 @@ const electronicsController = {
     // Create a new electronic item
     createElectronics: async (req, res) => {
         try {
-            const { name, release, quantity, price, CategoryId, rating, description } = req.body;
+            const { name, release, quantity, price, CategoryId, rating, description ,image} = req.body;
             
             // Validate required fields
-            if (!name || !quantity || !price || !CategoryId || !description) {
+            if (!name || !quantity || !price || !CategoryId || !description || !image) {
                 return res.status(400).json({ message: 'Required fields are missing' });
             }
 
@@ -24,7 +24,8 @@ const electronicsController = {
                 price,
                 CategoryId,
                 rating,
-                description
+                description,
+                image
             });
 
             res.status(201).json(electronics);
