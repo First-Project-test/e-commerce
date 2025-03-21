@@ -25,7 +25,7 @@ function Addgame() {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get('/api/game-categories');
+      const response = await axios.get('http://localhost:5000/api/game-categories');
       setCategories(response.data);
     } catch (error) {
       toast.error('Error fetching categories');
@@ -41,6 +41,8 @@ function Addgame() {
     }));
   };
 
+  //badel feha hethi
+
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
     const imageUrls = files.map(file => URL.createObjectURL(file));
@@ -55,7 +57,7 @@ function Addgame() {
     setLoading(true);
 
     try {
-      await axios.post('/api/games', formData);
+      await axios.post('http://localhost:5000/api/games', formData);
       toast.success('Game added successfully!');
       // Reset form
       setFormData({

@@ -50,7 +50,7 @@ const TopGames = () => {
               />
               <h2 className="game-title">{game.name}</h2>
               <p className="game-price">${game.price}</p>
-              <p className="game-rating">⭐{game.rating}/5</p>
+              <p className="game-rating">⭐{game.rating/20}/</p>
             </div>
           ))}
       </div>
