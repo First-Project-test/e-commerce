@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Home.css';
+import '../css/Home.css';
+import TopGames from './TopGames.jsx';
 
 // Static categories data to match the design
 const staticCategories = [
@@ -104,6 +105,10 @@ const Home = () => {
             </div>
           ))}
         </div>
+      </section>
+      {/* Top Games Section */}
+      <section className="top-games-section">
+        <TopGames /> {/* Render TopGames component here */}
       </section>
     </div>
   );
