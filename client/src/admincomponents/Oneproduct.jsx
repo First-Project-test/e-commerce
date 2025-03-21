@@ -39,7 +39,7 @@ function Oneproduct({el,i,setprod}) {
 
       <button onClick={async()=>{
         try {
-          await axios.delete(`http://localhost:5000/api/products/${el._id}`)
+          await axios.delete(`http://localhost:2080/api/products/${el._id}`)
           window.location.reload()
         } catch (error) {
           console.log(error);

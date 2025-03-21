@@ -2,12 +2,12 @@ import React, { useState,useEffect } from 'react'
 
 function Detailsproduct({el,i}) {
     const [currentimage,setCurrentImage]=useState(null)
-    const [hidden,sethidden]=useState(true)
     const [rating,setrating]=useState(el.rating)
     const [price,setprice]=useState(el.price)
     const [description,setdescription]=useState(el.description)
     const [release,setrelease]=useState(el.release)
     const [quantity,setquantity]=useState(el.quantity)
+    const [hidden,sethidden]=useState(true)
     const [hiddenprice,sethiddenprice]=useState(true)
     const [hiddenquantity,sethiddenquantity]=useState(true)
     const [hiddenrelease,sethiddenrelease]=useState(true)

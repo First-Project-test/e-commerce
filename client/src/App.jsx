@@ -20,12 +20,13 @@ const ProtectedRoute = ({ children }) => {
 
 const App = () => {
   const [prod, setprod] = useState({});
+  const [cat,setcat]=useState("")
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<Signup />}/>
 
         <Route path="/" element={
           <ProtectedRoute>
@@ -36,12 +37,12 @@ const App = () => {
           path="/games" 
           element={
             <ProtectedRoute>
-              <GamesPage />
+              <GamesPage setcat={setcat} />
             </ProtectedRoute>
           } 
         />
         <Route path="/products/:id" element={<Detailsproduct el={prod} />} />
-        <Route path="/products" element={<Products prod={prod} setprod={setprod} />} />
+        <Route path="/products" element={<Products prod={prod} setprod={setprod} cat={cat} />} />
       </Routes>
     </BrowserRouter>
   );

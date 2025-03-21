@@ -12,7 +12,7 @@ function Detailsproduct({el,i}) {
     
         // Clean up the interval when the component unmounts
         return () => clearInterval(interval);
-      }, [el.image]); 
+      }, [el.image])
 
 
   return (
