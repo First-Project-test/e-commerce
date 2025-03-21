@@ -38,13 +38,29 @@ const gameController = {
     getAllGames: async (req, res) => {
         try {
             const games = await Game.findAll({
-                include: [{
-                    model: GameCategory,
-                    attributes: ['id', 'name']
-                }]
+                attributes: ['id', 'name', 'releaseDate', 'quantity', 'price', 'rating', 'description', 'image']
+                // Removed the include for now until we fix the association
             });
-            res.status(200).json(games);
+            
+            // Process the games to ensure image field is properly formatted
+            const processedGames = games.map(game => {
+                const gameData = game.get({ plain: true });
+                
+                // If image is stored as a JSON string, parse it
+                if (typeof gameData.image === 'string' && gameData.image.startsWith('[')) {
+                    try {
+                        gameData.image = JSON.parse(gameData.image);
+                    } catch (e) {
+                        console.error('Error parsing image JSON:', e);
+                    }
+                }
+                
+                return gameData;
+            });
+            
+            res.status(200).json(processedGames);
         } catch (error) {
+            console.error('Error in getAllGames:', error);
             res.status(500).json({ message: 'Error fetching games', error: error.message });
         }
     },
