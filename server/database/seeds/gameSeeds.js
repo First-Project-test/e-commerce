@@ -21,7 +21,7 @@ const gameSeeds = async () => {
                 category: ['Action', 'Adventure', 'RPG'],
                 rating: 4.5,
                 description: 'An epic adventure across the vast lands of Hyrule in this critically acclaimed game.',
-                image: 'https://gameworld.tn/7632-home_default/the-legend-of-zelda-tears-of-the-kingdom.jpg',
+                image: 'https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000000025/7137262b5a64d921e193653f8aa0b722925abc5680380ca0e18a5cfd91697f58',
                 GameCategoryId: adventureCategory.id
             },
             {
@@ -32,7 +32,7 @@ const gameSeeds = async () => {
                 category: ['Action', 'Adventure', 'Western'],
                 rating: 4.8,
                 description: 'Experience the Wild West in this stunning open-world adventure.',
-                image: 'https://gameworld.tn/1955-medium_default/red-dead-redemption-ii.jpg',
+                image: 'https://cdn1.epicgames.com/b30b6d1b4dfd4dcc93b5490be5e094e5/offer/RDR2476298253_Epic_Games_Wishlist_RDR2_2560x1440_V01-2560x1440-2a9ebe1f7ee202102555be202d5632ec.jpg?resize=1&w=480&h=270&quality=medium',
                 GameCategoryId: actionCategory.id
             },
             {
@@ -43,7 +43,7 @@ const gameSeeds = async () => {
                 category: ['Action', 'RPG', 'Souls-like'],
                 rating: 4.9,
                 description: 'Explore the vast world of the Lands Between in this epic fantasy adventure.',
-                image: 'https://gameworld.tn/14619-home_default/elden-ring-shadow-of-the-erdtree.jpg',
+                image: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/capsule_616x353.jpg?t=1739922037',
                 GameCategoryId: rpgCategory.id
             },
             {
@@ -54,7 +54,7 @@ const gameSeeds = async () => {
                 category: ['Action', 'Adventure', 'Hack and Slash'],
                 rating: 4.9,
                 description: 'Continue Kratos and Atreus\'s epic journey through the nine realms.',
-                image: 'https://gameworld.tn/5930-medium_default/god-of-war-ragnaroek.jpg',
+                image: 'https://www.games-geeks.fr/wp-content/uploads/2022/11/1273405-scaled.jpg',
                 GameCategoryId: actionCategory.id
             },
             {
