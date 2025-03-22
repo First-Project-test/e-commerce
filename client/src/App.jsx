@@ -5,6 +5,7 @@ import Home from './components/Home';
 import GamesPage from './components/GamesPage';
 import Games from './components/games.jsx';
 import Electronics from './components/electronics.jsx';
+import AboutUs from './components/AboutUs';
 import './App.css';
 // import axios from 'axios'
 import Products from './components/Products.jsx';
