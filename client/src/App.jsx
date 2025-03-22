@@ -3,6 +3,9 @@ import Login from './login-and-signup/login';
 import Signup from './login-and-signup/signup';
 import Home from './components/Home';
 import GamesPage from './components/GamesPage';
+import Games from './components/games.jsx';
+import Electronics from './components/electronics.jsx';
+import AboutUs from './components/AboutUs';
 import './App.css';
 // import axios from 'axios'
 import Products from './components/Products.jsx';
@@ -21,36 +24,48 @@ const ProtectedRoute = ({ children }) => {
 
 const App = () => {
   const [prod, setprod] = useState({});
+  const [cat,setcat]=useState("")
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<Signup />}/>
 
         <Route path="/" element={
           <ProtectedRoute>
-            <Home />
+            <Home setcat={setcat} />
           </ProtectedRoute>
         } />
         <Route 
           path="/games" 
           element={
             <ProtectedRoute>
-              <GamesPage />
+              <GamesPage setcat={setcat} />
             </ProtectedRoute>
           } 
         />
         <Route 
-  path="/top-games" 
-  element={
-    <ProtectedRoute>
-      <TopGames />
-    </ProtectedRoute>
-  } 
-/>
+          path="/top-games" 
+          element={
+            <ProtectedRoute>
+              <TopGames />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/about" 
+          element={
+            <ProtectedRoute>
+              <AboutUs />
+            </ProtectedRoute>
+          } 
+        />
         <Route path="/products/:id" element={<Detailsproduct el={prod} />} />
-        <Route path="/products" element={<Products prod={prod} setprod={setprod} />} />
+        <Route path="/shop" element={<Products prod={prod} setprod={setprod} cat={cat} />} />
+        <Route path="/games/:id" element={<Games prod={prod} setprod={setprod} cat={cat} />} />
+        <Route path="/electronics" element={<Electronics prod={prod} setprod={setprod} cat={cat} />} />
+
       </Routes>
     </BrowserRouter>
   );

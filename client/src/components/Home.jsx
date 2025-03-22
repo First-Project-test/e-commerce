@@ -23,7 +23,7 @@ const staticCategories = [
   }
 ];
 
-const Home = () => {
+const Home = ({setcat}) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -96,7 +96,10 @@ const Home = () => {
                 <h2>{category.name}</h2>
                 <button 
                   className="shop-now-btn" 
-                  onClick={() => category.name === 'Games' ? navigate('/games') : navigate(`/category/${category.id}`)}
+                  onClick={() => {
+                    category.name === 'Games' ? navigate('/games') : navigate(`/electronics`)
+                    setcat(category.id)
+                  }}
                 >
                   Shop Now
                   <span className="arrow">→</span>

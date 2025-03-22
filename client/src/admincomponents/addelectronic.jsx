@@ -18,7 +18,7 @@ function Addelectronic() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Fetch electronics categories when component mounts
+   
     fetchCategories();
   }, []);
 
@@ -40,13 +40,32 @@ function Addelectronic() {
     }));
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const files = Array.from(e.target.files);
-    const imageUrls = files.map(file => URL.createObjectURL(file));
-    setFormData(prev => ({
-      ...prev,
-      image: imageUrls
-    }));
+
+    try {
+      const formData = new FormData();
+      files.forEach((file) => {
+        formData.append("images", file);
+      });
+
+      // Send the images to Cloudinary for upload
+      const response = await fetch("http://localhost:2080/api/cloudinary/upload-multiple", {
+        method: "POST",
+        body: formData
+      });
+
+      if (!response.ok) throw new Error("Failed to upload images");
+
+      const data = await response.json();
+      setFormData(prev => ({
+        ...prev,
+        image: data.urls // Store the uploaded image URLs in state
+      }));
+    } catch (error) {
+      console.error("Upload Error:", error.message);
+      toast.error("Error uploading images");
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -149,7 +168,6 @@ function Addelectronic() {
             name="CategoryId"
             value={formData.CategoryId}
             onChange={handleChange}
-            required
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
           >
             <option value="">Select a category</option>
@@ -187,7 +205,7 @@ function Addelectronic() {
               <img
                 key={index}
                 src={url}
-                alt={`Preview ${index + 1}`}
+                alt={`Uploaded Preview ${index + 1}`}
                 className="h-20 w-20 object-cover rounded"
               />
             ))}
