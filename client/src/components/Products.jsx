@@ -43,9 +43,9 @@ function Products({setprod,cat}) {
             <div className="products-header">
                 <h1 className="products-title">Our Products</h1>
                 <div className="products-filters">
-                    <button className={`filter-button ${!cat ? 'active' : ''}`}>
+                    {/* <button className={`filter-button ${!cat ? 'active' : ''}`}>
                         All Products
-                    </button>
+                    </button> */}
                     {/* Add more filter buttons as needed */}
                 </div>
             </div>

@@ -71,29 +71,6 @@ const Home = ({setcat}) => {
 
   return (
     <div className="main-container">
-      {/* Header/Navbar */}
-      <nav className="navbar navbar-expand-lg navbar-light">
-        <div className="container">
-          <a className="navbar-brand" href="/">Game World</a>
-          <div className="navbar-nav mx-auto">
-            <a className="nav-link" href="/">Home</a>
-            <a className="nav-link" href="/shop">Shop</a>
-            <a className="nav-link" href="/categories">Categories</a>
-          </div>
-          <div className="d-flex align-items-center">
-            <button className="btn btn-link position-relative me-3">
-              <i className="bi bi-cart"></i>
-              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                3
-              </span>
-            </button>
-            <button className="btn-buy-now" onClick={() => navigate('/shop')}>
-              Buy Now →
-            </button>
-          </div>
-        </div>
-      </nav>
-
       {/* Hero Section */}
       <section className="hero-section">
         <div className="container text-center">
@@ -128,7 +105,7 @@ const Home = ({setcat}) => {
           {staticCategories.map((category) => (
             <div key={category.id} className="category-item">
               <div className="category-content">
-                <h2>{category.name}</h2>
+                <h2>{category.name}</h2>  
                 <button 
                   className="shop-now-btn" 
                   onClick={() => {
