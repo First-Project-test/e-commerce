@@ -40,6 +40,7 @@ const Home = ({setcat}) => {
       </div>
     </div>
   );
+  
 
   return (
     <div className="main-container">
