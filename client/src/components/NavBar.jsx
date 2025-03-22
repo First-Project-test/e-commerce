@@ -1,33 +1,31 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import '../css/NavBar.css';
+import { useNavigate } from 'react-router-dom';
 
 function NavBar() {
+  const navigate = useNavigate()
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-      <div className="container">
-        <Link to="/" className="navbar-brand logo">GAME WORLD</Link>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <Link to="/" className="nav-link">Home</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/shop" className="nav-link">Shop</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/categories" className="nav-link">Categories</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/Games" className="nav-link">Games</Link>
-            </li>
-          </ul>
+    <nav className="navbar navbar-expand-lg navbar-light">
+        <div className="container">
+          <a className="navbar-brand" href="/">Game World</a>
+          <div className="navbar-nav mx-auto">
+            <a className="nav-link" href="/">Home</a>
+            <a className="nav-link" href="/shop">Shop</a>
+            <a className="nav-link" href="/categories">Categories</a>
+          </div>
+          <div className="d-flex align-items-center">
+            <button className="btn btn-link position-relative me-3">
+              <i className="bi bi-cart"></i>
+              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                3
+              </span>
+            </button>
+            <button className="btn-buy-now" onClick={() => navigate('/shop')}>
+              Buy Now →
+            </button>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
   );
 }
 
