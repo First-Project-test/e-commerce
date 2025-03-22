@@ -1,20 +1,12 @@
-const express = require('express');
+const express = require("express");
+const multer = require("multer");
+const { uploadImage, uploadMultipleImages } = require("../controllers/cloudinary.js");
+
 const router = express.Router();
-const cloudinaryController = require('../controllers/cloudinary');
-const { authMiddleware, adminMiddleware } = require('../controllers/userController');
-const multer = require('multer');
-const upload = multer({ storage: multer.memoryStorage() });
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
-// Protected routes (require authentication and admin role)
-router.use(authMiddleware, adminMiddleware);
-
-// Upload single image
-router.post('/upload', upload.single('image'), cloudinaryController.uploadImage);
-
-// Upload multiple images
-router.post('/upload-multiple', upload.array('images', 5), cloudinaryController.uploadMultipleImages);
-
-// Delete image
-router.delete('/:publicId', cloudinaryController.deleteImage);
+router.post("/upload", upload.single("image"), uploadImage);
+router.post("/upload-multiple", upload.array("images", 5), uploadMultipleImages);
 
 module.exports = router;
