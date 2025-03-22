@@ -7,6 +7,7 @@ import './App.css';
 // import axios from 'axios'
 import Products from './components/Products.jsx';
 import Detailsproduct from './components/detailsproduct.jsx'
+import TopGames from './components/TopGames.jsx';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 
 // Protected Route component
@@ -40,6 +41,14 @@ const App = () => {
             </ProtectedRoute>
           } 
         />
+        <Route 
+  path="/top-games" 
+  element={
+    <ProtectedRoute>
+      <TopGames />
+    </ProtectedRoute>
+  } 
+/>
         <Route path="/products/:id" element={<Detailsproduct el={prod} />} />
         <Route path="/products" element={<Products prod={prod} setprod={setprod} />} />
       </Routes>
