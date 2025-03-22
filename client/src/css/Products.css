@@ -155,4 +155,31 @@
   .product-item img {
     height: 180px;
   }
+}
+
+/* Search Container */
+.search-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: 2px solid #eee;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  background-color: white;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #7C5CFC;
+  box-shadow: 0 0 10px rgba(124, 92, 252, 0.1);
+}
+
+.search-input::placeholder {
+  color: #999;
 } 

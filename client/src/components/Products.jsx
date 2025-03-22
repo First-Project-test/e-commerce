@@ -4,29 +4,35 @@ import OneProduct from './Oneproduct'
 import '../css/Products.css'
 
 function Products({setprod,cat}) {
-    const [products,setproducts]=useState([])
+    const [products, setproducts] = useState([])
     const [loading, setLoading] = useState(true)
+    const [searchTerm, setSearchTerm] = useState('')
+    const [filteredProducts, setFilteredProducts] = useState([])
 
-    useEffect(()=>(async()=>{
-        try {
-            setLoading(true)
-            let data = await axios.get(`http://localhost:2080/api/electronics`)
-            let datag = await axios.get(`http://localhost:2080/api/games`)
-            let d = data.data.electronics.concat(datag.data)
-            console.log(d);
-            
-            console.log(data.data.electronics);
-            console.log(datag.data);
-            setproducts(d)
-
-            // will be filtered later according to our needs
-
-        } catch (error) {
-            console.log(error)
-        } finally {
-            setLoading(false)
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                setLoading(true)
+                let data = await axios.get(`http://localhost:2080/api/electronics`)
+                let datag = await axios.get(`http://localhost:2080/api/games`)
+                let d = data.data.electronics.concat(datag.data)
+                setproducts(d)
+                setFilteredProducts(d)
+            } catch (error) {
+                console.log(error)
+            } finally {
+                setLoading(false)
+            }
         }
-    }),[])
+        fetchProducts()
+    }, [])
+
+    useEffect(() => {
+        const filtered = products.filter(product => 
+            product.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+        setFilteredProducts(filtered)
+    }, [searchTerm, products])
 
     if (loading) {
         return (
@@ -42,16 +48,21 @@ function Products({setprod,cat}) {
         <div className="products-container">
             <div className="products-header">
                 <h1 className="products-title">Our Products</h1>
-                <div className="products-filters">
-                    {/* <button className={`filter-button ${!cat ? 'active' : ''}`}>
-                        All Products
-                    </button> */}
-                    {/* Add more filter buttons as needed */}
+                
+                {/* Search Input */}
+                <div className="search-container">
+                    <input
+                        type="text"
+                        placeholder="Search products by name..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="search-input"
+                    />
                 </div>
             </div>
 
             <div className="products-grid">
-                {products.map((el,i) => (
+                {filteredProducts.map((el,i) => (
                     <div key={i} className="product-item">
                         <OneProduct el={el} i={i} setprod={setprod} />
                     </div>
