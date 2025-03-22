@@ -29,7 +29,7 @@ function Oneproduct({el,i,setprod}) {
         
         async()=>{ try {
             let prd=el.id
-            await axios.post(`http://localhost:2080/api/cart/add`,{prd})
+            await axios.post(`http://localhost:3030/api/cart/add`,{prd})
             //post element to cart 
         } catch (error) {
             console.log(error)

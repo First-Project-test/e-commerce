@@ -7,7 +7,7 @@ require('./database/electronics.js');
 
 const routes = require('./routers');
 
-const PORT = 2080;
+const PORT = 3030;
 const app = express();
 
 app.use(express.json());

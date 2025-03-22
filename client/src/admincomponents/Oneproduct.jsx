@@ -30,7 +30,7 @@ function Oneproduct({el,i,setprod}) {
       <button onClick={
         async()=>{ try {
           let prd=el.id
-          await axios.post(`http://localhost:2080/api/cart/add`,{prd})
+          await axios.post(`http://localhost:3030/api/cart/add`,{prd})
             //post element to cart 
         } catch (error) {
             console.log(error)
@@ -39,7 +39,7 @@ function Oneproduct({el,i,setprod}) {
 
       <button onClick={async()=>{
         try {
-          await axios.delete(`http://localhost:5000/api/products/${el._id}`)
+          await axios.delete(`http://localhost:3030/api/products/${el._id}`)
           window.location.reload()
         } catch (error) {
           console.log(error);

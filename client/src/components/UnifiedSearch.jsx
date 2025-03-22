@@ -14,8 +14,8 @@ function UnifiedSearch() {
             try {
                 // Fetch both regular categories and game categories
                 const [categoriesResponse, gameCategoriesResponse] = await Promise.all([
-                    axios.get('http://localhost:2080/api/categories'),
-                    axios.get('http://localhost:2080/api/game-categories')
+                    axios.get('http://localhost:3030/api/categories'),
+                    axios.get('http://localhost:3030/api/game-categories')
                 ]);
                 
                 setCategories(categoriesResponse.data);

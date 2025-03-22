@@ -91,7 +91,7 @@ const Home = () => {
           {staticCategories.map((category) => (
             <div key={category.id} className="category-item">
               <div className="category-content">
-                <h2>{category.name}</h2>
+                <h2>{category.name}</h2>  
                 <button 
                   className="shop-now-btn" 
                   onClick={() => category.name === 'Games' ? navigate('/games') : navigate(`/category/${category.id}`)}

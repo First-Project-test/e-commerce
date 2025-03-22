@@ -38,7 +38,7 @@ function Detailsproduct({el,i}) {
       <button onClick={()=>{sethiddenprice(!hiddenprice)}}>modify</button>
       <input hidden={hiddenprice} type="number" value={el.price} onChange={(e)=>{setprice(e.target.value)}}  />
       <button onClick={async()=>{try {
-        await axios.put(`http://localhost:5000/api/products/${el._id}`,{price:price})
+        await axios.put(`http://localhost:3030/api/products/${el._id}`,{price:price})
         sethiddenprice(true)
       } catch (error) {
         console.log(error);
@@ -48,7 +48,7 @@ function Detailsproduct({el,i}) {
       <button onClick={()=>{sethidden(!hidden)}}>modify</button>
       <input hidden={hidden} type="number" value={el.rating} onChange={(e)=>{setrating(e.target.value)}}  />
       <button onClick={async()=>{try {
-        await axios.put(`http://localhost:5000/api/products/${el._id}`,{rating:rating})
+        await axios.put(`http://localhost:3030/api/products/${el._id}`,{rating:rating})
         sethidden(true)
       } catch (error) {
         console.log(error);
@@ -58,7 +58,7 @@ function Detailsproduct({el,i}) {
       <button onClick={()=>{sethiddendescription(!hiddendescription)}}>modify</button>
       <input hidden={hiddendescription} type="text" value={el.description} onChange={(e)=>{setdescription(e.target.value)}}  />
       <button onClick={async()=>{try {
-        await axios.put(`http://localhost:5000/api/products/${el._id}`,{description:description})
+        await axios.put(`http://localhost:3030/api/products/${el._id}`,{description:description})
         sethiddendescription(true)
       } catch (error) {
         console.log(error);
@@ -68,7 +68,7 @@ function Detailsproduct({el,i}) {
       <button onClick={()=>{sethiddenrelease(!hiddenrelease)}}>modify</button>
       <input hidden={hiddenrelease} type="date" value={el.release} onChange={(e)=>{setrelease(e.target.value)}}  />
       <button onClick={async()=>{try {
-        await axios.put(`http://localhost:5000/api/products/${el._id}`,{release:release})
+        await axios.put(`http://localhost:3030/api/products/${el._id}`,{release:release})
         sethiddenrelease(true)
       } catch (error) {
         console.log(error);
@@ -78,7 +78,7 @@ function Detailsproduct({el,i}) {
       <button onClick={()=>{sethiddenquantity(!hiddenquantity)}}>modify</button>
       <input hidden={hiddenquantity} type="number" value={el.quantity} onChange={(e)=>{setquantity(e.target.value)}}  />
       <button onClick={async()=>{try {
-        await axios.put(`http://localhost:5000/api/products/${el._id}`,{quantity:quantity})
+        await axios.put(`http://localhost:3030/api/products/${el._id}`,{quantity:quantity})
         sethiddenquantity(true)
       } catch (error) {
         console.log(error);
