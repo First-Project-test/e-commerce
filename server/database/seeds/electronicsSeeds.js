@@ -14,7 +14,8 @@ const electronicsSeeds = async () => {
                 price: 499.99,
                 category: ['Gaming Console', 'Hardware'],
                 rating: 95,
-                description: 'Next-gen gaming console with stunning graphics and fast loading times.'
+                description: 'Next-gen gaming console with stunning graphics and fast loading times.' 
+                // image : "https://variety.com/wp-content/uploads/2024/09/PS5-Pro-Featured.jpg?w=1000&h=563&crop=1"
             },
             {
                 name: 'Xbox Series X',

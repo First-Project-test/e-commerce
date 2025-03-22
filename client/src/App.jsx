@@ -12,6 +12,7 @@ import Products from './components/Products.jsx';
 import Detailsproduct from './components/detailsproduct.jsx'
 import TopGames from './components/TopGames.jsx';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import NavBar from './components/NavBar.jsx';
 
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
@@ -27,7 +28,9 @@ const App = () => {
   const [cat,setcat]=useState("")
 
   return (
+  
     <BrowserRouter>
+    <NavBar/>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />}/>
