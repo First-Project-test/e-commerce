@@ -5,6 +5,7 @@ import Home from './components/Home';
 import GamesPage from './components/GamesPage';
 import Games from './components/games.jsx';
 import Electronics from './components/electronics.jsx';
+import AboutUs from './components/AboutUs';
 import './App.css';
 // import axios from 'axios'
 import Products from './components/Products.jsx';
@@ -45,13 +46,21 @@ const App = () => {
           } 
         />
         <Route 
-  path="/top-games" 
-  element={
-    <ProtectedRoute>
-      <TopGames />
-    </ProtectedRoute>
-  } 
-/>
+          path="/top-games" 
+          element={
+            <ProtectedRoute>
+              <TopGames />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/about" 
+          element={
+            <ProtectedRoute>
+              <AboutUs />
+            </ProtectedRoute>
+          } 
+        />
         <Route path="/products/:id" element={<Detailsproduct el={prod} />} />
         <Route path="/shop" element={<Products prod={prod} setprod={setprod} cat={cat} />} />
         <Route path="/games/:id" element={<Games prod={prod} setprod={setprod} cat={cat} />} />
