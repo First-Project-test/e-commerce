@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { toast } from 'react-toastify';
 
 function Addgame() {
   const [formData, setFormData] = useState({
@@ -25,10 +24,9 @@ function Addgame() {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/game-categories');
+      const response = await axios.get('http://localhost:2080/api/game-categories');
       setCategories(response.data);
     } catch (error) {
-      toast.error('Error fetching categories');
       console.error('Error:', error);
     }
   };
@@ -57,8 +55,7 @@ function Addgame() {
     setLoading(true);
 
     try {
-      await axios.post('http://localhost:5000/api/games', formData);
-      toast.success('Game added successfully!');
+      await axios.post('http://localhost:208/api/games', formData);
       // Reset form
       setFormData({
         name: '',
@@ -72,7 +69,6 @@ function Addgame() {
         GameCategoryId: ''
       });
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Error adding game');
       console.error('Error:', error);
     } finally {
       setLoading(false);

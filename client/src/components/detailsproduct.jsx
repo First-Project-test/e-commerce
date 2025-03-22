@@ -3,6 +3,8 @@ import '../css/DetailsProduct.css'
 
 function Detailsproduct({el,i}) {
     const [currentimage,setCurrentImage]=useState(null)
+    console.log(el.image[0]);
+    
 
     useEffect(() => {
         // Set up an interval to change the image every 500ms (half second)

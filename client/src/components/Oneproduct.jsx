@@ -1,14 +1,15 @@
 import React from 'react'
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import '../css/OneProduct.css'
 
 const OneProduct = ({ el, i, setprod }) => {
   const navigate = useNavigate()
+  console.log(el.image[1]);
+
 
   return (
     <div className="product-item">
-      <img src={el.image} alt={el.name} />
+      <img src={el.image[0]} alt={el.name} />
       <div className="content">
         <h3>{el.name}</h3>
         <p>{el.description}</p>
