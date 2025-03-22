@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Home.css';
@@ -23,15 +23,43 @@ const staticCategories = [
   }
 ];
 
+// Carousel images with better structure
+const carouselImages = [
+  {
+    src: 'https://assets.xboxservices.com/assets/fb/d2/fbd2cb56-5c25-414d-9f46-e6a164cdf5be.png?n=XBX_A-BuyBoxBGImage01-D.png',
+    alt: 'Xbox Series X'
+  },
+  {
+    src: 'https://gmedia.playstation.com/is/image/SIEPDC/ps5-product-thumbnail-01-en-14sep21?$facebook$',
+    alt: 'PlayStation 5'
+  },
+  {
+    src: 'https://pixelz.cc/wp-content/uploads/2018/06/nintendo-switch-handheld-console-uhd-4k-wallpaper..jpg',
+    alt: 'Nintendo Switch'
+  },{
+    src: 'https://gameszone.tn/494-large_default/xbox-series-s-digital-edition-console-tunisie.jpg',
+    alt: 'xBox Series S'
+  },
+  {
+    src: 'https://i5.walmartimages.com/seo/Sony-PlayStation-4-Limited-Edition-game-console-HDR-1-TB-HDD-gold_550d58ac-1b7c-4459-8d23-e23fd4b6f8e2_1.f50649af449335c03d864a4744bceee1.jpeg',
+    alt: 'Playstation 4'
+  }
+]
+
 const Home = ({setcat}) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [currentImage, setCurrentImage] = useState(0);
+  const [previousImage, setPreviousImage] = useState(carouselImages.length - 1);
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    navigate('/login');
-  };
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setPreviousImage(currentImage);
+      setCurrentImage((prev) => (prev + 1) % carouselImages.length);
+    }, 3000);
+
+    return () => clearInterval(intervalId);
+  }, [currentImage]);
 
   if (loading) return (
     <div className="d-flex justify-content-center align-items-center min-vh-100">
@@ -49,17 +77,25 @@ const Home = ({setcat}) => {
         <div className="container text-center">
           <div className="subtitle">GAMING STORE</div>
           <h1 className="hero-title">
-          Discover the most advanced gaming consoles at Game World in Tunisia.
+            Discover the most advanced gaming consoles at Game World in Tunisia.
           </h1>
           <p className="hero-description">
-          When looking at video games in general, we tend to find that visuospatial effects, like hand-eye coordination, and directed attention tend to get a little better when we're playing video games,” shares Dr. Austerman
+            When looking at video games in general, we tend to find that visuospatial effects, like hand-eye coordination, and directed attention tend to get a little better when we're playing video games," shares Dr. Austerman
           </p>
-          <div className="hero-image">
-            <img 
-              src="https://idsb.tmgrup.com.tr/ly/uploads/images/2021/03/29/103616.jpg" 
-              alt="Modern Gaming Setup"
-              className="rounded-sofa"
-            />
+          <div className="simple-carousel">
+            <div className="carousel-container">
+              {carouselImages.map((image, index) => (
+                <img 
+                  key={index}
+                  src={image.src}
+                  alt={image.alt}
+                  className={`carousel-img ${
+                    index === currentImage ? 'active' : 
+                    index === previousImage ? 'previous' : ''
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -89,10 +125,10 @@ const Home = ({setcat}) => {
       </section>
       {/* Top Games Section */}
       <section className="top-games-section">
-        <TopGames /> {/* Render TopGames component here */}
+        <TopGames />
       </section>
     </div>
   );
 };
 
-export default Home; 
+export default Home;
