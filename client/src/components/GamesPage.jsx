@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './GamesPage.css';
+import '../css/GamesPage.css';
 
 const gamePlatforms = [
   {
@@ -30,7 +30,7 @@ const gamePlatforms = [
   }
 ];
 
-const GamesPage = () => {
+const GamesPage = ({setcat}) => {
   const navigate = useNavigate();
 
   return (
@@ -48,7 +48,11 @@ const GamesPage = () => {
         <div className="container">
           <div className="platforms-grid">
             {gamePlatforms.map((platform) => (
-              <div key={platform.id} className="platform-card" onClick={() => navigate(`/games/${platform.id}`)}>
+              <div key={platform.id} className="platform-card" onClick={() => {
+                //usecontext
+
+                setcat(platform)
+                navigate(`/games/${platform.id}`)}}>
                 <div className="platform-image">
                   <img src={platform.image} alt={platform.name} />
                 </div>
@@ -56,7 +60,7 @@ const GamesPage = () => {
                   <h2>{platform.name}</h2>
                   <p>{platform.description}</p>
                   <button className="explore-btn">
-                    Explore Games
+                      Explore Games
                     <span className="arrow">→</span>
                   </button>
                 </div>

@@ -1,42 +1,27 @@
 import React from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import '../css/OneProduct.css'
 
-
-function Oneproduct({el,i,setprod}) {
-    const navigate=useNavigate()
-    console.log(el.id)
+const OneProduct = ({ el, i, setprod }) => {
+  const navigate = useNavigate()
 
   return (
-    <div className='onecard' >
-      <img src={el.image[Math.floor(Math.random()*el.image.length)]} 
-      onClick={()=>{
-        setprod(el)
-        // navigate to the detail page
-        navigate('/products/:id')
-      } } 
-      
-      alt="" />
-
-        <h1   onClick={()=>{
+    <div className="product-item">
+      <img src={el.image} alt={el.name} />
+      <div className="content">
+        <h3>{el.name}</h3>
+        <p>{el.description}</p>
+        <div className="price">${el.price}</div>
+        <button onClick={() => {
           setprod(el)
-        // navigate to the detail page
-        navigate('/products/:id')
-      } } >{el.name}</h1>
-        <p>Price: ${el.price}</p>
-        <p>Rating: {el.rating ? `${el.rating/10}/10` : 'No rating available'}</p>
-      <button onClick={
-        
-        async()=>{ try {
-            let prd=el.id
-            await axios.post(`http://localhost:3030/api/cart/add`,{prd})
-            //post element to cart 
-        } catch (error) {
-            console.log(error)
-        }  }
-      }>add to cart</button>
+          navigate(`/products/${i}`)
+        }}>
+          View Details
+        </button>
+      </div>
     </div>
   )
 }
 
-export default Oneproduct
+export default OneProduct
