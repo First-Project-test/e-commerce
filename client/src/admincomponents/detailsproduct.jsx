@@ -14,6 +14,7 @@ function Detailsproduct({el,i}) {
     const [hiddenquantity,sethiddenquantity]=useState(true)
     const [hiddenrelease,sethiddenrelease]=useState(true)
     const [hiddendescription,sethiddendescription]=useState(true) 
+    const token=localStorage.getItem("token")
 
     useEffect(() => {
       console.log(el.image);
@@ -54,7 +55,11 @@ function Detailsproduct({el,i}) {
                     className="save-btn"
                     onClick={async()=>{
                         try {
-                            await axios.put(`http://localhost:2080/api/electronics/${el._id}`,{price:price})
+                            await axios.put(`http://localhost:2080/api/electronics/${el._id}`,{price:price},{
+                                headers: {
+                                    Authorization: `Bearer ${token}`
+                                  }
+                            })
                             console.log(el.id);
                             
                             sethiddenprice(true)

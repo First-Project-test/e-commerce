@@ -32,7 +32,7 @@ const gameSeeds = async () => {
                 category: ['Action', 'Adventure', 'Western'],
                 rating: 4.8,
                 description: 'Experience the Wild West in this stunning open-world adventure.',
-                image: 'https://cdn1.epicgames.com/b30b6d1b4dfd4dcc93b5490be5e094e5/offer/RDR2476298253_Epic_Games_Wishlist_RDR2_2560x1440_V01-2560x1440-2a9ebe1f7ee202102555be202d5632ec.jpg?resize=1&w=480&h=270&quality=medium',
+                image: ['https://cdn1.epicgames.com/b30b6d1b4dfd4dcc93b5490be5e094e5/offer/RDR2476298253_Epic_Games_Wishlist_RDR2_2560x1440_V01-2560x1440-2a9ebe1f7ee202102555be202d5632ec.jpg?resize=1&w=480&h=270&quality=medium'],
                 GameCategoryId: actionCategory.id
             },
             {
@@ -43,7 +43,7 @@ const gameSeeds = async () => {
                 category: ['Action', 'RPG', 'Souls-like'],
                 rating: 4.9,
                 description: 'Explore the vast world of the Lands Between in this epic fantasy adventure.',
-                image: 'https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/capsule_616x353.jpg?t=1739922037',
+                image: ['https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/capsule_616x353.jpg?t=1739922037'],
                 GameCategoryId: rpgCategory.id
             },
             {
