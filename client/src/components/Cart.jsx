@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../css/Cart.css';
 
-const Cart = () => {
+const Cart = ({setprod}) => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -34,6 +34,7 @@ const Cart = () => {
       console.error('Error fetching cart:', error);
       setError('Failed to load cart items');
     } finally {
+      
       setLoading(false);
       
     }
@@ -49,6 +50,8 @@ const Cart = () => {
       });
       // Refresh cart items after deletion
       fetchCartItems();
+      console.log(cartItems);
+      
     } catch (error) {
       console.error('Error deleting item:', error);
       setError('Failed to delete item');
@@ -56,6 +59,7 @@ const Cart = () => {
   }
 
   const handleViewDetails = (item) => {
+    setprod(item.Game?item.Game:item.Electronic);
     navigate(`/products/${item.Game?item.Game.id:item.Electronic.id}`);
   }
 
@@ -102,7 +106,8 @@ const Cart = () => {
       ) : (
         <>
           <div className="cart-items">
-            {cartItems.map((item,i) => (
+            {cartItems.map((item,i) =>{console.log(item)
+            return(
               <div key={i} className="cart-item">
                 <div className="item-image">
                  {item.Game ? <img src={item.Game.image} alt={item.Game.name} />:<img src={item.Electronic.image} alt={item.Electronic.name} />}
@@ -123,7 +128,7 @@ const Cart = () => {
                   </button>
                 </div>
               </div>
-            ))}
+            )})}
           </div>
           <div className="cart-summary">
             <div className="summary-row">

@@ -36,7 +36,7 @@ const OneProduct = ({ el, i, setprod }) => {
 
           }
           if(el.role==="electronic"){
-            await axios.post(`http://localhost:2080/api/cart/add`,{electronicsId:1},{
+            await axios.post(`http://localhost:2080/api/cart/add`,{electronicsId:el.id},{
               headers: {
                 Authorization: `Bearer ${token}`
               }

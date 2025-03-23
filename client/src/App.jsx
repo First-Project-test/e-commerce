@@ -31,7 +31,8 @@ const App = () => {
   const [prod, setprod] = useState({});
   const [cat,setcat]=useState("")
   const [adminproduct,setadminproduct]=useState({})
-  console.log(adminproduct);
+  console.log("prod",prod);
+  
   
   
 
