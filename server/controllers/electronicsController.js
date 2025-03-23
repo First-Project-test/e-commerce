@@ -81,7 +81,8 @@ const electronicsController = {
                 electronics: electronics.rows,
                 total: electronics.count,
                 currentPage: page,
-                totalPages: Math.ceil(electronics.count / limit)
+                totalPages: Math.ceil(electronics.count / limit),
+                
             });
         } catch (error) {
             res.status(500).json({ message: 'Error fetching electronics items', error: error.message });
@@ -152,6 +153,8 @@ const electronicsController = {
 
             await electronics.destroy();
             res.status(200).json({ message: 'Electronics item deleted successfully' });
+            console.log(req.user.role);
+            
         } catch (error) {
             res.status(500).json({ message: 'Error deleting electronics item', error: error.message });
         }

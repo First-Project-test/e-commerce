@@ -51,7 +51,8 @@ const electronicsSeeds = async () => {
                 price: 79.99,
                 category: ['Accessories', 'Peripherals'],
                 rating: 90,
-                description: 'Precision gaming mouse with customizable RGB lighting.'
+                description: 'Precision gaming mouse with customizable RGB lighting.',
+                image:["https://ichef.bbci.co.uk/news/1024/cpsprodpb/f310/live/f36de0e0-6f86-11ef-b410-fbf02dca0fc5.png.webp","https://i5.walmartimages.com/seo/Sony-PlayStation-5-PS5-Gaming-Console-Disc-Version_a53802d8-7632-4530-8fc5-84b129845ee8.0a980f45d3e696c9661a6d23bcc0edc2.jpeg"]
             }
         ];
 

@@ -213,6 +213,25 @@ const userController = {
         } catch {
             res.status(500).json({ message: 'Error deleting user' })
         }
+    },
+    BanUser: async (req, res) => {
+        const { userId } = req.params
+
+        // if (req.user.role !== 'admin' && req.user.userId !== userId) {
+        //     return res.status(403).json({ message: 'Access denied' })
+        // }
+
+        try {
+            const user = await User.findByPk(userId)
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' })
+            }
+
+            await user.update({banned:req.body.banned})
+            res.status(200).json({ message: 'User deleted successfully' })
+        } catch {
+            res.status(500).json({ message: 'Error deleting user' })
+        }
     }
 }
 
