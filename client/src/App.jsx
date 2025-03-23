@@ -80,7 +80,7 @@ const App = () => {
         
         <Route path="user-list" element={<UserList  />} />
         </Route>
-        <Route path="/cart/" element={<Cart/> } />
+        <Route path="/cart/" element={<Cart setprod={setprod} /> } />
         <Route path="/product-list" element={<ProductList  />} />
 
         <Route path='/admin-product/:id' element={<Detailsproducts el={adminproduct}/>}/>

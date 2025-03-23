@@ -33,6 +33,10 @@ module.exports = (connection, DataTypes) => {
             type:DataTypes.JSON,
             // defaultValue:[],
             allowNull:true
+        },
+        role:{
+            type:DataTypes.STRING,
+            defaultValue:"game"
         }
     });
 

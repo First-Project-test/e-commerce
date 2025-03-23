@@ -11,6 +11,7 @@ const Cart = () => {
 
   useEffect(() => {
     fetchCartItems()
+    
   }, [])
 
   const fetchCartItems = async () => {
@@ -28,18 +29,20 @@ const Cart = () => {
         }
       })
       setCartItems(response.data);
+      
     } catch (error) {
       console.error('Error fetching cart:', error);
       setError('Failed to load cart items');
     } finally {
       setLoading(false);
+      
     }
   };
 
   const handleDeleteItem = async (itemId) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:2080/api/cart/${itemId}`, {
+      await axios.delete(`http://localhost:2080/api/cart/delete/${itemId}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -99,8 +102,8 @@ const Cart = () => {
       ) : (
         <>
           <div className="cart-items">
-            {cartItems.map((item) => (
-              <div key={item.id} className="cart-item">
+            {cartItems.map((item,i) => (
+              <div key={i} className="cart-item">
                 <div className="item-image">
                   <img src={item.image} alt={item.name} />
                 </div>
