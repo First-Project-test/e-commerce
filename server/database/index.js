@@ -4,14 +4,13 @@ require('dotenv').config();
 const connection = new Sequelize(
     process.env.DB_NAME || "store",
     process.env.DB_USER || "root",
-    process.env.DB_PASSWORD || "root",     
+    process.env.DB_PASSWORD || "oussama",     
     {
         host: "localhost",
         dialect: "mysql",
         logging: false
     }
 );
-/////
 
 // Test the connection
 const testConnection = async () => {

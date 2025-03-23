@@ -40,7 +40,9 @@ const OneProduct = ({ el, i, setprod }) => {
           }
           
         }}>
-          Add to Cart
+
+           🛒 Add To Cart
+
         </button>
       </div>
     </div>

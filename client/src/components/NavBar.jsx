@@ -4,10 +4,15 @@ import { useNavigate } from 'react-router-dom';
 
 function NavBar() {
   const navigate = useNavigate()
+
+  const[hidedashboard,sethidedashboard]=useState(false)
+
+
   const user=localStorage.getItem("user")
  
 
  
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light">
         <div className="container">
@@ -21,8 +26,8 @@ function NavBar() {
           <div className="d-flex align-items-center">
             <button className="btn btn-link position-relative me-3">
               <i className="bi bi-cart"></i>
-              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                3
+              <span onClick={()=> navigate('/cart')} className="position-absolute top-0 start-100 translate-middle badge rounded-pill">
+                🛒 
               </span>
             </button>
             <button className="btn-buy-now" onClick={() => navigate('/shop')}>
