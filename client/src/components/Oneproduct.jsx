@@ -7,7 +7,7 @@ const OneProduct = ({ el, i, setprod }) => {
   const navigate = useNavigate()
   console.log(el.image[1]);
 
-  const token=localStorage.getItem("user")
+  const token=localStorage.getItem("token")
 
 
   return (
@@ -25,14 +25,18 @@ const OneProduct = ({ el, i, setprod }) => {
         <div className="price">${el.price}</div>
         <button onClick={async() => {
           if(el.role==="game"){
-            await axios.post(`http://localhost:208/api/cart`,{gameId:el.id},{
+            await axios.post(`http://localhost:2080/api/cart/add`,{gameId:el.id},{
               headers: {
                 Authorization: `Bearer ${token}`
               }
+              
             })
+            console.log(el.id)
+            
+
           }
           if(el.role==="electronic"){
-            await axios.post(`http://localhost:208/api/cart`,{ElectronicsId:el.id},{
+            await axios.post(`http://localhost:2080/api/cart/add`,{electronicsId:1},{
               headers: {
                 Authorization: `Bearer ${token}`
               }
