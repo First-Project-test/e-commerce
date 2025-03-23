@@ -56,7 +56,7 @@ const Cart = () => {
   }
 
   const handleViewDetails = (item) => {
-    navigate(`/products/${item.id}`);
+    navigate(`/products/${item.Game?item.Game.id:item.Electronic.id}`);
   }
 
   const calculateTotal =()=> {
@@ -105,11 +105,11 @@ const Cart = () => {
             {cartItems.map((item,i) => (
               <div key={i} className="cart-item">
                 <div className="item-image">
-                  <img src={item.image} alt={item.name} />
+                 {item.Game ? <img src={item.Game.image} alt={item.Game.name} />:<img src={item.Electronic.image} alt={item.Electronic.name} />}
                 </div>
                 <div className="item-details">
-                  <h3>{item.name}</h3>
-                  <p className="item-price">${item.price}</p>
+                  <h3>{item.Game?item.Game.name:item.Electronic.name}</h3>
+                  <p className="item-price">${item.Game?item.Game.price:item.Electronic.price}</p>
                   <p className="item-quantity">Quantity: {item.quantity}</p>
                 </div>
                 <div className="item-actions">
