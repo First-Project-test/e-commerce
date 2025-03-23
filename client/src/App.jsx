@@ -17,6 +17,7 @@ import Dashboard from './admincomponents/Dashboard.jsx';
 import UserList from './admincomponents/UserList.jsx';
 import ProductList from './admincomponents/productList.jsx';
 import Detailsproducts from './admincomponents/detailsproduct.jsx'
+import Cart from './components/Cart.jsx';
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('token');
@@ -79,6 +80,7 @@ const App = () => {
         
         <Route path="user-list" element={<UserList  />} />
         </Route>
+        <Route path="/cart/" element={<Cart/> } />
         <Route path="/product-list" element={<ProductList  />} />
 
         <Route path='/admin-product/:id' element={<Detailsproducts el={adminproduct}/>}  />
@@ -87,8 +89,8 @@ const App = () => {
 
       </Routes>
     </BrowserRouter>
-  );
-};
+  )
+}
 
 export default App;
 

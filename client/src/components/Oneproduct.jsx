@@ -18,7 +18,7 @@ const OneProduct = ({ el, i, setprod }) => {
           setprod(el)
           navigate(`/products/${i}`)
         }}>
-          View Details
+           🛒 Add To Cart
         </button>
       </div>
     </div>
