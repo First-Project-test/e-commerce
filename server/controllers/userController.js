@@ -164,9 +164,9 @@ const userController = {
     },
 
     getAllUsers: async (req, res) => {
-        // if (req.user.role !== 'admin') {
-        //     return res.status(403).json({ message: 'Access denied' })
-        // }
+        if (req.user.role !== 'admin') {
+            return res.status(403).json({ message: 'Access denied' })
+        }
 
         const { page = 1, limit = 10, search } = req.query
         const offset = (page - 1) * limit

@@ -16,9 +16,9 @@ function Dashboard({setadminproduct}) {
     <div hidden={isproductlist} >
         <ProductList setadminproduct={setadminproduct}/>
     </div>
-    {/* <div hidden={isuserlist} >
+    <div hidden={isuserlist} >
         <UserList/>
-    </div> */}
+    </div>
     
    
     </>

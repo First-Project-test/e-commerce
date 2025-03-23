@@ -5,17 +5,24 @@ function UserList() {
     const[banned,setbanned]=useState(Boolean)
     const[user,setuser]=useState([])
     const[search,setsearch]=useState("")
-    const[filtered,setfiltered]=useState
-    console.log("user");
+    const[filtered,setfiltered]=useState("")
+
+    const token=localStorage.getItem("token")
     
-    useEffect(async()=>{
+    useEffect(()=>(async()=>{
         try {
-  let data = await axios.get(`http://localhost:2080/api/users`)
-            setuser(data.data)
+  let data = await axios.get(`http://localhost:2080/api/users`,{
+    headers: {
+        Authorization: `Bearer ${token}`
+      }
+  })
+            console.log("uqers",data.data.users);
+            setuser(data.data.users)
+            
  } catch (error) {
             console.log(error)
         }
-},[])
+}),[])
   return (
     <div>
         <input type="text" placeholder='Search' defaultValue={search} onChange={(e)=>setsearch(e.target.value)} onKeyUp={(e)=>{
@@ -36,9 +43,9 @@ function UserList() {
                 <th>Id</th>
                 <th>status</th>
             </tr>
-            {user.filter((e)=>e.name.toLowerCase().includes(filtered.toLowerCase())).map((el)=>(
+            {user.map((el)=>(
             <tr>
-                <th>{el.name}</th>
+                <th>{el.username}</th>
                 <th>{el.id}</th>
                 <th>{el.banned==true ? "banned" :"not-banned"} 
                     <button 
