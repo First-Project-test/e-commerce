@@ -49,7 +49,7 @@ function Products({setprod,cat}) {
             <div className="products-header">
                 <h1 className="products-title">Our Products</h1>
                 
-                {/* Search Input */}
+                
                 <div className="search-container">
                     <div className="search-wrapper">
                         <input
