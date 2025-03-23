@@ -40,7 +40,7 @@ const OneProduct = ({ el, i, setprod }) => {
           }
           
         }}>
-          View Details
+          Add to Cart
         </button>
       </div>
     </div>
