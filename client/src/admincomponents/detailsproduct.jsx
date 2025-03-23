@@ -14,6 +14,7 @@ function Detailsproduct({el,i}) {
     const [hiddenquantity,sethiddenquantity]=useState(true)
     const [hiddenrelease,sethiddenrelease]=useState(true)
     const [hiddendescription,sethiddendescription]=useState(true) 
+    const token=localStorage.getItem("token")
 
     useEffect(() => {
       console.log(el.image);
@@ -47,17 +48,35 @@ function Detailsproduct({el,i}) {
                     className={`edit-input ${hiddenprice ? 'hidden' : ''}`}
                     hidden={hiddenprice} 
                     type="number" 
-                    value={el.price} 
+                    defaultValue={el.price} 
                     onChange={(e)=>{setprice(e.target.value)}}  
                 />
                 <button 
                     className="save-btn"
                     onClick={async()=>{
                         try {
-                            await axios.put(`http://localhost:5000/api/products/${el._id}`,{price:price})
+                            await axios.put(`http://localhost:2080/api/electronics/${el._id}`,{price:price},{
+                                headers: {
+                                    Authorization: `Bearer ${token}`
+                                  }
+                            })
+                            console.log(el.id);
+                            
                             sethiddenprice(true)
                         } catch (error) {
-                            console.log(error);
+                            if (error.status===404) {
+                                
+                            
+                            try {
+                            await axios.put(`http://localhost:2080/api/games/${el._id}`,{price:price})
+                                
+                            } catch (error) {
+                                
+                                console.log(error);
+                            }
+                        }
+                        else{console.log(error);
+                        }
                         }
                     }}
                 >
@@ -72,17 +91,29 @@ function Detailsproduct({el,i}) {
                     className={`edit-input ${hidden ? 'hidden' : ''}`}
                     hidden={hidden} 
                     type="number" 
-                    value={el.rating} 
+                    defaultValue={el.rating} 
                     onChange={(e)=>{setrating(e.target.value)}}  
                 />
                 <button 
                     className="save-btn"
                     onClick={async()=>{
                         try {
-                            await axios.put(`http://localhost:5000/api/products/${el._id}`,{rating:rating})
+                            await axios.put(`http://localhost:2080/api/electronics/${el._id}`,{rating:rating})
                             sethidden(true)
                         } catch (error) {
-                            console.log(error);
+                            if (error.status===404) {
+                                
+                            
+                                try {
+                                await axios.put(`http://localhost:2080/api/games/${el._id}`,{rating:rating})
+                                    
+                                } catch (error) {
+                                    
+                                    console.log(error);
+                                }
+                            }
+                            else{console.log(error);
+                            }
                         }
                     }}
                 >
@@ -97,17 +128,29 @@ function Detailsproduct({el,i}) {
                     className={`edit-input ${hiddendescription ? 'hidden' : ''}`}
                     hidden={hiddendescription} 
                     type="text" 
-                    value={el.description} 
+                    defaultValue={el.description} 
                     onChange={(e)=>{setdescription(e.target.value)}}  
                 />
                 <button 
                     className="save-btn"
                     onClick={async()=>{
                         try {
-                            await axios.put(`http://localhost:5000/api/products/${el._id}`,{description:description})
+                            await axios.put(`http://localhost:2080/api/products/${el._id}`,{description:description})
                             sethiddendescription(true)
                         } catch (error) {
-                            console.log(error);
+                            if (error.status===404) {
+                                
+                            
+                                try {
+                                await axios.put(`http://localhost:2080/api/games/${el._id}`,{description:description})
+                                    
+                                } catch (error) {
+                                    
+                                    console.log(error);
+                                }
+                            }
+                            else{console.log(error);
+                            }
                         }
                     }}
                 >
@@ -122,17 +165,29 @@ function Detailsproduct({el,i}) {
                     className={`edit-input ${hiddenrelease ? 'hidden' : ''}`}
                     hidden={hiddenrelease} 
                     type="date" 
-                    value={el.release} 
+                    defaultValue={el.release} 
                     onChange={(e)=>{setrelease(e.target.value)}}  
                 />
                 <button 
                     className="save-btn"
                     onClick={async()=>{
                         try {
-                            await axios.put(`http://localhost:5000/api/products/${el._id}`,{release:release})
+                            await axios.put(`http://localhost:2080/api/products/${el._id}`,{release:release})
                             sethiddenrelease(true)
                         } catch (error) {
-                            console.log(error);
+                            if (error.status===404) {
+                                
+                            
+                                try {
+                                await axios.put(`http://localhost:2080/api/games/${el._id}`,{release:release})
+                                    
+                                } catch (error) {
+                                    
+                                    console.log(error);
+                                }
+                            }
+                            else{console.log(error);
+                            }
                         }
                     }}
                 >
@@ -147,17 +202,29 @@ function Detailsproduct({el,i}) {
                     className={`edit-input ${hiddenquantity ? 'hidden' : ''}`}
                     hidden={hiddenquantity} 
                     type="number" 
-                    value={el.quantity} 
+                    defaultValue={el.quantity} 
                     onChange={(e)=>{setquantity(e.target.value)}}  
                 />
                 <button 
                     className="save-btn"
                     onClick={async()=>{
                         try {
-                            await axios.put(`http://localhost:5000/api/products/${el._id}`,{quantity:quantity})
+                            await axios.put(`http://localhost:2080/api/products/${el._id}`,{quantity:quantity})
                             sethiddenquantity(true)
                         } catch (error) {
-                            console.log(error);
+                            if (error.status===404) {
+                                
+                            
+                                try {
+                                await axios.put(`http://localhost:2080/api/games/${el._id}`,{quantity:quantity})
+                                    
+                                } catch (error) {
+                                    
+                                    console.log(error);
+                                }
+                            }
+                            else{console.log(error);
+                            }
                         }
                     }}
                 >

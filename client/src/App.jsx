@@ -13,7 +13,11 @@ import Detailsproduct from './components/detailsproduct.jsx'
 import TopGames from './components/TopGames.jsx';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import NavBar from './components/NavBar.jsx';
-
+import Dashboard from './admincomponents/Dashboard.jsx';
+import UserList from './admincomponents/UserList.jsx';
+import ProductList from './admincomponents/productList.jsx';
+import Detailsproducts from './admincomponents/detailsproduct.jsx'
+import Cart from './components/Cart.jsx';
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('token');
@@ -26,6 +30,11 @@ const ProtectedRoute = ({ children }) => {
 const App = () => {
   const [prod, setprod] = useState({});
   const [cat,setcat]=useState("")
+  const [adminproduct,setadminproduct]=useState({})
+  console.log("prod",prod);
+  
+  
+  
 
   return (
   
@@ -36,43 +45,53 @@ const App = () => {
         <Route path="/signup" element={<Signup />}/>
 
         <Route path="/" element={
-          <ProtectedRoute>
+          
             <Home setcat={setcat} />
-          </ProtectedRoute>
+          
         } />
         <Route 
           path="/games" 
           element={
-            <ProtectedRoute>
+            
               <GamesPage setcat={setcat} />
-            </ProtectedRoute>
+            
           } 
         />
         <Route 
           path="/top-games" 
           element={
-            <ProtectedRoute>
+            
               <TopGames />
-            </ProtectedRoute>
+            
           } 
         />
         <Route 
           path="/about" 
           element={
-            <ProtectedRoute>
+            
               <AboutUs />
-            </ProtectedRoute>
+            
           } 
         />
         <Route path="/products/:id" element={<Detailsproduct el={prod} />} />
         <Route path="/shop" element={<Products prod={prod} setprod={setprod} cat={cat} />} />
         <Route path="/games/:id" element={<Games prod={prod} setprod={setprod} cat={cat} />} />
         <Route path="/electronics" element={<Electronics prod={prod} setprod={setprod} cat={cat} />} />
+        <Route path="/Dashboard/" element={<Dashboard setadminproduct={setadminproduct} />} >
+        
+        <Route path="user-list" element={<UserList  />} />
+        </Route>
+        <Route path="/cart/" element={<Cart setprod={setprod} /> } />
+        <Route path="/product-list" element={<ProductList  />} />
+
+        <Route path='/admin-product/:id' element={<Detailsproducts el={adminproduct}/>}/>
+       
+
 
       </Routes>
     </BrowserRouter>
-  );
-};
+  )
+}
 
 export default App;
 

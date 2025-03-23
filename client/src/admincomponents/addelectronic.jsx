@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { toast } from 'react-toastify';
 
 function Addelectronic() {
   const [formData, setFormData] = useState({
@@ -16,6 +15,7 @@ function Addelectronic() {
 
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
+  const token=localStorage.getItem("token")
 
   useEffect(() => {
    
@@ -24,10 +24,9 @@ function Addelectronic() {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get('/api/categories');
+      const response = await axios.get('http://localhost:2080/api/categories');
       setCategories(response.data);
     } catch (error) {
-      toast.error('Error fetching categories');
       console.error('Error:', error);
     }
   };
@@ -64,7 +63,6 @@ function Addelectronic() {
       }));
     } catch (error) {
       console.error("Upload Error:", error.message);
-      toast.error("Error uploading images");
     }
   };
 
@@ -73,8 +71,11 @@ function Addelectronic() {
     setLoading(true);
 
     try {
-      await axios.post('/api/electronics', formData);
-      toast.success('Electronic item added successfully!');
+      await axios.post('http://localhost:2080/api/electronics', formData,{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       // Reset form
       setFormData({
         name: '',
@@ -87,7 +88,6 @@ function Addelectronic() {
         CategoryId: ''
       });
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Error adding electronic item');
       console.error('Error:', error);
     } finally {
       setLoading(false);
