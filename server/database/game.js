@@ -30,7 +30,7 @@ module.exports = (connection, DataTypes) => {
             allowNull: true
         },
         image:{
-            type:DataTypes.STRING,
+            type:DataTypes.JSON,
             // defaultValue:[],
             allowNull:true
         }

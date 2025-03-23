@@ -15,6 +15,7 @@ function Addelectronic() {
 
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
+  const token=localStorage.getItem("token")
 
   useEffect(() => {
    
@@ -70,7 +71,11 @@ function Addelectronic() {
     setLoading(true);
 
     try {
-      await axios.post('http://localhost:2080/api/electronics', formData);
+      await axios.post('http://localhost:2080/api/electronics', formData,{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       // Reset form
       setFormData({
         name: '',

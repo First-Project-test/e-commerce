@@ -83,7 +83,7 @@ const App = () => {
         <Route path="/cart/" element={<Cart/> } />
         <Route path="/product-list" element={<ProductList  />} />
 
-        <Route path='/admin-product/:id' element={<Detailsproducts el={adminproduct}/>}  />
+        <Route path='/admin-product/:id' element={<Detailsproducts el={adminproduct}/>}/>
        
 
 
