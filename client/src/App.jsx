@@ -18,7 +18,8 @@ import UserList from './admincomponents/UserList.jsx';
 import ProductList from './admincomponents/productList.jsx';
 import Detailsproducts from './admincomponents/detailsproduct.jsx'
 import Accessories from './components/Accessories.jsx';
-
+import Payment from './components/Payment.jsx';
+import SuccessPage from './components/SuccessPage.jsx';
 import Cart from './components/Cart.jsx';
 
 // Protected Route component
@@ -82,6 +83,8 @@ const App = () => {
         <Route path="/electronics/:id" element={<Detailsproduct />} />
         <Route path="/electronics" element={<Electronics prod={prod} setprod={setprod} cat={cat} />} />
         <Route path="/accessories" element={<Accessories  setprod={setprod}  />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/success" element={<SuccessPage />} />
         <Route path="/Dashboard/" element={<Dashboard setadminproduct={setadminproduct} />} >
         
         <Route path="user-list" element={<UserList  />} />
