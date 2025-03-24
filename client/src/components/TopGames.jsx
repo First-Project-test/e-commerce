@@ -10,84 +10,76 @@ const TopGames = () => {
   const [sortOption, setSortOption] = useState('rating')
   const navigate = useNavigate()
 
-  useEffect(() => {
-    const fetchGames = async () => {
-      try {
-        const response = await axios.get('http://localhost:2080/api/games')
-        console.log('Raw games data:', response.data)
-        
-        // Process images before setting games
-        const processedGames = response.data.map(game => {
-          console.log('Processing game:', {
-            id: game.id,
-            name: game.name,
-            rawImage: game.image,
-            imageType: typeof game.image
-          });
-          
-          return {
-            ...game,
-            image: processGameImage(game.image)
-          };
-        });
-        
-        console.log('Processed games:', processedGames);
-        setGames(processedGames)
-      } catch (error) {
-        console.error('Error fetching games:', error)
-      }
-    }
+  const sortGames = (games, option) => {
+    return [...games].sort((a, b) => {
+      if (option === 'price') return a.price - b.price
+      if (option === 'rating') return b.rating - a.rating
+      return 0
+    })
+  };
 
-    fetchGames()
-  }, [])
+const handleSortChange = (e) => {
+  setSortOption(e.target.value); // Update sort option
+  const sorted = sortGames(games, e.target.value); // Sort games dynamically
+  setGames(sorted);
+}
+
+useEffect(() => {
+  const fetchGames = async () => {
+    try {
+      const response = await axios.get('http://localhost:2080/api/games')
+      const processedGames = response.data.map((game) => ({
+        ...game,
+        image: processGameImage(game.image),
+      }));
+
+      const sorted = sortGames(processedGames, sortOption)
+      setGames(sorted);
+    } catch (error) {
+      console.error('Error',error)
+    }
+  };
+
+  fetchGames()
+}, [])
 
   // Helper function to process game images
   const processGameImage = (image) => {
-    console.log('Processing image input:', image);
+    console.log('Processing image input:', image)
     
     if (!image) {
-      console.log('No image provided, using placeholder');
-      return '/placeholder.jpg';
+      console.log('No image provided, using placeholder')
+      return '/placeholder.jpg'
     }
     
     try {
       // If image is a string that looks like an array, parse it
       if (typeof image === 'string') {
-        console.log('Image is string:', image);
+        console.log('Image is string:', image)
         if (image.startsWith('[')) {
-          console.log('Attempting to parse JSON array');
-          const parsed = JSON.parse(image);
-          const result = Array.isArray(parsed) ? parsed[0] : parsed;
-          console.log('Parsed result:', result);
-          return result;
+          console.log('Attempting to parse JSON array')
+          const parsed = JSON.parse(image)
+          const result = Array.isArray(parsed) ? parsed[0] : parsed
+          console.log('Parsed result:', result)
+          return result
         }
         // If it's a URL string, return it directly
-        return image;
+        return image
       }
       
       // If image is already an array, take first image
       if (Array.isArray(image)) {
-        console.log('Image is array:', image);
-        return image[0];
+        console.log('Image is array:', image)
+        return image[0]
       }
       
       // If image is a single string URL, use it directly
-      console.log('Using image directly:', image);
-      return image;
+      console.log('Using image directly:', image)
+      return image
     } catch (e) {
-      console.error('Error processing image:', e);
-      return '/placeholder.jpg';
+      console.error('Error processing image:', e)
+      return '/placeholder.jpg'
     }
-  }
-
-  const handleSortChange = (e) => {
-    setSortOption(e.target.value)
-    const sortedGames = [...games].sort((a, b) => {
-      if (e.target.value === 'price') return a.price - b.price
-      if (e.target.value === 'rating') return b.rating - a.rating
-      return 0
-    })
-    setGames(sortedGames)
   }
 
   const handleAddToCart = async (game) => {
@@ -99,7 +91,7 @@ const TopGames = () => {
         return
       }
 
-      console.log('Adding game to cart:', game); // Debug log
+      console.log('Adding game to cart:', game) // Debug log
 
       const response = await axios.post('http://localhost:2080/api/cart/add', {
         gameId: game.id || game._id, // Handle both Sequelize and MongoDB ID formats
@@ -110,15 +102,15 @@ const TopGames = () => {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
-      });
+      })
 
       if (response.status === 200) {
-        alert('Game added to cart successfully!');
+        alert('Game added to cart successfully!')
       }
     } catch (error) {
-      console.error('Error adding to cart:', error);
-      const errorMessage = error.response?.data?.message || 'Failed to add game to cart. Please try again.';
-      alert(errorMessage);
+      console.error('Error adding to cart:', error)
+      const errorMessage = error.response?.data?.message || 'Failed to add game to cart. Please try again.'
+      alert(errorMessage)
     }
   }
 
@@ -141,8 +133,8 @@ const TopGames = () => {
                   alt={game.name}
                   className="game-image"
                   onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = '/placeholder.jpg';
+                    e.target.onerror = null
+                    e.target.src = '/placeholder.jpg'
                   }}
                 />
                 <h2 className="game-title">{game.name}</h2>
