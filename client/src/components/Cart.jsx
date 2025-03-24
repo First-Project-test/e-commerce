@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../css/Cart.css';
 
-const Cart = () => {
+const Cart = ({setprod}) => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -12,6 +12,7 @@ const Cart = () => {
 
   useEffect(() => {
     fetchCartItems()
+    
   }, [])
 
   const fetchCartItems = async () => {
@@ -30,11 +31,14 @@ const Cart = () => {
       });
       console.log('Raw cart response:', response.data);
       setCartItems(response.data);
+      
     } catch (error) {
       console.error('Error fetching cart:', error);
       setError('Failed to load cart items');
     } finally {
+      
       setLoading(false);
+      
     }
   };
 

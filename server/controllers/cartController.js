@@ -170,21 +170,19 @@ const cartController = {
     // Remove item from cart
     removeFromCart: async (req, res) => {
         try {
-            const userId = req.user.userId; // Get user ID from authenticated user
-            const { cartItemId } = req.params;
+            const userId = req.user.userId; // 
+            const cartItemId  = req.params.id
 
-            const cartItem = await Cart.findOne({
+             await Cart.destroy({
                 where: {
-                    id: cartItemId,
+                    id: cartItemId, 
                     UserId: userId
                 }
             });
 
-            if (!cartItem) {
-                return res.status(404).json({ message: 'Cart item not found' });
-            }
+           
 
-            await cartItem.destroy();
+        
             res.status(200).json({ message: 'Item removed from cart successfully' });
         } catch (error) {
             res.status(500).json({ message: 'Error removing item from cart', error: error.message });
