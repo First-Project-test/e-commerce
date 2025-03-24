@@ -110,8 +110,14 @@ const Home = ({setcat}) => {
                 <button 
                   className="shop-now-btn" 
                   onClick={() => {
-                    category.name === 'Games' ? navigate('/games') : navigate(`/electronics`)
-                    setcat(category.id)
+                    if (category.name === 'Games') {
+                      navigate('/games');
+                    } else if (category.name === 'Accessories') {
+                      navigate('/accessories');
+                    } else {
+                      navigate('/electronics');
+                    }
+                    setcat(category.id);
                   }}
                 >
                   Shop Now

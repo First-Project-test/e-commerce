@@ -18,6 +18,9 @@ import UserList from './admincomponents/UserList.jsx';
 import ProductList from './admincomponents/productList.jsx';
 import Detailsproducts from './admincomponents/detailsproduct.jsx'
 import Accessories from './components/Accessories.jsx';
+
+import Cart from './components/Cart.jsx';
+
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('token');
@@ -31,7 +34,8 @@ const App = () => {
   const [prod, setprod] = useState({});
   const [cat,setcat]=useState("")
   const [adminproduct,setadminproduct]=useState({})
-  console.log(adminproduct);
+  console.log("prod",prod);
+  
   
   
 
@@ -81,16 +85,17 @@ const App = () => {
         
         <Route path="user-list" element={<UserList  />} />
         </Route>
+        <Route path="/cart/" element={<Cart setprod={setprod} /> } />
         <Route path="/product-list" element={<ProductList  />} />
 
-        <Route path='/admin-product/:id' element={<Detailsproducts el={adminproduct}/>}  />
+        <Route path='/admin-product/:id' element={<Detailsproducts el={adminproduct}/>}/>
        
 
 
       </Routes>
     </BrowserRouter>
-  );
-};
+  )
+}
 
 export default App;
 

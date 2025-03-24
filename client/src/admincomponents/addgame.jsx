@@ -16,6 +16,7 @@ function Addgame() {
 
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
+  const token=localStorage.getItem("token")
 
   useEffect(() => {
     // Fetch game categories when component mounts
@@ -55,7 +56,11 @@ function Addgame() {
     setLoading(true);
 
     try {
-      await axios.post('http://localhost:208/api/games', formData);
+      await axios.post('http://localhost:208/api/games', formData,{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       // Reset form
       setFormData({
         name: '',
