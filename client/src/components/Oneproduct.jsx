@@ -7,6 +7,8 @@ const OneProduct = ({ el, i, setprod }) => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const token = localStorage.getItem("token")
+  console.log(el.role);
+  
 
   const handleAddToCart = async () => {
     try {
@@ -18,8 +20,8 @@ const OneProduct = ({ el, i, setprod }) => {
 
       setLoading(true)
       const payload = el.role === "game" 
-        ? { gameId: el._id }
-        : { electronicsId: el._id }
+        ? { gameId: el.id }
+        : { electronicsId: el.id }
 
       const response = await axios.post(
         `http://localhost:2080/api/cart/add`,
@@ -49,6 +51,7 @@ const OneProduct = ({ el, i, setprod }) => {
       <img 
         onClick={() => {
           setprod(el)
+          localStorage.setItem("product", JSON.stringify(el))
           navigate(`/products/${i}`)
         }} 
         src={el.image[0]} 
@@ -58,6 +61,8 @@ const OneProduct = ({ el, i, setprod }) => {
         <h3 
           onClick={() => {
             setprod(el)
+            localStorage.setItem("product", JSON.stringify(el))
+            
             navigate(`/products/${i}`)
           }}
         >

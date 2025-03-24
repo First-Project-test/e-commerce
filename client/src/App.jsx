@@ -3,7 +3,7 @@ import Login from './login-and-signup/login';
 import Signup from './login-and-signup/signup';
 import Home from './components/Home';
 import GamesPage from './components/GamesPage.jsx';
-import Games from './components/Games.jsx';
+import Games from './components/games.jsx';
 import Electronics from './components/electronics.jsx';
 import AboutUs from './components/AboutUs';
 import './App.css';
@@ -84,7 +84,7 @@ const App = () => {
         <Route path="/products/:id" element={<Detailsproduct el={prod} />} />
         <Route path="/shop" element={<Products prod={prod} setprod={setprod} cat={cat} />} />
         <Route path="/games/:id" element={<Detailsproduct />} />
-        <Route path="/electronics/:id" element={<Detailsproduct />} />
+        <Route path="/product/:id" element={<Detailsproduct />} />
         <Route path="/electronics" element={<Electronics prod={prod} setprod={setprod} cat={cat} />} />
         <Route path="/accessories" element={<Accessories  setprod={setprod}  />} />
         <Route path="/payment" element={<Payment />} />
