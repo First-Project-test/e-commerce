@@ -14,6 +14,7 @@ function ProductList({setadminproduct}) {
     const[search,setsearch]=useState("")
     const[addgamehidden,setaddgamehideen]=useState(true)
     const[addelectronicc,setaddelectronic]=useState(true)
+    const[x,setx]=useState(false)
 
     useEffect(()=>(async()=>{
         try {
@@ -26,7 +27,7 @@ function ProductList({setadminproduct}) {
         } catch (error) {
             console.log(error)
         }
-    }),[])
+    }),[x])
 
     return (
         <div className="dashboard-content">
@@ -88,8 +89,15 @@ function ProductList({setadminproduct}) {
                                         <button 
                                             className="action-button delete"
                                             onClick={async()=>{
+                                                const token = localStorage.getItem('token')
                                                 try {
-                                                    await axios.delete(`http://localhost:2080/api/electronics/${el.id}`)
+                                                    await axios.delete(`http://localhost:2080/api/electronics/${el.id}`, {
+                                                        headers: {
+                                                          Authorization: `Bearer ${token}`
+                                                        }
+                                                      })
+                                                      setx(!x)
+
                                                 } catch (error) {
                                                     console.log(error)
                                                 }
@@ -101,6 +109,7 @@ function ProductList({setadminproduct}) {
                                             className="action-button"
                                             onClick={()=>{
                                                 navigate(`/admin-product/${el.id}`)
+                                                localStorage.setItem('product',JSON.stringify(el))
                                                 setadminproduct(el)
                                             }}
                                         >
@@ -161,8 +170,14 @@ function ProductList({setadminproduct}) {
                                         <button 
                                             className="action-button delete"
                                             onClick={async()=>{
+                                                const token = localStorage.getItem('token')
                                                 try {
-                                                    await axios.delete(`http://localhost:2080/api/games/${el.id}`)
+                                                    await axios.delete(`http://localhost:2080/api/games/${el.id}`, {
+                                                        headers: {
+                                                          Authorization: `Bearer ${token}`
+                                                        }
+                                                      })
+                                                      setx(!x)
                                                 } catch (error) {
                                                     console.log(error)
                                                 }

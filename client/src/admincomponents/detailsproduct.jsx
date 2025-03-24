@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import '../css/DetailsProduct.css'
 
-function Detailsproduct({el}) {
+function Detailsproduct() {
+    const el=JSON.parse(localStorage.getItem('product'))
     const [currentimage, setCurrentImage] = useState(null)
     const [rating, setrating] = useState(el.rating)
     const [price, setprice] = useState(el.price)
@@ -15,6 +16,7 @@ function Detailsproduct({el}) {
     const [hiddenrelease, sethiddenrelease] = useState(true)
     const [hiddendescription, sethiddendescription] = useState(true)
     const token = localStorage.getItem("token")
+
 
     useEffect(() => {
         if (el?.image?.length) {
@@ -29,7 +31,7 @@ function Detailsproduct({el}) {
 
     const handleUpdate = async (endpoint, data, setHidden) => {
         try {
-            await axios.put(`http://localhost:2080/api/${endpoint}/${el._id}`, data, {
+            await axios.put(`http://localhost:2080/api/${endpoint}/${el.id}`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -38,7 +40,7 @@ function Detailsproduct({el}) {
         } catch (error) {
             if (error.response?.status === 404) {
                 try {
-                    await axios.put(`http://localhost:2080/api/games/${el._id}`, data, {
+                    await axios.put(`http://localhost:2080/api/games/${el.id}`, data, {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }

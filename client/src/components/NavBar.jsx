@@ -21,7 +21,7 @@ function NavBar() {
             <a className="nav-link" href="/">Home</a>
             <a className="nav-link" href="/shop">Shop</a>
             <a className="nav-link" href="/categories">Categories</a>
-            <a hidden={!user.role==="admin"} className="nav-link" href="/Dashboard">Dashboard</a>
+            <a hidden={false} className="nav-link" href="/Dashboard">Dashboard</a>
           </div>
           <div className="d-flex align-items-center">
             <button className="btn btn-link position-relative me-3">
