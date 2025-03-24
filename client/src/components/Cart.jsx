@@ -207,7 +207,7 @@ const Cart = ({setprod}) => {
                   <div className="item-details">
                     <h3>{item.Game?item.Game.name:item.Electronic.name}</h3>
                     <p className="item-price">${item.Game?item.Game.price:item.Electronic.price}</p>
-                    <p className="item-quantity">Quantity: {item.Game?item.Game.quantity:item.Electronic.quantity}</p>
+                    <p className="item-quantity">Quantity: {item.quantity}</p>
                     <p className="item-total">Total: ${item.totalPrice}</p>
                   </div>
                   <div className="item-actions">

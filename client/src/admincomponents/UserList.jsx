@@ -42,8 +42,8 @@ function UserList() {
                         <th>Id</th>
                         <th>status</th>
                     </tr>
-                    {user.map((el) => (
-                        <tr>
+                    {user.map((el,i) => (
+                        <tr key={i} >
                             <th>{el.username}</th>
                             <th>{el.id}</th>
                             <th>{el.banned == true ? "banned" : "not-banned"}
