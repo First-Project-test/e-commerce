@@ -11,7 +11,6 @@ const connection = new Sequelize(
         logging: false
     }
 );
-/////
 
 // Test the connection
 const testConnection = async () => {
@@ -32,6 +31,7 @@ const Electronics = require('./electronics')(connection, DataTypes);
 const Category = require('./category')(connection, DataTypes);
 const Cart = require('./cart')(connection, DataTypes);
 const GameCategory = require('./gameCategory')(connection, DataTypes);
+const Accessories = require('./accessories')(connection, DataTypes)
 
 // Set up relationships
 User.hasMany(Electronics);
@@ -68,6 +68,16 @@ Cart.belongsTo(Electronics);
 
 Game.hasMany(Cart);
 Cart.belongsTo(Game);
+//Accessories relations ships
+User.hasMany(Accessories);
+Accessories.belongsTo(User);
+
+
+Category.hasMany(Accessories);
+Accessories.belongsTo(Category);
+
+
+
 
 // Sync database
 // connection.sync({ force: true });
@@ -81,5 +91,6 @@ module.exports = {
     Electronics, 
     Category, 
     Cart, 
-    GameCategory 
+    GameCategory,
+    Accessories 
 };

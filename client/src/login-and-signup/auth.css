@@ -1,0 +1,131 @@
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 2rem;
+}
+
+.auth-box {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-box h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.auth-form .form-group {
+    position: relative;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+}
+
+.auth-form input:focus {
+    outline: none;
+    border-color: #333;
+    background: white;
+    box-shadow: 0 4px 12px rgba(124, 92, 252, 0.15);
+}
+
+.auth-form input::placeholder {
+    color: #adb5bd;
+}
+
+.auth-button {
+    width: 100%;
+    padding: 1rem;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.auth-button:hover {
+    background: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(124, 92, 252, 0.2);
+}
+
+.auth-button:disabled {
+    background: #adb5bd;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.error-message {
+    color: #dc3545;
+    text-align: center;
+    margin: 0.5rem 0;
+    font-size: 0.875rem;
+}
+
+.auth-switch {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #6c757d;
+}
+
+.auth-link {
+    color: #333;
+    cursor: pointer;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.auth-link:hover {
+    color: #333;
+    text-decoration: underline;
+}
+
+/* Loading spinner */
+.spinner-border {
+    width: 1rem;
+    height: 1rem;
+    border-width: 0.15em;
+    margin-right: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .auth-box {
+        padding: 2rem;
+    }
+
+    .auth-box h2 {
+        font-size: 1.75rem;
+    }
+
+    .auth-form input {
+        padding: 0.875rem 1rem;
+    }
+}

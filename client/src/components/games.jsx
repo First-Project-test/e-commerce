@@ -25,7 +25,7 @@ function Games({setprod}) {
     }
 
     fetchGames()
-  }, [categoryId])
+  },[categoryId])
 
   return (
     <div className="games-container">

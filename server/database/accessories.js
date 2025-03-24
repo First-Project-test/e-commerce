@@ -1,7 +1,7 @@
 const { json } = require("sequelize");
 
 module.exports = (connection, DataTypes) => {
-    const Electronics = connection.define('Electronics', {
+    const Accessories = connection.define('Accessories', {
         name: {
             type: DataTypes.STRING,
             allowNull: false
@@ -30,12 +30,8 @@ module.exports = (connection, DataTypes) => {
             type:DataTypes.JSON,
             defaultValue:[],
             allowNull:true
-        },
-        role:{
-            type:DataTypes.STRING,
-            defaultValue:"electronic"
         }
     });
 
-    return Electronics;
+    return Accessories;
 };

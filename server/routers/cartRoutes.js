@@ -9,8 +9,8 @@ router.use(authMiddleware);
 // Cart routes
 router.post('/add', cartController.addToCart);
 router.get('/', cartController.getCart);
-router.put('/:id', cartController.updateCartItem);
-router.delete('/:id', cartController.removeFromCart);
+router.put('/:cartItemId', cartController.updateCartItem);
+router.delete('/:cartItemId', cartController.removeFromCart);
 router.delete('/', cartController.clearCart);
 
 module.exports = router; 

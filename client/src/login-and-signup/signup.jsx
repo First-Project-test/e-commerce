@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import '../login-and-signup/auth.css';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ const Signup = () => {
     confirmPassword: ''
   });
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,14 +21,16 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
   
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
+      setLoading(false);
       return;
     }
   
     try {
-      const response = await axios.post('http://localhost:3030/api/users/register', {
+      const response = await axios.post('http://localhost:2080/api/users/register', {
         email: formData.email,
         username: formData.username,
         password: formData.password
@@ -35,8 +39,10 @@ const Signup = () => {
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
       navigate('/');
-    } catch {
-      setError('Error during registration');
+    } catch (error) {
+      setError(error.response?.data?.message || 'Error during registration');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -86,10 +92,27 @@ const Signup = () => {
             />
           </div>
           {error && <p className="error-message">{error}</p>}
-          <button className="auth-button" type="submit">Sign Up</button>
+          <button 
+            type="submit" 
+            className="auth-button"
+            disabled={loading}
+          >
+            {loading ? (
+              <>
+                <span className="spinner-border" role="status" aria-hidden="true"></span>
+                Creating account...
+              </>
+            ) : 'Sign Up'}
+          </button>
         </form>
         <p className="auth-switch">
-          Already have an account? <span className="auth-link" onClick={() => navigate('/login')}>Login</span>
+          Already have an account?{' '}
+          <span 
+            className="auth-link"
+            onClick={() => navigate('/login')}
+          >
+            Login
+          </span>
         </p>
       </div>
     </div>
