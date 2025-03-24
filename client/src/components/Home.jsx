@@ -52,6 +52,8 @@ const Home = ({setcat}) => {
   const [currentImage, setCurrentImage] = useState(0);
   const [previousImage, setPreviousImage] = useState(carouselImages.length - 1);
 
+  const user=JSON.parse(localStorage.getItem('user'))
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       setPreviousImage(currentImage);
@@ -101,7 +103,7 @@ const Home = ({setcat}) => {
       </section>
 
       {/* Categories Section */}
-      <section className="categories-section">
+      <section hidden={!user} className="categories-section">
         <div className="categories-grid">
           {staticCategories.map((category) => (
             <div key={category.id} className="category-item">
@@ -130,7 +132,7 @@ const Home = ({setcat}) => {
         </div>
       </section>
       {/* Top Games Section */}
-      <section className="top-games-section">
+      <section hidden={!user} className="top-games-section">
         <TopGames />
       </section>
     </div>

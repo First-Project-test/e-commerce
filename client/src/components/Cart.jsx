@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../css/Cart.css';
 
-const Cart = ({setprod}) => {
+const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -69,83 +69,7 @@ const Cart = ({setprod}) => {
 
 
 
-  // Helper function to process images
-  const processImage = (image) => {
-    // console.log('Processing cart image input:', image);
-    
-    if (!image) {
-      // console.log('No cart image provided, using placeholder');
-      return '/placeholder.jpg';
-    }
-    
-    try {
-      // If image is a string that looks like an array, parse it
-      if (typeof image === 'string') {
-        // console.log('Cart image is string:', image);
-        if (image.startsWith('[')) {
-          // console.log('Attempting to parse JSON array');
-          const parsed = JSON.parse(image);
-          const result = Array.isArray(parsed) ? parsed[0]:parsed;
-          // console.log('Parsed result:', result);
-          return result;
-        }
-        // If it's a URL string, return it directly
-        return image;
-      }
-      
-      // If image is already an array, take first image
-      if (Array.isArray(image)) {
-        // console.log('Cart image is array:', image);
-        return image[0];
-      }
-      
-      // If image is a single string URL, use it directly
-      // console.log('Using cart image directly:', image);
-      return image;
-    } catch (e) {
-      console.error('Error processing cart image:', e);
-      return '/placeholder.jpg';
-    }
-  }
-
-  const getItemDetails = (cartItem) => {
-    // console.log('Processing cart item:', cartItem);
-    const product = cartItem.Game || cartItem.Electronics;
-    // console.log('Product from cart item:', product);
-    
-    if (!product) {
-      // console.log('No product found in cart item');
-      return {
-        id: cartItem.id,
-        name: 'Unknown Product',
-        price: 0,
-        image: '/placeholder.jpg',
-        quantity: cartItem.quantity || 0,
-        totalPrice: cartItem.totalPrice || 0
-      };
-    }
-
-    // Get the first image from the array or use the single image
-    let imageUrl = '/placeholder.jpg';
-    if (product.image) {
-      if (Array.isArray(product.image)) {
-        imageUrl = product.image[0];
-      } else if (typeof product.image === 'string') {
-        imageUrl = product.image;
-      }
-    }
-
-    // console.log('Using image URL:', imageUrl);
-
-    return {
-      id: cartItem.id,
-      name: product.name,
-      price: product.price,
-      image: imageUrl,
-      quantity: cartItem.quantity || 0,
-      totalPrice: cartItem.totalPrice || 0
-    };
-  };
+ 
 
   const calculateTotal = () => {
     return cartItems.reduce((total, item) => total + Number(item.totalPrice || 0), 0);
