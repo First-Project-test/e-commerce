@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Login from './login-and-signup/login';
 import Signup from './login-and-signup/signup';
 import Home from './components/Home';
-import GamesPage from './components/GamesPage';
-import Games from './components/games.jsx';
+import GamesPage from './components/GamesPage.jsx';
+import Games from './components/Games.jsx';
 import Electronics from './components/electronics.jsx';
 import AboutUs from './components/AboutUs';
 import './App.css';
@@ -13,23 +13,25 @@ import Detailsproduct from './components/detailsproduct.jsx'
 import TopGames from './components/TopGames.jsx';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import NavBar from './components/NavBar.jsx';
+import ScrollToTop from './components/ScrollToTop.jsx';
 
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token')
   if (!token) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/login" />
   }
-  return children;
-};
+  return children
+}
 
 const App = () => {
-  const [prod, setprod] = useState({});
+  const [prod, setprod] = useState({})
   const [cat,setcat]=useState("")
 
   return (
   
     <BrowserRouter>
+    <ScrollToTop/>
     <NavBar/>
       <Routes>
         <Route path="/login" element={<Login />} />
@@ -40,14 +42,11 @@ const App = () => {
             <Home setcat={setcat} />
           </ProtectedRoute>
         } />
-        <Route 
-          path="/games" 
-          element={
-            <ProtectedRoute>
-              <GamesPage setcat={setcat} />
-            </ProtectedRoute>
-          } 
-        />
+        
+        <Route path="/games" element={<GamesPage  setcat={setcat} />} />
+        <Route path="/games/all" element={<Games setprod={setprod} />} />
+        <Route path="/games/:categoryId" element={<Games setprod={setprod} cat={cat} />} />
+  
         <Route 
           path="/top-games" 
           element={
@@ -71,8 +70,8 @@ const App = () => {
 
       </Routes>
     </BrowserRouter>
-  );
-};
+  )
+}
 
 export default App;
 

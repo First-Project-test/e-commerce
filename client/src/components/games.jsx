@@ -1,35 +1,37 @@
-import React, { useEffect, useState } from 'react'
-import Oneproduct from './Oneproduct'
-import axios from 'axios'
-import '../css/Games.css'
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import Oneproduct from './Oneproduct';
+import axios from 'axios';
+import '../css/Games.css';
 
-function Games({setprod,cat}) {
-        const [products,setproducts]=useState([])
+function Games({setprod}) {
+  const { categoryId } = useParams()
+  const [games, setGames] = useState([])
 
-
-    useEffect(()=>(async()=>{
-        try {
-          
-            let d= await axios.get(`http://localhost:2080/api/games`)
-            console.log(d);
-            console.log("cat",cat);
-            
-            setproducts(d.data)
-    
-            
-
-            // will be filtered later according to our needs
-
-            
-        } catch (error) {
-            console.log(error)
+  useEffect(() => {
+    const fetchGames = async () => {
+      try {
+        let response
+        if (categoryId) {
+          response = await axios.get(`http://localhost:2080/api/games/category/${categoryId}`)
+        } else {
+          response = await axios.get(`http://localhost:2080/api/games`)
         }
-}),[])
+        console.log("Games data:",response.data)
+        setGames(response.data)
+      } catch (error) {
+        console.error('Error fetching games:',error)
+      }
+    }
+
+    fetchGames()
+  }, [categoryId])
+
   return (
     <div className="games-container">
       <div className="games-content">
-        {products.filter((e)=>e.ElectronicId===cat.id).map((el,i)=>(
-          <div key={i} >
+        {games.map((el, i) => (
+          <div key={i}>
             <Oneproduct el={el} i={i} setprod={setprod} />
           </div>
         ))}
@@ -38,4 +40,18 @@ function Games({setprod,cat}) {
   )
 }
 
-export default Games
+export default Games;
+
+
+
+
+
+
+
+
+
+
+
+
+
+

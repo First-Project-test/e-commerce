@@ -1,6 +1,6 @@
 import React from 'react';
 import '../css/NavBar.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 
 function NavBar() {
   const navigate = useNavigate()
@@ -11,6 +11,7 @@ function NavBar() {
           <div className="navbar-nav mx-auto">
             <a className="nav-link" href="/">Home</a>
             <a className="nav-link" href="/shop">Shop</a>
+       {/* <Link to="/games">Games</Link> */}
             <a className="nav-link" href="/categories">Categories</a>
           </div>
           <div className="d-flex align-items-center">
