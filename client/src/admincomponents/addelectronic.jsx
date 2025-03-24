@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../css/Dashboard.css';
 
 function Addelectronic() {
   const [formData, setFormData] = useState({
@@ -18,7 +19,6 @@ function Addelectronic() {
   const token=localStorage.getItem("token")
 
   useEffect(() => {
-   
     fetchCategories();
   }, []);
 
@@ -48,7 +48,6 @@ function Addelectronic() {
         formData.append("images", file);
       });
 
-      // Send the images to Cloudinary for upload
       const response = await fetch("http://localhost:2080/api/cloudinary/upload-multiple", {
         method: "POST",
         body: formData
@@ -59,7 +58,7 @@ function Addelectronic() {
       const data = await response.json();
       setFormData(prev => ({
         ...prev,
-        image: data.urls // Store the uploaded image URLs in state
+        image: data.urls
       }));
     } catch (error) {
       console.error("Upload Error:", error.message);
@@ -76,7 +75,6 @@ function Addelectronic() {
           Authorization: `Bearer ${token}`
         }
       });
-      // Reset form
       setFormData({
         name: '',
         release: '',
@@ -95,35 +93,32 @@ function Addelectronic() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold mb-6 text-center">Add New Electronic Item</h2>
-      
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Name</label>
+    <div className="add-product-form">
+      <h2>Add New Electronic Item</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Name</label>
           <input
             type="text"
             name="name"
             value={formData.name}
             onChange={handleChange}
             required
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Release Date</label>
+        <div className="form-group">
+          <label>Release Date</label>
           <input
             type="date"
             name="release"
             value={formData.release}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Quantity</label>
+        <div className="form-group">
+          <label>Quantity</label>
           <input
             type="number"
             name="quantity"
@@ -131,12 +126,11 @@ function Addelectronic() {
             onChange={handleChange}
             required
             min="0"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Price</label>
+        <div className="form-group">
+          <label>Price</label>
           <input
             type="number"
             name="price"
@@ -145,12 +139,11 @@ function Addelectronic() {
             required
             min="0"
             step="0.01"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Rating</label>
+        <div className="form-group">
+          <label>Rating</label>
           <input
             type="number"
             name="rating"
@@ -158,17 +151,15 @@ function Addelectronic() {
             onChange={handleChange}
             min="0"
             max="100"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Category</label>
+        <div className="form-group">
+          <label>Category</label>
           <select
             name="CategoryId"
             value={formData.CategoryId}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
           >
             <option value="">Select a category</option>
             {categories.map(category => (
@@ -179,34 +170,31 @@ function Addelectronic() {
           </select>
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Description</label>
+        <div className="form-group">
+          <label>Description</label>
           <textarea
             name="description"
             value={formData.description}
             onChange={handleChange}
             required
             rows="4"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Images</label>
+        <div className="form-group">
+          <label>Images</label>
           <input
             type="file"
             multiple
             accept="image/*"
             onChange={handleImageChange}
-            className="mt-1 block w-full"
           />
-          <div className="mt-2 flex gap-2">
+          <div className="image-preview">
             {formData.image.map((url, index) => (
               <img
                 key={index}
                 src={url}
                 alt={`Uploaded Preview ${index + 1}`}
-                className="h-20 w-20 object-cover rounded"
               />
             ))}
           </div>
@@ -215,7 +203,7 @@ function Addelectronic() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50"
+          className="submit-button"
         >
           {loading ? 'Adding...' : 'Add Electronic Item'}
         </button>
@@ -224,4 +212,4 @@ function Addelectronic() {
   );
 }
 
-export default Addelectronic;
+export default Addelectronic; 

@@ -5,91 +5,142 @@
 }
 
 .top-games {
-    padding: 40px 20px;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 2rem;
     width: 100%;
 }
 
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
+    margin-bottom: 2rem;
+    text-align: center;
 }
 
 .header h1 {
-    font-size: 32px;
+    font-size: 2rem;
     color: #333;
-    margin: 0;
+    margin-bottom: 1rem;
 }
 
 .sort-dropdown {
-    padding: 8px 16px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 20px;
+    background: #f8f9fa;
     color: #333;
-    background-color: #fff;
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sort-dropdown:hover {
+    background: #333;
+    color: white;
 }
 
 .games-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 1rem 0;
 }
 
 .game-card {
-    background: #fff;
-    border-radius: 8px;
+    animation: fadeIn 0.5s ease-in-out;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .game-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .game-image {
-    width: 270px;
-    height: 150px;
+    width: 100%;
+    height: 200px;
     object-fit: cover;
 }
 
 .game-title {
-    padding: 15px;
-    margin: 0;
-    font-size: 18px;
+    padding: 1rem;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.2rem;
     color: #333;
 }
 
 .game-price {
-    padding: 0 15px;
-    margin: 0;
-    font-size: 20px;
-    color: #007bff;
-    font-weight: bold;
+    padding: 0 1rem;
+    margin: 0 0 1rem 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #7C5CFC;
 }
 
 .game-rating {
-    padding: 0 15px 15px;
-    margin: 0;
-    font-size: 14px;
+    padding: 0 1rem;
+    margin: 0 0 1rem 0;
     color: #666;
+}
+
+.add-to-cart-btn {
+    width: calc(100% - 2rem);
+    margin: 0 1rem 1rem;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 8px;
+    background: #333;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+    background: #333;
+}
+
+.add-to-cart-btn:active {
+    transform: scale(0.98);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
+    .top-games {
+        padding: 1rem;
+    }
+
+    .header h1 {
+        font-size: 1.5rem;
     }
 
     .games-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+
+    .game-image {
+        height: 180px;
+    }
+
+    .sort-dropdown {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
     }
 }

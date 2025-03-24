@@ -1,59 +1,87 @@
 .details-container {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 2rem auto;
   padding: 2rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  gap: 3rem;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .product-image {
   width: 100%;
-  border-radius: 10px;
+  height: 500px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: #f8f9fa;
+  position: relative;
 }
 
 .main-image {
   width: 100%;
-  height: auto;
-  object-fit: cover;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.main-image:hover {
+  transform: scale(1.05);
 }
 
 .product-info {
-  padding: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .product-title {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: bold;
-  margin-bottom: 1.5rem;
-  color: #333;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  line-height: 1.2;
 }
 
 .info-section {
-  margin-bottom: 1.5rem;
-  padding: 1rem;
   background: #f8f9fa;
-  border-radius: 8px;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
   position: relative;
+  margin-bottom: 1rem;
+}
+
+.info-section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .info-label {
-  font-size: 1.1rem;
-  color: #555;
+  font-size: 1.2rem;
+  color: #2c3e50;
   margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
 }
 
+/* Admin edit controls */
 .modify-btn {
   background: #007bff;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  margin-left: 1rem;
-  transition: background-color 0.3s ease;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  float: right;
 }
 
 .modify-btn:hover {
@@ -62,14 +90,18 @@
 
 .edit-input {
   width: 100%;
-  padding: 0.5rem;
-  margin: 0.5rem 0;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 0.8rem;
+  margin: 0.8rem 0;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: white;
 }
 
-.edit-input.hidden {
-  display: none;
+.edit-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+  outline: none;
 }
 
 .save-btn {
@@ -77,45 +109,153 @@
   color: white;
   border: none;
   padding: 0.5rem 1rem;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+  width: auto;
+  display: inline-block;
 }
 
 .save-btn:hover {
   background: #218838;
 }
 
-/* Specific sections styling */
+/* Section-specific styles */
+.price-section {
+  background: #f0fff4;
+}
+
 .price-section .info-label {
   color: #28a745;
   font-weight: bold;
+}
+
+.rating-section {
+  background: #fff8e5;
 }
 
 .rating-section .info-label {
   color: #ffc107;
 }
 
+.description-section {
+  background: #f8f9fa;
+}
+
+.description-section .info-label {
+  color: #6c757d;
+}
+
+.release-section {
+  background: #e3f2fd;
+}
+
+.release-section .info-label {
+  color: #0d6efd;
+}
+
+.quantity-section {
+  background: #e3f2fd;
+}
+
 .quantity-section .info-label {
   color: #17a2b8;
 }
 
+/* Cancel button */
+.cancel-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  float: right;
+}
+
+.cancel-btn:hover {
+  background: #c82333;
+}
+
+/* Input field containers */
+.edit-container {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.button-group {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+
+/* Loading and error states */
+.loading-spinner {
+  grid-column: span 2;
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.2rem;
+  color: #6c757d;
+}
+
+.error-message {
+  grid-column: span 2;
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.2rem;
+  color: #dc3545;
+  background: #f8d7da;
+  border-radius: 8px;
+}
+
+/* Responsive design */
 @media (max-width: 768px) {
   .details-container {
     grid-template-columns: 1fr;
     padding: 1rem;
+    margin: 1rem;
+    gap: 2rem;
+  }
+
+  .product-image {
+    height: 300px;
   }
 
   .product-title {
-    font-size: 1.5rem;
+    font-size: 2rem;
+  }
+
+  .product-info {
+    padding: 1rem;
+    gap: 1rem;
   }
 
   .info-section {
-    padding: 0.75rem;
+    padding: 1rem;
   }
 
-  .modify-btn, .save-btn {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.9rem;
+  .info-label {
+    font-size: 1.1rem;
+    flex-direction: column;
+    align-items: flex-start;
   }
-} 
+
+  .modify-btn,
+  .cancel-btn,
+  .save-btn {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+}

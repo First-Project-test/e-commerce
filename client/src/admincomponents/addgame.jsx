@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../css/Dashboard.css';
 
 function Addgame() {
   const [formData, setFormData] = useState({
@@ -19,7 +20,6 @@ function Addgame() {
   const token=localStorage.getItem("token")
 
   useEffect(() => {
-    // Fetch game categories when component mounts
     fetchCategories();
   }, []);
 
@@ -40,8 +40,6 @@ function Addgame() {
     }));
   };
 
-  //badel feha hethi
-
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
     const imageUrls = files.map(file => URL.createObjectURL(file));
@@ -61,7 +59,6 @@ function Addgame() {
           Authorization: `Bearer ${token}`
         }
       });
-      // Reset form
       setFormData({
         name: '',
         releaseDate: '',
@@ -81,36 +78,34 @@ function Addgame() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold mb-6 text-center">Add New Game</h2>
+    <div className="add-product-form">
+      <h2>Add New Game</h2>
       
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Name</label>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Name</label>
           <input
             type="text"
             name="name"
             value={formData.name}
             onChange={handleChange}
             required
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Release Date</label>
+        <div className="form-group">
+          <label>Release Date</label>
           <input
             type="date"
             name="releaseDate"
             value={formData.releaseDate}
             onChange={handleChange}
             required
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Quantity</label>
+        <div className="form-group">
+          <label>Quantity</label>
           <input
             type="number"
             name="quantity"
@@ -118,12 +113,11 @@ function Addgame() {
             onChange={handleChange}
             required
             min="0"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Price</label>
+        <div className="form-group">
+          <label>Price</label>
           <input
             type="number"
             name="price"
@@ -132,12 +126,11 @@ function Addgame() {
             required
             min="0"
             step="0.01"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Rating</label>
+        <div className="form-group">
+          <label>Rating</label>
           <input
             type="number"
             name="rating"
@@ -146,18 +139,16 @@ function Addgame() {
             min="0"
             max="5"
             step="0.1"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Category</label>
+        <div className="form-group">
+          <label>Category</label>
           <select
             name="GameCategoryId"
             value={formData.GameCategoryId}
             onChange={handleChange}
             required
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
           >
             <option value="">Select a category</option>
             {categories.map(category => (
@@ -168,34 +159,31 @@ function Addgame() {
           </select>
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Description</label>
+        <div className="form-group">
+          <label>Description</label>
           <textarea
             name="description"
             value={formData.description}
             onChange={handleChange}
             required
             rows="4"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Images</label>
+        <div className="form-group">
+          <label>Images</label>
           <input
             type="file"
             multiple
             accept="image/*"
             onChange={handleImageChange}
-            className="mt-1 block w-full"
           />
-          <div className="mt-2 flex gap-2">
+          <div className="image-preview">
             {formData.image.map((url, index) => (
               <img
                 key={index}
                 src={url}
                 alt={`Preview ${index + 1}`}
-                className="h-20 w-20 object-cover rounded"
               />
             ))}
           </div>
@@ -204,7 +192,7 @@ function Addgame() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50"
+          className="submit-button"
         >
           {loading ? 'Adding...' : 'Add Game'}
         </button>
