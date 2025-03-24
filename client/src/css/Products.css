@@ -127,12 +127,6 @@
   padding: 0 20px;
 }
 
-.search-container {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 0 20px;
-}
-
 .search-wrapper {
   position: relative;
   width: 100%;
@@ -146,7 +140,7 @@
   border-radius: 50px;
   background-color: white;
   transition: all 0.3s ease;
-  padding-right: 50px;
+  padding-right: 50px; 
 }
 
 .search-input:focus {
@@ -162,6 +156,7 @@
 .search-button {
   position: absolute;
   right: 5px;
+  left: 80%;
   top: 50%;
   transform: translateY(-50%);
   background: none;
