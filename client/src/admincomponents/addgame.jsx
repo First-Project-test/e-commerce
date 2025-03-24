@@ -17,7 +17,7 @@ function Addgame() {
 
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
-  const token=localStorage.getItem("token")
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     fetchCategories();
@@ -40,13 +40,31 @@ function Addgame() {
     }));
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const files = Array.from(e.target.files);
-    const imageUrls = files.map(file => URL.createObjectURL(file));
-    setFormData(prev => ({
-      ...prev,
-      image: imageUrls
-    }));
+    if (files.length === 0) return;
+    
+    try {
+      const formData = new FormData();
+      files.forEach((file) => {
+        formData.append("images", file);
+      });
+
+      const response = await fetch("http://localhost:2080/api/cloudinary/upload-multiple", {
+        method: "POST",
+        body: formData
+      });
+
+      if (!response.ok) throw new Error("Failed to upload images");
+
+      const data = await response.json();
+      setFormData(prev => ({
+        ...prev,
+        image: [...prev.image, ...data.urls]
+      }));
+    } catch (error) {
+      console.error("Upload Error:", error.message);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -54,7 +72,7 @@ function Addgame() {
     setLoading(true);
 
     try {
-      await axios.post('http://localhost:208/api/games', formData,{
+      await axios.post('http://localhost:2080/api/games', formData, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -80,7 +98,6 @@ function Addgame() {
   return (
     <div className="add-product-form">
       <h2>Add New Game</h2>
-      
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Name</label>
