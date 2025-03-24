@@ -74,7 +74,8 @@ const App = () => {
         />
         <Route path="/products/:id" element={<Detailsproduct el={prod} />} />
         <Route path="/shop" element={<Products prod={prod} setprod={setprod} cat={cat} />} />
-        <Route path="/games/:id" element={<Games prod={prod} setprod={setprod} cat={cat} />} />
+        <Route path="/games/:id" element={<Detailsproduct />} />
+        <Route path="/electronics/:id" element={<Detailsproduct />} />
         <Route path="/electronics" element={<Electronics prod={prod} setprod={setprod} cat={cat} />} />
         <Route path="/Dashboard/" element={<Dashboard setadminproduct={setadminproduct} />} >
         

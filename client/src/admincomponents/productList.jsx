@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import Addgame from './addgame'
 import Addelectronic from './addelectronic'
+import '../css/Dashboard.css'
 
 function ProductList({setadminproduct}) {
     
@@ -16,115 +17,177 @@ function ProductList({setadminproduct}) {
 
     useEffect(()=>(async()=>{
         try {
-  let data = await axios.get(`http://localhost:2080/api/electronics`)
+            let data = await axios.get(`http://localhost:2080/api/electronics`)
             let datag = await axios.get(`http://localhost:2080/api/games`)
             let d = data.data.electronics.concat(datag.data)
-            console.log(d);
-            console.log(data.data.electronics);
-            console.log(datag.data);
             setproducts(d)
             setgames(datag.data)
             setelectronic(data.data.electronics)
-
- } catch (error) {
+        } catch (error) {
             console.log(error)
         }
-}),[])
+    }),[])
 
-//after search is the add
-  return (
-    
-    <div className='produclist' >
-        <input type="text" placeholder='Search' onChange={(e)=>setsearch(e.target.value)} />
-
-        <div className='electronics'>
-                <h1>electrincs</h1>
-                <button onClick={()=>(setaddelectronic(!addelectronicc))}>add Electronic</button>
-            <div hidden={addelectronicc}>
-                <Addelectronic/>
+    return (
+        <div className="dashboard-content">
+            <div className="dashboard-header">
+                <h1>Product Management</h1>
+                <div className="search-input">
+                    <input 
+                        type="text" 
+                        placeholder='Search products...' 
+                        onChange={(e)=>setsearch(e.target.value)} 
+                    />
+                </div>
             </div>
-            <table>
 
-                <tbody>
-
-
-            <tr>
-                <th>Name</th>
-                <th>Id</th>
-                <th>quantity</th>
-                <th>price</th>
-                <th>description</th>
-            </tr>
-            {electronic.filter((e)=>e.name.toLowerCase().includes(search.toLowerCase())).map((el,i)=>(
-            <tr key={i}>
-                <th>{el.name}</th>
-                <th>{el.id}</th>
-                <th>{el.quantity}</th>
-                <th>{el.price}</th>
-                <th>{el.description}</th>
-                <th><button onClick={async()=>{
-                    try {
-                        await axios.delete(`http://localhost:2080/api/electronics/${el.id}`)
-                    } catch (error) {
-                        
-                    }
-                }}>delete</button></th>
-                <th><button onClick={()=>{
-                    navigate(`/admin-product/${el.id}`)
-                    setadminproduct(el)
-            }}>update</button></th>
-            </tr>
-            ))}
-                </tbody>
-            </table>
-
-
-        </div>
-        <div className='games'>
-            <h1>games</h1>
-            <button onClick={()=>(setaddgamehideen(!addgamehidden))}>add Game</button>
-            <div hidden={addgamehidden}>
-                <Addgame/>
+            <div className="dashboard-section">
+                <div className="section-header">
+                    <h2>Electronics</h2>
+                    <button 
+                        className="action-button"
+                        onClick={()=>(setaddelectronic(!addelectronicc))}
+                    >
+                        Add Electronic
+                    </button>
+                </div>
+                <div hidden={addelectronicc}>
+                    <Addelectronic/>
+                </div>
+                <div className="dashboard-table-container">
+                    <table className="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Id</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {electronic.filter((e)=>e.name.toLowerCase().includes(search.toLowerCase())).map((el,i)=>(
+                                <tr key={i}>
+                                    <td>
+                                        <div className="product-image-cell">
+                                            <img 
+                                                src={el.image[0]} 
+                                                alt={el.name}
+                                                className="product-table-image"
+                                            />
+                                        </div>
+                                    </td>
+                                    <td>{el.name}</td>
+                                    <td>{el.id}</td>
+                                    <td>{el.quantity}</td>
+                                    <td>${el.price}</td>
+                                    <td>{el.description}</td>
+                                    <td>
+                                        <button 
+                                            className="action-button delete"
+                                            onClick={async()=>{
+                                                try {
+                                                    await axios.delete(`http://localhost:2080/api/electronics/${el.id}`)
+                                                } catch (error) {
+                                                    console.log(error)
+                                                }
+                                            }}
+                                        >
+                                            Delete
+                                        </button>
+                                        <button 
+                                            className="action-button"
+                                            onClick={()=>{
+                                                navigate(`/admin-product/${el.id}`)
+                                                setadminproduct(el)
+                                            }}
+                                        >
+                                            Update
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        <table>
-            <tbody>
 
-            <tr>
-                <th>Name</th>
-                <th>Id</th>
-                <th>quantity</th>
-                <th>price</th>
-                <th>description</th>
-               
-                
-            </tr>
-            {games.filter((e)=>e.name.toLowerCase().includes(search.toLowerCase())).map((el,i)=>(
-            <tr key={i}>
-                <th>{el.name}</th>
-                <th>{el.id}</th>
-                <th>{el.quantity}</th>
-                <th>{el.price}</th>
-                <th>{el.description}</th>
-                <th><button onClick={async()=>{
-                    try {
-                        await axios.delete(`http://localhost:2080/api/games/${el.id}`)
-                    } catch (error) {
-                        
-                    }
-                }}>delete</button></th>
-                 <th><button onClick={()=>{
-                    navigate(`/admin-product/${el.id}`)
-                    setadminproduct(el)
-            }}>update</button></th>
-            </tr>
-            ))}
-            </tbody>
-            </table>
-
+            <div className="dashboard-section">
+                <div className="section-header">
+                    <h2>Games</h2>
+                    <button 
+                        className="action-button"
+                        onClick={()=>(setaddgamehideen(!addgamehidden))}
+                    >
+                        Add Game
+                    </button>
+                </div>
+                <div hidden={addgamehidden}>
+                    <Addgame/>
+                </div>
+                <div className="dashboard-table-container">
+                    <table className="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Id</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {games.filter((e)=>e.name.toLowerCase().includes(search.toLowerCase())).map((el,i)=>(
+                                <tr key={i}>
+                                    <td>
+                                        <div className="product-image-cell">
+                                            <img 
+                                                src={el.image[0]} 
+                                                alt={el.name}
+                                                className="product-table-image"
+                                            />
+                                        </div>
+                                    </td>
+                                    <td>{el.name}</td>
+                                    <td>{el.id}</td>
+                                    <td>{el.quantity}</td>
+                                    <td>${el.price}</td>
+                                    <td>{el.description}</td>
+                                    <td>
+                                        <button 
+                                            className="action-button delete"
+                                            onClick={async()=>{
+                                                try {
+                                                    await axios.delete(`http://localhost:2080/api/games/${el.id}`)
+                                                } catch (error) {
+                                                    console.log(error)
+                                                }
+                                            }}
+                                        >
+                                            Delete
+                                        </button>
+                                        <button 
+                                            className="action-button"
+                                            onClick={()=>{
+                                                navigate(`/admin-product/${el.id}`)
+                                                setadminproduct(el)
+                                            }}
+                                        >
+                                            Update
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-      
-    </div>
-  )
+    )
 }
 
 export default ProductList
