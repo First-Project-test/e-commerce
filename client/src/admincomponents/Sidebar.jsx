@@ -4,20 +4,31 @@ import { useNavigate } from 'react-router-dom'
 function Sidebar({setisuserlist,setisproductlist}) {
     const navigate=useNavigate()
   return (
-    <div>
-      <h3 onClick={()=>navigate('/')}>Home</h3>
-      <h3 onClick={()=>{
-        // navigate("user-list")
-        setisproductlist(true)
+    <div className="sidebar-menu">
+      <button 
+        className="action-button"
+        onClick={()=>navigate('/')}
+      >
+        Home
+      </button>
+      <button 
+        className="action-button"
+        onClick={()=>{
+          setisproductlist(true)
           setisuserlist(false)
-    }
-        }>Users</h3>
-      <h3 onClick={()=>{
-          // navigate("/product-list")
+        }}
+      >
+        Users
+      </button>
+      <button 
+        className="action-button"
+        onClick={()=>{
           setisproductlist(false)
           setisuserlist(true)
-      }
-        }>Products</h3>
+        }}
+      >
+        Products
+      </button>
     </div>
   )
 }

@@ -4,22 +4,54 @@ const cartController = {
     // Get user's cart
     getCart: async (req, res) => {
         try {
-            const userId = req.user.userId; // Get user ID from authenticated user
+            const userId = req.user.userId;
 
             const cartItems = await Cart.findAll({
                 where: { UserId: userId },
                 include: [
                     {
-                        model: Game
+                        model: Game,
+                        attributes: ['id', 'name', 'price', 'description', 'image']
                     },
                     {
-                        model: Electronics
+                        model: Electronics,
+                        attributes: ['id', 'name', 'price', 'description', 'image']
                     }
                 ]
             });
 
-            res.status(200).json(cartItems);
+            // Process the cart items to ensure image data is properly formatted
+            const processedCartItems = cartItems.map(item => {
+                const plainItem = item.get({ plain: true });
+                
+                // Process game image if present
+                if (plainItem.Game && plainItem.Game.image) {
+                    try {
+                        if (typeof plainItem.Game.image === 'string' && plainItem.Game.image.startsWith('[')) {
+                            plainItem.Game.image = JSON.parse(plainItem.Game.image);
+                        }
+                    } catch (e) {
+                        console.error('Error parsing game image:', e);
+                    }
+                }
+                
+                // Process electronics image if present
+                if (plainItem.Electronics && plainItem.Electronics.image) {
+                    try {
+                        if (typeof plainItem.Electronics.image === 'string' && plainItem.Electronics.image.startsWith('[')) {
+                            plainItem.Electronics.image = JSON.parse(plainItem.Electronics.image);
+                        }
+                    } catch (e) {
+                        console.error('Error parsing electronics image:', e);
+                    }
+                }
+                
+                return plainItem;
+            });
+
+            res.status(200).json(processedCartItems);
         } catch (error) {
+            console.error('Error in getCart:', error);
             res.status(500).json({ message: 'Error fetching cart', error: error.message });
         }
     },
@@ -85,7 +117,7 @@ const cartController = {
                     UserId: userId,
                     itemType: itemType,
                     GameId: gameId,
-                    ElectronicId: electronicsId,
+                    ElectronicsId: electronicsId,
                     quantity: quantity,
                     totalPrice: item.price * quantity
                 });
@@ -93,6 +125,7 @@ const cartController = {
 
             res.status(200).json({ message: 'Item added to cart successfully' });
         } catch (error) {
+            console.error('Cart error:', error);
             res.status(500).json({ message: 'Error adding item to cart', error: error.message });
         }
     },

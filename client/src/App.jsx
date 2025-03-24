@@ -17,7 +17,10 @@ import Dashboard from './admincomponents/Dashboard.jsx';
 import UserList from './admincomponents/UserList.jsx';
 import ProductList from './admincomponents/productList.jsx';
 import Detailsproducts from './admincomponents/detailsproduct.jsx'
+import Accessories from './components/Accessories.jsx';
+
 import Cart from './components/Cart.jsx';
+
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('token');
@@ -75,8 +78,10 @@ const App = () => {
         />
         <Route path="/products/:id" element={<Detailsproduct el={prod} />} />
         <Route path="/shop" element={<Products prod={prod} setprod={setprod} cat={cat} />} />
-        <Route path="/games/:id" element={<Games prod={prod} setprod={setprod} cat={cat} />} />
+        <Route path="/games/:id" element={<Detailsproduct />} />
+        <Route path="/electronics/:id" element={<Detailsproduct />} />
         <Route path="/electronics" element={<Electronics prod={prod} setprod={setprod} cat={cat} />} />
+        <Route path="/accessories" element={<Accessories  setprod={setprod}  />} />
         <Route path="/Dashboard/" element={<Dashboard setadminproduct={setadminproduct} />} >
         
         <Route path="user-list" element={<UserList  />} />

@@ -65,7 +65,7 @@
   padding: 0.75rem;
   border: none;
   border-radius: 8px;
-  background: #7C5CFC;
+  background: #333;
   color: white;
   font-weight: 500;
   cursor: pointer;
@@ -73,7 +73,7 @@
 }
 
 .product-item button:hover {
-  background: #6344e6;
+  background: #333;
 }
 
 .products-header {
