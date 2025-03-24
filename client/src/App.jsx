@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Login from './login-and-signup/login';
 import Signup from './login-and-signup/signup';
 import Home from './components/Home';
-import GamesPage from './components/GamesPage';
-import Games from './components/games.jsx';
+import GamesPage from './components/GamesPage.jsx';
+import Games from './components/Games.jsx';
 import Electronics from './components/electronics.jsx';
 import AboutUs from './components/AboutUs';
 import './App.css';
@@ -19,19 +19,23 @@ import ProductList from './admincomponents/productList.jsx';
 import Detailsproducts from './admincomponents/detailsproduct.jsx'
 import Accessories from './components/Accessories.jsx';
 
+import Payment from './components/Payment.jsx';
+import SuccessPage from './components/SuccessPage.jsx';
+
 import Cart from './components/Cart.jsx';
+import ScrollToTop from './components/ScrollToTop.jsx';
 
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token')
   if (!token) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/login" />
   }
-  return children;
-};
+  return children
+}
 
 const App = () => {
-  const [prod, setprod] = useState({});
+  const [prod, setprod] = useState({})
   const [cat,setcat]=useState("")
   const [adminproduct,setadminproduct]=useState({})
   console.log("prod",prod);
@@ -42,6 +46,7 @@ const App = () => {
   return (
   
     <BrowserRouter>
+    <ScrollToTop/>
     <NavBar/>
       <Routes>
         <Route path="/login" element={<Login />} />
@@ -82,6 +87,8 @@ const App = () => {
         <Route path="/product/:id" element={<Detailsproduct />} />
         <Route path="/electronics" element={<Electronics prod={prod} setprod={setprod} cat={cat} />} />
         <Route path="/accessories" element={<Accessories  setprod={setprod}  />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/success" element={<SuccessPage />} />
         <Route path="/Dashboard/" element={<Dashboard setadminproduct={setadminproduct} />} >
         
         <Route path="user-list" element={<UserList  />} />
