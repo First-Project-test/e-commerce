@@ -37,50 +37,25 @@ const gameController = {
     // Get all games with their categories
     getAllGames: async (req, res) => {
         try {
-            const games = await Game.findAll({
-                // attributes: ['id', 'name', 'releaseDate', 'quantity', 'price', 'rating', 'description', 'image']
-                // Removed the include for now until we fix the association
-            });
-            
-            // Process the games to ensure image field is properly formatted
-            const processedGames = games.map(game => {
-                const gameData = game.get({ plain: true });
-                
-                // If image is stored as a JSON string, parse it
-                if (typeof gameData.image === 'string' && gameData.image.startsWith('[')) {
-                    try {
-                        gameData.image = JSON.parse(gameData.image);
-                    } catch (e) {
-                        console.error('Error parsing image JSON:', e);
-                    }
-                }
-                
-                return gameData;
-            });
-            
-            res.status(200).json(processedGames);
+          const games = await Game.findAll(); // Fetch all games
+          res.status(200).json(games);
         } catch (error) {
-            console.error('Error in getAllGames:', error);
-            res.status(500).json({ message: 'Error fetching games', error: error.message });
+          res.status(500).json({ message: 'Error fetching games', error: error.message });
         }
-    },
+      },
 
     // Get games by category
     getGamesByCategory: async (req, res) => {
         try {
-            const { categoryId } = req.params;
-            const games = await Game.findAll({
-                where: { categoryId },
-                include: [{
-                    model: Category,
-                    attributes: ['id', 'name']
-                }]
-            });
-            res.json(games);
+          const { categoryId } = req.params;
+          const games = await Game.findAll({
+            where: { GameCategoryId: categoryId }, // Filter games by category ID
+          });
+          res.status(200).json(games);
         } catch (error) {
-            res.status(500).json({ message: 'Error fetching games by category', error: error.message });
+          res.status(500).json({ message: 'Error fetching games by category', error: error.message });
         }
-    },
+      },
 
     // Get game by ID with its categories
     getGameById: async (req, res) => {

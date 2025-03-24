@@ -21,12 +21,7 @@ const gameCategoryController = {
     // Get all game categories
     getAllCategories: async (req, res) => {
         try {
-            const categories = await GameCategory.findAll({
-                include: [{
-                    model: Game,
-                    attributes: ['id', 'name', 'price']
-                }]
-            });
+            const categories = await GameCategory.findAll()
             res.json(categories);
         } catch (error) {
             res.status(500).json({ message: 'Error fetching game categories', error: error.message });
