@@ -15,7 +15,8 @@ function Products({setprod,cat}) {
                 setLoading(true)
                 let data = await axios.get(`http://localhost:2080/api/electronics`)
                 let datag = await axios.get(`http://localhost:2080/api/games`)
-                let d = data.data.electronics.concat(datag.data)
+                let dataa = await axios.get(`http://localhost:2080/api/accessories`)
+                let d = data.data.electronics.concat(datag.data,dataa.data)
                 setproducts(d)
                 setFilteredProducts(d)
             } catch (error) {

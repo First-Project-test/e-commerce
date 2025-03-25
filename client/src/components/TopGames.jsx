@@ -17,68 +17,42 @@ const TopGames = () => {
       if (option === 'rating') return b.rating - a.rating
       return 0
     })
-  };
+  }
 
-const handleSortChange = (e) => {
-  setSortOption(e.target.value); // Update sort option
-  const sorted = sortGames(games, e.target.value); // Sort games dynamically
-  setGames(sorted);
-}
+  const handleSortChange = (e) => {
+    setSortOption(e.target.value)
+    const sorted = sortGames(games, e.target.value)
+    setGames(sorted)
+  }
 
-useEffect(() => {
-  const fetchGames = async () => {
-    try {
-      const response = await axios.get('http://localhost:2080/api/games')
-      const processedGames = response.data.map((game) => ({
-        ...game,
-        image: processGameImage(game.image),
-      }));
-
-      const sorted = sortGames(processedGames, sortOption)
-      setGames(sorted);
-    } catch (error) {
-      console.error('Error',error)
+  useEffect(() => {
+    const fetchGames = async () => {
+      try {
+        const response = await axios.get('http://localhost:2080/api/games')
+        const processedGames = response.data.map((game) => ({
+          ...game,
+          image: processGameImage(game.image),
+        }))
+        setGames(sortGames(processedGames, sortOption))
+      } catch (error) {
+        console.error('Error', error)
+      }
     }
-  };
+    fetchGames()
+  }, [])
 
-  fetchGames()
-}, [])
-
-  // Helper function to process game images
   const processGameImage = (image) => {
-    console.log('Processing image input:', image)
-    
-    if (!image) {
-      console.log('No image provided, using placeholder')
-      return '/placeholder.jpg'
-    }
-    
+    if (!image) return '/placeholder.jpg'
     try {
-      // If image is a string that looks like an array, parse it
       if (typeof image === 'string') {
-        console.log('Image is string:', image)
         if (image.startsWith('[')) {
-          console.log('Attempting to parse JSON array')
           const parsed = JSON.parse(image)
-          const result = Array.isArray(parsed) ? parsed[0] : parsed
-          console.log('Parsed result:', result)
-          return result
+          return Array.isArray(parsed) ? parsed[0] : parsed
         }
-        // If it's a URL string, return it directly
         return image
       }
-      
-      // If image is already an array, take first image
-      if (Array.isArray(image)) {
-        console.log('Image is array:', image)
-        return image[0]
-      }
-      
-      // If image is a single string URL, use it directly
-      console.log('Using image directly:', image)
-      return image
+      return Array.isArray(image) ? image[0] : image
     } catch (e) {
-      console.error('Error processing image:', e)
       return '/placeholder.jpg'
     }
   }
@@ -92,12 +66,10 @@ useEffect(() => {
         return
       }
 
-      console.log('Adding game to cart:', game) // Debug log
-
       const response = await axios.post('http://localhost:2080/api/cart/add', {
-        gameId: game.id || game._id, // Handle both Sequelize and MongoDB ID formats
+        gameId: game.id || game._id,
         quantity: 1,
-        role: 'game' // Explicitly specify the role
+        role: 'game'
       }, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -109,7 +81,6 @@ useEffect(() => {
         alert('Game added to cart successfully!')
       }
     } catch (error) {
-      console.error('Error adding to cart:', error)
       const errorMessage = error.response?.data?.message || 'Failed to add game to cart. Please try again.'
       alert(errorMessage)
     }
@@ -127,32 +98,28 @@ useEffect(() => {
         </div>
         
         <div className="games-grid">
-            {games.map((game) => (
-              <div key={game.id} className="game-card">
-                <img
-                  src={game.image || '/placeholder.jpg'}
-                  alt={game.name}
-                  className="game-image"
-                  onError={(e) => {
-                    e.target.onerror = null
-                    e.target.src = '/placeholder.jpg'
-                  }}
-                />
-                <h2 className="game-title">{game.name}</h2>
-                <p className="game-price">${game.price}</p>
-                <p className="game-rating">⭐{game.rating}/5</p>
-                <button 
-                  className="add-to-cart-btn"
-                  hidden={!user}
-                  onClick={() => handleAddToCart(game)}
-                >
-                  🛒 Add to Cart
-                </button>
-              </div>
-            ))}
+          {games.map((game) => (
+            <div key={game.id} className="game-card">
+              <img
+                src={game.image || '/placeholder.jpg'}
+                alt={game.name}
+                className="game-image"
+                onError={(e) => e.target.src = '/placeholder.jpg'}
+              />
+              <h2 className="game-title">{game.name}</h2>
+              <p className="game-price">${game.price}</p>
+              <p className="game-rating">⭐{game.rating}/5</p>
+              <button 
+                className="add-to-cart-btn"
+                hidden={!user}
+                onClick={() => handleAddToCart(game)}
+              >
+                🛒 Add to Cart
+              </button>
+            </div>
+          ))}
         </div>
       </div>
-
       <GameFAQ />
       <Footer />
     </div>

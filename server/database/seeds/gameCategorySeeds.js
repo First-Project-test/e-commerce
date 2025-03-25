@@ -20,20 +20,12 @@ const gameCategorySeeds = async () => {
                 description: 'Role-playing games'
             },
             {
-                name: 'Strategy',
-                description: 'Strategic and tactical games'
-            },
-            {
                 name: 'Sports',
                 description: 'Sports and racing games'
             },
             {
                 name: 'Fighting',
                 description: 'Fighting and combat games'
-            },
-            {
-                name: 'Puzzle',
-                description: 'Puzzle and brain-teaser games'
             },
             {
                 name: 'Horror',

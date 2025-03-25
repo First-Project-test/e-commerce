@@ -28,7 +28,6 @@ else{sethidedashboard(true)} },[user])
             <a className="nav-link" href="/">Home</a>
             <a className="nav-link" href="/shop">Shop</a>
        {/* <Link to="/games">Games</Link> */}
-            <a className="nav-link" href="/categories">Categories</a>
             <a hidden={hidedashboard} className="nav-link" href="/Dashboard">Dashboard</a>
           </div>
           <div className="d-flex align-items-center">
