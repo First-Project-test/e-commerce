@@ -41,13 +41,14 @@ function Addelectronic() {
 
   const handleImageChange = async (e) => {
     const files = Array.from(e.target.files);
-
+    if (files.length === 0) return;
     try {
       const formData = new FormData();
       files.forEach((file) => {
         formData.append("images", file);
       });
 
+      
       const response = await fetch("http://localhost:2080/api/cloudinary/upload-multiple", {
         method: "POST",
         body: formData
@@ -60,7 +61,7 @@ function Addelectronic() {
       
       setFormData(prev => ({
         ...prev,
-        image: data.urls
+        image: [...prev.image, ...data.urls] 
       }));
     } catch (error) {
       console.error("Upload Error:", error.message);

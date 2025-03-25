@@ -11,13 +11,12 @@ function Addgame() {
     rating: '',
     description: '',
     image: [],
-    gamecat: [],
-    GameCategoryId: ''
+    categoryId: ''
   });
 
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
-  const token=localStorage.getItem("token")
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     fetchCategories();
@@ -40,13 +39,31 @@ function Addgame() {
     }));
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const files = Array.from(e.target.files);
-    const imageUrls = files.map(file => URL.createObjectURL(file));
-    setFormData(prev => ({
-      ...prev,
-      image: imageUrls
-    }));
+    if (files.length === 0) return;
+    
+    try {
+      const formData = new FormData();
+      files.forEach((file) => {
+        formData.append("images", file);
+      });
+
+      const response = await fetch("http://localhost:2080/api/cloudinary/upload-multiple", {
+        method: "POST",
+        body: formData
+      });
+
+      if (!response.ok) throw new Error("Failed to upload images");
+
+      const data = await response.json();
+      setFormData(prev => ({
+        ...prev,
+        image: [...prev.image, ...data.urls]
+      }));
+    } catch (error) {
+      console.error("Upload Error:", error.message);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -54,24 +71,41 @@ function Addgame() {
     setLoading(true);
 
     try {
-      await axios.post('http://localhost:208/api/games', formData,{
+      if (!formData.name || !formData.releaseDate || !formData.quantity || !formData.price || !formData.categoryId || !formData.description) {
+        alert('Please fill in all required fields');
+        return;
+      }
+
+      const gameData = {
+        ...formData,
+        quantity: Number(formData.quantity),
+        price: Number(formData.price),
+        rating: formData.rating ? Number(formData.rating) : null
+      };
+
+      const response = await axios.post('http://localhost:2080/api/games', gameData, {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
         }
       });
-      setFormData({
-        name: '',
-        releaseDate: '',
-        quantity: '',
-        price: '',
-        rating: '',
-        description: '',
-        image: [],
-        gamecat: [],
-        GameCategoryId: ''
-      });
+
+      if (response.status === 201) {
+        setFormData({
+          name: '',
+          releaseDate: '',
+          quantity: '',
+          price: '',
+          rating: '',
+          description: '',
+          image: [],
+          categoryId: ''
+        });
+        alert('Game added successfully!');
+      }
     } catch (error) {
       console.error('Error:', error);
+      alert(error.response?.data?.message || 'Failed to add game. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -80,7 +114,6 @@ function Addgame() {
   return (
     <div className="add-product-form">
       <h2>Add New Game</h2>
-      
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Name</label>
@@ -145,8 +178,8 @@ function Addgame() {
         <div className="form-group">
           <label>Category</label>
           <select
-            name="GameCategoryId"
-            value={formData.GameCategoryId}
+            name="categoryId"
+            value={formData.categoryId}
             onChange={handleChange}
             required
           >
