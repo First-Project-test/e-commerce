@@ -44,7 +44,7 @@ else{sethidedashboard(true)} },[user])
             <button className="btn-buy-now" onClick={() => { 
               if(user){
                 localStorage.removeItem('user')
-                navigate('/login')
+                navigate('/')
               }
               else{
                 navigate('/login')
