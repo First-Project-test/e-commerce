@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/Dashboard.css';
 
-function Addelectronic() {
+function Addelectronic({setx,x}) {
   const [formData, setFormData] = useState({
     name: '',
     release: '',
@@ -208,6 +208,7 @@ function Addelectronic() {
           type="submit"
           disabled={loading}
           className="submit-button"
+          onClick={() => setx(!x)}
         >
           {loading ? 'Adding...' : 'Add Electronic Item'}
         </button>

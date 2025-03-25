@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/Dashboard.css';
 
-function Addgame() {
+function Addgame({setx,x}) {
   const [formData, setFormData] = useState({
     name: '',
     releaseDate: '',
@@ -226,6 +226,7 @@ function Addgame() {
           type="submit"
           disabled={loading}
           className="submit-button"
+          onClick={() => setx(!x)}
         >
           {loading ? 'Adding...' : 'Add Game'}
         </button>

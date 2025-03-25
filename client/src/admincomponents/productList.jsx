@@ -48,13 +48,15 @@ function ProductList({setadminproduct}) {
                     <h2>Electronics</h2>
                     <button 
                         className="action-button"
-                        onClick={()=>(setaddelectronic(!addelectronicc))}
+                        onClick={
+                            ()=>setaddelectronic(!addelectronicc)
+                        }
                     >
                         Add Electronic
                     </button>
                 </div>
                 <div hidden={addelectronicc}>
-                    <Addelectronic x={x}/>
+                    <Addelectronic setx={setx} x={x} />
                 </div>
                 <div className="dashboard-table-container">
                     <table className="dashboard-table">
@@ -135,7 +137,7 @@ function ProductList({setadminproduct}) {
                     </button>
                 </div>
                 <div hidden={addgamehidden}>
-                    <Addgame/>
+                    <Addgame setx={setx} x={x} />
                 </div>
                 <div className="dashboard-table-container">
                     <table className="dashboard-table">
