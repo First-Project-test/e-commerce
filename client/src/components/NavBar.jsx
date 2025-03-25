@@ -34,7 +34,7 @@ else{sethidedashboard(true)} },[user])
           <div className="d-flex align-items-center">
             <button className="btn btn-link position-relative me-3">
               <i className="bi bi-cart"></i>
-              <span onClick={()=> navigate('/cart')} className="position-absolute top-0 start-100 translate-middle badge rounded-pill">
+              <span hidden={!user} onClick={()=> navigate('/cart')} className="position-absolute top-0 start-100 translate-middle badge rounded-pill">
                 🛒 
               </span>
             </button>
