@@ -14,6 +14,7 @@ function ProductList({setadminproduct}) {
     const[search,setsearch]=useState("")
     const[addgamehidden,setaddgamehideen]=useState(true)
     const[addelectronicc,setaddelectronic]=useState(true)
+    const[x,setx]=useState(false)
 
     useEffect(()=>(async()=>{
         try {
@@ -23,21 +24,32 @@ function ProductList({setadminproduct}) {
             setproducts(d)
             setgames(datag.data)
             setelectronic(data.data.electronics)
+            
         } catch (error) {
             console.log(error)
         }
-    }),[])
+    }),[x])
 
     return (
         <div className="dashboard-content">
             <div className="dashboard-header">
                 <h1>Product Management</h1>
-                <div className="search-input">
-                    <input 
-                        type="text" 
-                        placeholder='Search products...' 
-                        onChange={(e)=>setsearch(e.target.value)} 
-                    />
+                <div className="search-container">
+                    <div className="search-wrapper">
+                        <input 
+                            type="text" 
+                            placeholder="Search products..." 
+                            value={search}
+                            onChange={(e) => setsearch(e.target.value)}
+                            className="search-input"
+                        />
+                        <button className="search-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -52,7 +64,7 @@ function ProductList({setadminproduct}) {
                     </button>
                 </div>
                 <div hidden={addelectronicc}>
-                    <Addelectronic/>
+                    <Addelectronic x={x}/>
                 </div>
                 <div className="dashboard-table-container">
                     <table className="dashboard-table">
@@ -88,8 +100,14 @@ function ProductList({setadminproduct}) {
                                         <button 
                                             className="action-button delete"
                                             onClick={async()=>{
+                                                const token = localStorage.getItem('token')
                                                 try {
-                                                    await axios.delete(`http://localhost:2080/api/electronics/${el.id}`)
+                                                    await axios.delete(`http://localhost:2080/api/electronics/${el.id}`, {
+                                                        headers: {
+                                                          Authorization: `Bearer ${token}`
+                                                        }
+                                                      })
+                                                      setx(!x)
                                                 } catch (error) {
                                                     console.log(error)
                                                 }
@@ -101,6 +119,7 @@ function ProductList({setadminproduct}) {
                                             className="action-button"
                                             onClick={()=>{
                                                 navigate(`/admin-product/${el.id}`)
+                                                localStorage.setItem('product',JSON.stringify(el))
                                                 setadminproduct(el)
                                             }}
                                         >
@@ -146,7 +165,7 @@ function ProductList({setadminproduct}) {
                                     <td>
                                         <div className="product-image-cell">
                                             <img 
-                                                src={el.image[0]} 
+                                                src={el.image} 
                                                 alt={el.name}
                                                 className="product-table-image"
                                             />
@@ -161,8 +180,14 @@ function ProductList({setadminproduct}) {
                                         <button 
                                             className="action-button delete"
                                             onClick={async()=>{
+                                                const token = localStorage.getItem('token')
                                                 try {
-                                                    await axios.delete(`http://localhost:2080/api/games/${el.id}`)
+                                                    await axios.delete(`http://localhost:2080/api/games/${el.id}`, {
+                                                        headers: {
+                                                          Authorization: `Bearer ${token}`
+                                                        }
+                                                      })
+                                                      setx(!x)
                                                 } catch (error) {
                                                     console.log(error)
                                                 }
@@ -174,6 +199,7 @@ function ProductList({setadminproduct}) {
                                             className="action-button"
                                             onClick={()=>{
                                                 navigate(`/admin-product/${el.id}`)
+                                                localStorage.setItem('product',JSON.stringify(el))
                                                 setadminproduct(el)
                                             }}
                                         >

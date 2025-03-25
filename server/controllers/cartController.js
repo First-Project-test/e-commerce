@@ -101,7 +101,7 @@ const cartController = {
                 where: {
                     UserId: userId,
                     itemType: itemType,
-                    [itemType === 'electronics' ? 'ElectronicsId' : 'GameId']: itemType === 'electronics' ? electronicsId : gameId
+                    [itemType === 'electronics' ? 'ElectronicId' : 'GameId']: itemType === 'electronics' ? electronicsId : gameId
                 }
             });
 
@@ -117,7 +117,7 @@ const cartController = {
                     UserId: userId,
                     itemType: itemType,
                     GameId: gameId,
-                    ElectronicsId: electronicsId,
+                    ElectronicId: electronicsId,
                     quantity: quantity,
                     totalPrice: item.price * quantity
                 });
@@ -179,10 +179,6 @@ const cartController = {
                     UserId: userId
                 }
             });
-
-           
-
-        
             res.status(200).json({ message: 'Item removed from cart successfully' });
         } catch (error) {
             res.status(500).json({ message: 'Error removing item from cart', error: error.message });

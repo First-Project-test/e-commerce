@@ -9,6 +9,7 @@ const TopGames = () => {
   const [games, setGames] = useState([])
   const [sortOption, setSortOption] = useState('rating')
   const navigate = useNavigate()
+  const user = JSON.parse(localStorage.getItem('user'))
 
   const sortGames = (games, option) => {
     return [...games].sort((a, b) => {
@@ -142,6 +143,7 @@ useEffect(() => {
                 <p className="game-rating">⭐{game.rating}/5</p>
                 <button 
                   className="add-to-cart-btn"
+                  hidden={!user}
                   onClick={() => handleAddToCart(game)}
                 >
                   🛒 Add to Cart

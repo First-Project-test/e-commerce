@@ -5,11 +5,18 @@ import { useNavigate,Link } from 'react-router-dom';
 function NavBar() {
   const navigate = useNavigate()
 
-  const[hidedashboard,sethidedashboard]=useState(false)
+  const[hidedashboard,sethidedashboard]=useState(true)
 
 
-  const user=localStorage.getItem("user")
- 
+  const user=JSON.parse(localStorage.getItem('user'))
+  useEffect(()=>{
+
+    
+    
+    if(user&&user.role==='admin'){
+    sethidedashboard(false)
+  }
+else{sethidedashboard(true)} },[user])
 
  
 
@@ -22,17 +29,28 @@ function NavBar() {
             <a className="nav-link" href="/shop">Shop</a>
        {/* <Link to="/games">Games</Link> */}
             <a className="nav-link" href="/categories">Categories</a>
-            <a hidden={!user.role==="admin"} className="nav-link" href="/Dashboard">Dashboard</a>
+            <a hidden={hidedashboard} className="nav-link" href="/Dashboard">Dashboard</a>
           </div>
           <div className="d-flex align-items-center">
             <button className="btn btn-link position-relative me-3">
               <i className="bi bi-cart"></i>
-              <span onClick={()=> navigate('/cart')} className="position-absolute top-0 start-100 translate-middle badge rounded-pill">
+              <span hidden={!user} onClick={()=> navigate('/cart')} className="position-absolute top-0 start-100 translate-middle badge rounded-pill">
                 🛒 
               </span>
             </button>
             <button className="btn-buy-now" onClick={() => navigate('/shop')}>
               Buy Now →
+            </button>
+            <button className="btn-buy-now" onClick={() => { 
+              if(user){
+                localStorage.removeItem('user')
+                navigate('/')
+              }
+              else{
+                navigate('/login')
+              }
+              }}>
+              {user ? 'Logout' : 'Login'}
             </button>
           </div>
         </div>

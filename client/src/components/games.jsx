@@ -10,7 +10,7 @@ function Games({setprod}) {
 
   useEffect(() => {
     const fetchGames = async () => {
-      try {
+        try {
         let response
         if (categoryId) {
           response = await axios.get(`http://localhost:2080/api/games/category/${categoryId}`)
@@ -40,18 +40,4 @@ function Games({setprod}) {
   )
 }
 
-export default Games;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default Games

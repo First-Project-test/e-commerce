@@ -29,6 +29,10 @@ module.exports = (connection, DataTypes) => {
         cart: {
             type: DataTypes.JSON,
             defaultValue: []
+        },
+        banned: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         }
     }, {
         timestamps: true

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import '../css/DetailsProduct.css'
 
-function Detailsproduct({el}) {
+function Detailsproduct() {
+    const el=JSON.parse(localStorage.getItem('product'))
     const [currentimage, setCurrentImage] = useState(null)
     const [rating, setrating] = useState(el.rating)
     const [price, setprice] = useState(el.price)
@@ -16,8 +17,9 @@ function Detailsproduct({el}) {
     const [hiddendescription, sethiddendescription] = useState(true)
     const token = localStorage.getItem("token")
 
+
     useEffect(() => {
-        if (el?.image?.length) {
+        if (el?.image?.length&&Array.isArray(el.image)) {
             const interval = setInterval(() => {
                 const randomIndex = Math.floor(Math.random() * el.image.length)
                 setCurrentImage(el.image[randomIndex])
@@ -25,11 +27,13 @@ function Detailsproduct({el}) {
 
             return () => clearInterval(interval)
         }
+        else{
+            setCurrentImage(el.image)}
     }, [el.image])
 
     const handleUpdate = async (endpoint, data, setHidden) => {
         try {
-            await axios.put(`http://localhost:2080/api/${endpoint}/${el._id}`, data, {
+            await axios.put(`http://localhost:2080/api/${endpoint}/${el.id}`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -38,7 +42,7 @@ function Detailsproduct({el}) {
         } catch (error) {
             if (error.response?.status === 404) {
                 try {
-                    await axios.put(`http://localhost:2080/api/games/${el._id}`, data, {
+                    await axios.put(`http://localhost:2080/api/games/${el.id}`, data, {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }
@@ -57,10 +61,13 @@ function Detailsproduct({el}) {
         <div className="details-container">
             <div className="product-image">
                 <img 
-                    src={currentimage || (el.image && el.image[0])} 
-                    alt={el.name} 
+                    src={currentimage || (el.image )
+                        
+                    } 
+                    alt={currentimage} 
                     className="main-image"
                 />
+
             </div>
 
             <div className="product-info">
@@ -84,7 +91,7 @@ function Detailsproduct({el}) {
                             <div className="button-group">
                                 <button
                                     className="save-btn"
-                                    onClick={() => handleUpdate('electronics', { price }, sethiddenprice)}
+                                    onClick={() => handleUpdate(el.role==='electronics'?'electronics':'games', { price }, sethiddenprice)}
                                 >
                                     Save
                                 </button>
@@ -114,7 +121,7 @@ function Detailsproduct({el}) {
                             <div className="button-group">
                                 <button
                                     className="save-btn"
-                                    onClick={() => handleUpdate('electronics', { rating }, sethidden)}
+                                    onClick={() => handleUpdate(el.role==='electronics'?'electronics':'games', { rating }, sethidden)}
                                 >
                                     Save
                                 </button>
@@ -141,7 +148,7 @@ function Detailsproduct({el}) {
                             <div className="button-group">
                                 <button
                                     className="save-btn"
-                                    onClick={() => handleUpdate('electronics', { description }, sethiddendescription)}
+                                    onClick={() => handleUpdate(el.role==='electronics'?'electronics':'games', { description }, sethiddendescription)}
                                 >
                                     Save
                                 </button>
@@ -168,7 +175,7 @@ function Detailsproduct({el}) {
                             <div className="button-group">
                                 <button
                                     className="save-btn"
-                                    onClick={() => handleUpdate('electronics', { release }, sethiddenrelease)}
+                                    onClick={() => handleUpdate(el.role==='electronics'?'electronics':'games', { release }, sethiddenrelease)}
                                 >
                                     Save
                                 </button>
@@ -196,7 +203,7 @@ function Detailsproduct({el}) {
                             <div className="button-group">
                                 <button
                                     className="save-btn"
-                                    onClick={() => handleUpdate('electronics', { quantity }, sethiddenquantity)}
+                                    onClick={() => handleUpdate(el.role==='electronics'?'electronics':'games', { quantity }, sethiddenquantity)}
                                 >
                                     Save
                                 </button>
