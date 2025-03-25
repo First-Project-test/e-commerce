@@ -12,9 +12,9 @@ module.exports={
         }
     },
     AddAccessories:async(req,res)=>{
-        const {name,imageUrl,price,quantity,CategoryId}=req.body
+        const {name,image,price,quantity}=req.body
         try {
-            const added=await Accessories.create({name,imageUrl,price,quantity,CategoryId})
+            const added=await Accessories.create({name,image,price,quantity})
             res.status(201).send(added)
         } catch (error) {
             console.log("error",error)
@@ -31,9 +31,9 @@ module.exports={
     },
     UpdateAccessories:async(req,res)=>{
         const {id}=req.params
-        const {name,imageUrl,price,quantity,CategoryId}=req.body
+        const {name,image,price,quantity}=req.body
         try {
-            const updated=await Accessories.update({name,imageUrl,price,quantity,CategoryId},{where:{id}})
+            const updated=await Accessories.update({name,image,price,quantity},{where:{id}})
             res.status(200).send("Updated sucessfully")
         } catch (error) {
             console.log("error",error)

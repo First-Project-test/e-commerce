@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import Addgame from './addgame'
 import Addelectronic from './addelectronic'
+import AddAccessories from './AddAccessories'
 import '../css/Dashboard.css'
 
 function ProductList({setadminproduct}) {
@@ -15,6 +16,9 @@ function ProductList({setadminproduct}) {
     const[addgamehidden,setaddgamehideen]=useState(true)
     const[addelectronicc,setaddelectronic]=useState(true)
     const[x,setx]=useState(false)
+    const[accessories,setaccessories]=useState([])
+    const[addacchidden,setaddacchideen]=useState(true)
+
 
     useEffect(()=>(async()=>{
         try {
@@ -135,6 +139,7 @@ function ProductList({setadminproduct}) {
                 </div>
             </div>
 
+
             <div className="dashboard-section">
                 <div className="section-header">
                     <h2>Games</h2>
@@ -214,6 +219,87 @@ function ProductList({setadminproduct}) {
                     </table>
                 </div>
             </div>
+            
+            <div className="dashboard-section">
+                <div className="section-header">
+                    <h2>Accessoires</h2>
+                    <button 
+                        className="action-button"
+                        onClick={()=>(setaddacchideen(!addacchidden))}
+                    >
+                        Add Accessoires
+                    </button>
+                </div>
+                <div hidden={addacchidden}>
+                    <AddAccessories/>
+                </div>
+                <div className="dashboard-table-container">
+                    <table className="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Id</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {accessories.filter((e)=>e.name.toLowerCase().includes(search.toLowerCase())).map((el,i)=>(
+                                <tr key={i}>
+                                    <td>
+                                        <div className="product-image-cell">
+                                            <img 
+                                                src={el.image} 
+                                                alt={el.name}
+                                                className="product-table-image"
+                                            />
+                                        </div>
+                                    </td>
+                                    <td>{el.name}</td>
+                                    <td>{el.id}</td>
+                                    <td>{el.quantity}</td>
+                                    <td>${el.price}</td>
+                                    <td>{el.description}</td>
+                                    <td>
+                                        <button 
+                                            className="action-button delete"
+                                            onClick={async()=>{
+                                                const token = localStorage.getItem('token')
+                                                try {
+                                                    await axios.delete(`http://localhost:2080/api/accessories/${el.id}`, {
+                                                        headers: {
+                                                          Authorization: `Bearer ${token}`
+                                                        }
+                                                      })
+                                                      setx(!x)
+                                                } catch (error) {
+                                                    console.log(error)
+                                                }
+                                            }}
+                                        >
+                                            Delete
+                                        </button>
+                                        <button 
+                                            className="action-button"
+                                            onClick={()=>{
+                                                navigate(`/admin-product/${el.id}`)
+                                                localStorage.setItem('product',JSON.stringify(el))
+                                                setadminproduct(el)
+                                            }}
+                                        >
+                                            Update
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
     )
 }

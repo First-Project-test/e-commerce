@@ -79,7 +79,7 @@ function Detailsproduct() {
                             <div className="button-group">
                                 <button
                                     className="save-btn"
-                                    onClick={() => handleUpdate(el.role==='electronics'?'electronics':'games', { price }, sethiddenprice)}
+                                    onClick={() => handleUpdate(el.role==='electronics'?'electronics':el.role==='games'?'games':'accessories', { price }, sethiddenprice)}
                                 >
                                     Save
                                 </button>
@@ -109,7 +109,7 @@ function Detailsproduct() {
                             <div className="button-group">
                                 <button
                                     className="save-btn"
-                                    onClick={() => handleUpdate(el.role==='electronics'?'electronics':'games', { rating }, sethidden)}
+                                    onClick={() => handleUpdate(el.role==='electronics'?'electronics':el.role==='games'?'games':'accessories', { rating }, sethidden)}
                                 >
                                     Save
                                 </button>
@@ -136,7 +136,7 @@ function Detailsproduct() {
                             <div className="button-group">
                                 <button
                                     className="save-btn"
-                                    onClick={() => handleUpdate(el.role==='electronics'?'electronics':'games', { description }, sethiddendescription)}
+                                    onClick={() => handleUpdate(el.role==='electronics'?'electronics':el.role==='games'?'games':'accessories', { description }, sethiddendescription)}
                                 >
                                     Save
                                 </button>
@@ -163,7 +163,7 @@ function Detailsproduct() {
                             <div className="button-group">
                                 <button
                                     className="save-btn"
-                                    onClick={() => handleUpdate(el.role==='electronics'?'electronics':'games', { release }, sethiddenrelease)}
+                                    onClick={() => handleUpdate(el.role==='electronics'?'electronics':el.role==='games'?'games':'accessories', { release }, sethiddenrelease)}
                                 >
                                     Save
                                 </button>
@@ -191,7 +191,7 @@ function Detailsproduct() {
                             <div className="button-group">
                                 <button
                                     className="save-btn"
-                                    onClick={() => handleUpdate(el.role==='electronics'?'electronics':'games', { quantity }, sethiddenquantity)}
+                                    onClick={() => handleUpdate(el.role==='electronics'?'electronics':el.role==='games'?'games':'accessories', { quantity }, sethiddenquantity)}
                                 >
                                     Save
                                 </button>
