@@ -7,7 +7,7 @@ import '../css/Dashboard.css'
 
 function Dashboard({setadminproduct}) {
     const[isuserlist,setisuserlist]=useState(true)
-    const[isproductlist,setisproductlist]=useState(true)
+    const[isproductlist,setisproductlist]=useState(false)
   return (
     <div className="dashboard-page">
       <div className="side-bar">

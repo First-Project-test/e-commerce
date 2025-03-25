@@ -24,6 +24,7 @@ function ProductList({setadminproduct}) {
             setproducts(d)
             setgames(datag.data)
             setelectronic(data.data.electronics)
+            
         } catch (error) {
             console.log(error)
         }
@@ -155,7 +156,7 @@ function ProductList({setadminproduct}) {
                                     <td>
                                         <div className="product-image-cell">
                                             <img 
-                                                src={el.image[0]} 
+                                                src={el.image} 
                                                 alt={el.name}
                                                 className="product-table-image"
                                             />
@@ -189,7 +190,7 @@ function ProductList({setadminproduct}) {
                                             className="action-button"
                                             onClick={()=>{
                                                 navigate(`/admin-product/${el.id}`)
-                                                setadminproduct(el)
+                                                localStorage.setItem('product',JSON.stringify(el))
                                             }}
                                         >
                                             Update

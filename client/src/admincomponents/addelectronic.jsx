@@ -67,6 +67,7 @@ function Addelectronic() {
   };
 
   const handleSubmit = async (e) => {
+    // don't refresh the page on form submission
     e.preventDefault();
     setLoading(true);
 

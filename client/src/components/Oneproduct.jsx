@@ -7,6 +7,7 @@ const OneProduct = ({ el, i, setprod }) => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const token = localStorage.getItem("token")
+  const user = JSON.parse(localStorage.getItem('user'))
   console.log(el.role);
   
 
@@ -54,7 +55,7 @@ const OneProduct = ({ el, i, setprod }) => {
           localStorage.setItem("product", JSON.stringify(el))
           navigate(`/products/${i}`)
         }} 
-        src={el.image[0]} 
+        src={el.image} 
         alt={el.name} 
       />
       <div className="content">
@@ -72,6 +73,7 @@ const OneProduct = ({ el, i, setprod }) => {
         <div className="price">${el.price}</div>
         <button 
           onClick={handleAddToCart}
+          hidden={!user}
           disabled={loading}
           className={loading ? 'loading' : ''}
         >

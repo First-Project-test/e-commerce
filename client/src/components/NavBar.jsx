@@ -10,7 +10,6 @@ function NavBar() {
 
   const user=JSON.parse(localStorage.getItem('user'))
   useEffect(()=>{
-    console.log("role",user.role);
 
     
     
@@ -41,6 +40,17 @@ else{sethidedashboard(true)} },[user])
             </button>
             <button className="btn-buy-now" onClick={() => navigate('/shop')}>
               Buy Now →
+            </button>
+            <button className="btn-buy-now" onClick={() => { 
+              if(user){
+                localStorage.removeItem('user')
+                navigate('/login')
+              }
+              else{
+                navigate('/login')
+              }
+              }}>
+              {user ? 'Logout' : 'Login'}
             </button>
           </div>
         </div>
