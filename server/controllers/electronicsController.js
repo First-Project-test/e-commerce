@@ -1,20 +1,20 @@
-const { Electronics, Category } = require('../database');
+const { Electronics, Category } = require('../database')
 
 const electronicsController = {
-    // Create a new electronic item
+   
     createElectronics: async (req, res) => {
         try {
-            const { name, release, quantity, price, CategoryId, rating, description ,image} = req.body;
+            const { name, release, quantity, price, CategoryId, rating, description, image } = req.body
             
-            // Validate required fields
+           
             if (!name || !quantity || !price || !CategoryId || !description || !image) {
-                return res.status(400).json({ message: 'Required fields are missing' });
+                return res.status(400).json({ message: 'Required fields are missing' })
             }
 
-            // Check if category exists
-            const category = await Category.findByPk(CategoryId);
+            
+            const category = await Category.findByPk(CategoryId)
             if (!category) {
-                return res.status(404).json({ message: 'Category not found' });
+                return res.status(404).json({ message: 'Category not found' })
             }
 
             const electronics = await Electronics.create({
@@ -26,43 +26,42 @@ const electronicsController = {
                 rating,
                 description,
                 image
-            });
+            })
 
-            res.status(201).json(electronics);
+            res.status(201).json(electronics)
         } catch (error) {
-            res.status(500).json({ message: 'Error creating electronic item', error: error.message });
+            res.status(500).json({ message: 'Error creating electronic item', error: error.message })
         }
     },
 
-    // Get all electronics items
+ 
     getAllElectronics: async (req, res) => {
         try {
-            const { category, sort, page = 1, limit = 10 } = req.query;
-            const offset = (page - 1) * limit;
+            const { category, sort, page = 1, limit = 10 } = req.query
+            const offset = (page - 1) * limit
             
-            let whereClause = {};
-            let orderClause = [];
+            let whereClause = {}
+            let orderClause = []
 
-            // Apply category filter if provided
             if (category) {
-                whereClause.CategoryId = category;
+                whereClause.CategoryId = category
             }
 
-            // Apply sorting if provided
+           
             if (sort) {
                 switch (sort) {
                     case 'price_asc':
-                        orderClause.push(['price', 'ASC']);
-                        break;
+                        orderClause.push(['price', 'ASC'])
+                        break
                     case 'price_desc':
-                        orderClause.push(['price', 'DESC']);
-                        break;
+                        orderClause.push(['price', 'DESC'])
+                        break
                     case 'rating':
-                        orderClause.push(['rating', 'DESC']);
-                        break;
+                        orderClause.push(['rating', 'DESC'])
+                        break
                     case 'release':
-                        orderClause.push(['release', 'DESC']);
-                        break;
+                        orderClause.push(['release', 'DESC'])
+                        break
                 }
             }
 
@@ -75,96 +74,93 @@ const electronicsController = {
                     model: Category,
                     attributes: ['name']
                 }]
-            });
+            })
 
             res.status(200).json({
                 electronics: electronics.rows,
                 total: electronics.count,
                 currentPage: page,
-                totalPages: Math.ceil(electronics.count / limit),
-                
-            });
+                totalPages: Math.ceil(electronics.count / limit)
+            })
         } catch (error) {
-            res.status(500).json({ message: 'Error fetching electronics items', error: error.message });
+            res.status(500).json({ message: 'Error fetching electronics items', error: error.message })
         }
     },
 
-    // Get single electronics item by ID
+   
     getElectronicsById: async (req, res) => {
         try {
-            const { id } = req.params;
+            const { id } = req.params
             const electronics = await Electronics.findByPk(id, {
                 include: [{
                     model: Category,
                     attributes: ['name']
                 }]
-            });
+            })
 
             if (!electronics) {
-                return res.status(404).json({ message: 'Electronics item not found' });
+                return res.status(404).json({ message: 'Electronics item not found' })
             }
 
-            res.status(200).json(electronics);
+            res.status(200).json(electronics)
         } catch (error) {
-            res.status(500).json({ message: 'Error fetching electronics item', error: error.message });
+            res.status(500).json({ message: 'Error fetching electronics item', error: error.message })
         }
     },
 
-    // Update electronics item
+   
     updateElectronics: async (req, res) => {
         try {
-            // Check if user is admin
+           
             if (req.user.role !== 'admin') {
-                return res.status(403).json({ message: 'Access denied' });
+                return res.status(403).json({ message: 'Access denied' })
             }
 
-            const { id } = req.params;
-            const updateData = req.body;
+            const { id } = req.params
+            const updateData = req.body
 
-            const electronics = await Electronics.findByPk(id);
+            const electronics = await Electronics.findByPk(id)
             if (!electronics) {
-                return res.status(404).json({ message: 'Electronics item not found' });
+                return res.status(404).json({ message: 'Electronics item not found' })
             }
 
-            await electronics.update(updateData);
+            await electronics.update(updateData)
             res.status(200).json({
                 message: 'Electronics item updated successfully',
                 electronics
-            });
+            })
         } catch (error) {
-            res.status(500).json({ message: 'Error updating electronics item', error: error.message });
+            res.status(500).json({ message: 'Error updating electronics item', error: error.message })
         }
     },
 
-    // Delete electronics item
+    
     deleteElectronics: async (req, res) => {
         try {
-            // Check if user is admin
+            
             if (req.user.role !== 'admin') {
-                return res.status(403).json({ message: 'Access denied' });
+                return res.status(403).json({ message: 'Access denied' })
             }
 
-            const { id } = req.params;
-            const electronics = await Electronics.findByPk(id);
+            const { id } = req.params
+            const electronics = await Electronics.findByPk(id)
 
             if (!electronics) {
-                return res.status(404).json({ message: 'Electronics item not found' });
+                return res.status(404).json({ message: 'Electronics item not found' })
             }
 
-            await electronics.destroy();
-            res.status(200).json({ message: 'Electronics item deleted successfully' });
-            console.log(req.user.role);
-            
+            await electronics.destroy()
+            res.status(200).json({ message: 'Electronics item deleted successfully' })
         } catch (error) {
-            res.status(500).json({ message: 'Error deleting electronics item', error: error.message });
+            res.status(500).json({ message: 'Error deleting electronics item', error: error.message })
         }
     },
 
-    // Search electronics items
+    
     searchElectronics: async (req, res) => {
         try {
-            const { query, page = 1, limit = 10 } = req.query;
-            const offset = (page - 1) * limit;
+            const { query, page = 1, limit = 10 } = req.query
+            const offset = (page - 1) * limit
 
             const electronics = await Electronics.findAndCountAll({
                 where: {
@@ -175,46 +171,46 @@ const electronicsController = {
                 },
                 limit: parseInt(limit),
                 offset: parseInt(offset)
-            });
+            })
 
             res.status(200).json({
                 electronics: electronics.rows,
                 total: electronics.count,
                 currentPage: page,
                 totalPages: Math.ceil(electronics.count / limit)
-            });
+            })
         } catch (error) {
-            res.status(500).json({ message: 'Error searching electronics items', error: error.message });
+            res.status(500).json({ message: 'Error searching electronics items', error: error.message })
         }
     },
 
-    // Update stock quantity
+    
     updateStock: async (req, res) => {
         try {
-            // Check if user is admin
+          
             if (req.user.role !== 'admin') {
-                return res.status(403).json({ message: 'Access denied' });
+                return res.status(403).json({ message: 'Access denied' })
             }
 
-            const { id } = req.params;
-            const { quantity } = req.body;
+            const { id } = req.params
+            const { quantity } = req.body
 
-            const electronics = await Electronics.findByPk(id);
+            const electronics = await Electronics.findByPk(id)
             if (!electronics) {
-                return res.status(404).json({ message: 'Electronics item not found' });
+                return res.status(404).json({ message: 'Electronics item not found' })
             }
 
-            electronics.quantity = quantity;
-            await electronics.save();
+            electronics.quantity = quantity
+            await electronics.save()
 
             res.status(200).json({
                 message: 'Stock updated successfully',
                 electronics
-            });
+            })
         } catch (error) {
-            res.status(500).json({ message: 'Error updating stock', error: error.message });
+            res.status(500).json({ message: 'Error updating stock', error: error.message })
         }
     }
-};
+}
 
-module.exports = electronicsController;
+module.exports = electronicsController

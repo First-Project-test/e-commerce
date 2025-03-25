@@ -5,15 +5,14 @@ const gameSeeds = async () => {
     try {
         await Game.destroy({ where: {} })
 
-        // Get all game categories
-        const actionCategory = await GameCategory.findOne({ where: { name: 'Action' } });
-        const adventureCategory = await GameCategory.findOne({ where: { name: 'Adventure' } });
-        const rpgCategory = await GameCategory.findOne({ where: { name: 'RPG' } });
-        const sportsCategory = await GameCategory.findOne({ where: { name: 'Sports' } });
-        const fightingCategory = await GameCategory.findOne({ where: { name: 'Fighting' } });
-        const horrorCategory = await GameCategory.findOne({ where: { name: 'Horror' } });
+        
+        const actionCategory = await GameCategory.findOne({ where: { name: 'Action'}})
+        const adventureCategory = await GameCategory.findOne({ where: { name: 'Adventure'}})
+        const rpgCategory = await GameCategory.findOne({ where: { name: 'RPG'}})
+        const sportsCategory = await GameCategory.findOne({ where: { name: 'Sports'}})
+        const fightingCategory = await GameCategory.findOne({ where: { name: 'Fighting'}})
+        const horrorCategory = await GameCategory.findOne({ where: { name: 'Horror'}})
 
-        // Create sample games
         const games = [
             {
                 name:"Hell is Us",
@@ -257,13 +256,13 @@ const gameSeeds = async () => {
                 GameCategoryId: fightingCategory.id
 
             },
-        ];
+        ]
 
-        await Game.bulkCreate(games);
-        console.log('Game seeds completed successfully');
+        await Game.bulkCreate(games)
+        console.log('Game seeds completed successfully')
     } catch (error) {
-        console.error('Error seeding games:', error);
+        console.error('Error seeding games:', error)
     }
-};
+}
 
-module.exports = gameSeeds; 
+module.exports = gameSeeds 

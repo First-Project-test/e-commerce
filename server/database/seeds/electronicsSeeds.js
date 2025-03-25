@@ -3,10 +3,10 @@ const { Electronics } = require('../index');
 
 const electronicsSeeds = async () => {
     try {
-        // Clear existing electronics
-        await Electronics.destroy({ where: {} });
+        
+        await Electronics.destroy({ where:{}})
 
-        // Create sample electronics
+    
         const electronics = [
             {
                 name:"Sony PlayStation 5",
@@ -95,10 +95,10 @@ const electronicsSeeds = async () => {
         ];
 
         await Electronics.bulkCreate(electronics);
-        console.log('Electronics seeds completed successfully');
+        console.log('Electronics seeds completed successfully')
     } catch (error) {
-        console.error('Error seeding electronics:', error);
+        console.error('Error seeding electronics:', error)
     }
-};
+}
 
 module.exports = electronicsSeeds; 

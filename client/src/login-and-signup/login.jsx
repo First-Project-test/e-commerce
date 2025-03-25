@@ -1,37 +1,37 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import '../login-and-signup/auth.css';
+import React, { useState } from 'react'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import '../login-and-signup/auth.css'
 
 const Login = () => {
-  const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
-    console.log('Attempting login...');
+    e.preventDefault()
+    setError('')
+    setLoading(true)
+    console.log('Attempting login...')
   
     try {
-      const response = await axios.post('http://localhost:2080/api/users/login', { email, password });
+      const response = await axios.post('http://localhost:2080/api/users/login', { email, password })
   
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify(response.data.user));
-      console.log('Token and user data stored in localStorage');
+      localStorage.setItem('token', response.data.token)
+      localStorage.setItem('user', JSON.stringify(response.data.user))
+      console.log('Token and user data stored in localStorage')
   
-      console.log('Navigating to home page...');
-      navigate('/');
+      console.log('Navigating to home page...')
+      navigate('/')
     } catch (error) {
-      console.error('Login error:', error);
-      setError(error.response?.data?.message || 'Invalid email or password');
+      console.error('Login error:', error)
+      setError(error.response?.data?.message || 'Invalid email or password')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <div className="auth-container">
@@ -81,7 +81,7 @@ const Login = () => {
         </p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login
