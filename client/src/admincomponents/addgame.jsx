@@ -11,8 +11,7 @@ function Addgame() {
     rating: '',
     description: '',
     image: [],
-    gamecat: [],
-    GameCategoryId: ''
+    categoryId: ''
   });
 
   const [categories, setCategories] = useState([]);
@@ -72,24 +71,41 @@ function Addgame() {
     setLoading(true);
 
     try {
-      await axios.post('http://localhost:2080/api/games', formData, {
+      if (!formData.name || !formData.releaseDate || !formData.quantity || !formData.price || !formData.categoryId || !formData.description) {
+        alert('Please fill in all required fields');
+        return;
+      }
+
+      const gameData = {
+        ...formData,
+        quantity: Number(formData.quantity),
+        price: Number(formData.price),
+        rating: formData.rating ? Number(formData.rating) : null
+      };
+
+      const response = await axios.post('http://localhost:2080/api/games', gameData, {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
         }
       });
-      setFormData({
-        name: '',
-        releaseDate: '',
-        quantity: '',
-        price: '',
-        rating: '',
-        description: '',
-        image: [],
-        gamecat: [],
-        GameCategoryId: ''
-      });
+
+      if (response.status === 201) {
+        setFormData({
+          name: '',
+          releaseDate: '',
+          quantity: '',
+          price: '',
+          rating: '',
+          description: '',
+          image: [],
+          categoryId: ''
+        });
+        alert('Game added successfully!');
+      }
     } catch (error) {
       console.error('Error:', error);
+      alert(error.response?.data?.message || 'Failed to add game. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -162,8 +178,8 @@ function Addgame() {
         <div className="form-group">
           <label>Category</label>
           <select
-            name="GameCategoryId"
-            value={formData.GameCategoryId}
+            name="categoryId"
+            value={formData.categoryId}
             onChange={handleChange}
             required
           >
