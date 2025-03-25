@@ -18,6 +18,7 @@ import UserList from './admincomponents/UserList.jsx';
 import ProductList from './admincomponents/productList.jsx';
 import Detailsproducts from './admincomponents/detailsproduct.jsx'
 import Accessories from './components/Accessories.jsx';
+import Profile from './components/Profil.jsx';
 
 import Payment from './components/Payment.jsx';
 import SuccessPage from './components/SuccessPage.jsx';
@@ -97,6 +98,8 @@ const App = () => {
         <Route path="/product-list" element={<ProductList  />} />
 
         <Route path='/admin-product/:id' element={<Detailsproducts el={adminproduct}/>}/>
+        <Route path="/Profile" element={<Profile />} />
+        <Route path="*" element={<Navigate to="/" />} />
        
 
 
