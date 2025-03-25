@@ -55,6 +55,7 @@ const Profile = () => {
           <div className="profile-details">
             <p><strong>Name:</strong> {userData.username}</p>
             <p><strong>Email:</strong> {userData.email}</p>
+            <p><strong>Role:</strong> {userData.role.toUpperCase()}</p>
             <p><strong>Joined:</strong> {new Date(userData.createdAt).toLocaleDateString()}</p>
           </div>
         </section>
