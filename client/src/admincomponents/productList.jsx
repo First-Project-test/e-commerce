@@ -24,10 +24,14 @@ function ProductList({setadminproduct}) {
         try {
             let data = await axios.get(`http://localhost:2080/api/electronics`)
             let datag = await axios.get(`http://localhost:2080/api/games`)
-            let d = data.data.electronics.concat(datag.data)
+            let dataacc = await axios.get(`http://localhost:2080/api/accessories`)
+            let d = data.data.electronics.concat(datag.data).concat(dataacc.data)
+            console.log(dataacc.data);
+            
             setproducts(d)
             setgames(datag.data)
             setelectronic(data.data.electronics)
+            setaccessories(dataacc.data)
             
         } catch (error) {
             console.log(error)
@@ -91,7 +95,7 @@ function ProductList({setadminproduct}) {
                                     <td>
                                         <div className="product-image-cell">
                                             <img 
-                                                src={el.image[0]} 
+                                                src={Array.isArray(el.image)?el.image[0]:el.image} 
                                                 alt={el.name}
                                                 className="product-table-image"
                                             />
@@ -172,7 +176,7 @@ function ProductList({setadminproduct}) {
                                     <td>
                                         <div className="product-image-cell">
                                             <img 
-                                                src={el.image} 
+                                                src={Array.isArray(el.image)?el.image[0]:el.image} 
                                                 alt={el.name}
                                                 className="product-table-image"
                                             />
@@ -252,7 +256,7 @@ function ProductList({setadminproduct}) {
                                     <td>
                                         <div className="product-image-cell">
                                             <img 
-                                                src={el.image} 
+                                                src={Array.isArray(el.image)?el.image[0]:el.image} 
                                                 alt={el.name}
                                                 className="product-table-image"
                                             />
