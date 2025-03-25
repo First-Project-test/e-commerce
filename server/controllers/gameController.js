@@ -1,10 +1,10 @@
-const { Game, Category, GameCategory } = require('../database');
+const { Game, GameCategory } = require('../database');
 
 const gameController = {
     // Create a new game
     createGame: async (req, res) => {
         try {
-            const { name, release, quantity, price, categoryId, rating, description,image } = req.body;
+            const { name, releaseDate, quantity, price, categoryId, rating, description, image } = req.body;
             
             // Validate required fields
             if (!name || !quantity || !price || !categoryId || !description) {
@@ -12,17 +12,17 @@ const gameController = {
             }
 
             // Check if category exists
-            const category = await Category.findByPk(categoryId);
+            const category = await GameCategory.findByPk(categoryId);
             if (!category) {
-                return res.status(404).json({ message: 'Category not found' });
+                return res.status(404).json({ message: 'Game category not found' });
             }
 
             const game = await Game.create({
                 name,
-                release,
+                releaseDate,
                 quantity,
                 price,
-                categoryId,
+                GameCategoryId: categoryId,  // Changed to match the model relationship
                 rating,
                 description,
                 image
