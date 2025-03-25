@@ -143,7 +143,7 @@ useEffect(() => {
                 <p className="game-rating">⭐{game.rating}/5</p>
                 <button 
                   className="add-to-cart-btn"
-                  hidden={user}
+                  hidden={!user}
                   onClick={() => handleAddToCart(game)}
                 >
                   🛒 Add to Cart
