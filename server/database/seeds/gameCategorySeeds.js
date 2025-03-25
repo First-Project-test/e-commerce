@@ -2,10 +2,10 @@ const { GameCategory } = require('../index');
 
 const gameCategorySeeds = async () => {
     try {
-        // Clear existing game categories
-        await GameCategory.destroy({ where: {} });
+       
+        await GameCategory.destroy({ where:{}})
 
-        // Create sample game categories
+      
         const gameCategories = [
             {
                 name: 'Action',
@@ -20,10 +20,6 @@ const gameCategorySeeds = async () => {
                 description: 'Role-playing games'
             },
             {
-                name: 'Strategy',
-                description: 'Strategic and tactical games'
-            },
-            {
                 name: 'Sports',
                 description: 'Sports and racing games'
             },
@@ -32,20 +28,16 @@ const gameCategorySeeds = async () => {
                 description: 'Fighting and combat games'
             },
             {
-                name: 'Puzzle',
-                description: 'Puzzle and brain-teaser games'
-            },
-            {
                 name: 'Horror',
                 description: 'Horror and survival games'
             }
         ];
 
         await GameCategory.bulkCreate(gameCategories);
-        console.log('Game Category seeds completed successfully');
+        console.log('Game Category seeds completed successfully')
     } catch (error) {
-        console.error('Error seeding game categories:', error);
+        console.error('Error seeding game categories:', error)
     }
-};
+}
 
 module.exports = gameCategorySeeds; 

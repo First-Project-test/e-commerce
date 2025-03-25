@@ -3,7 +3,7 @@ import Login from './login-and-signup/login';
 import Signup from './login-and-signup/signup';
 import Home from './components/Home';
 import GamesPage from './components/GamesPage.jsx';
-// import Games from './components/Games.jsx';
+import Games from './components/games.jsx';
 import Electronics from './components/electronics.jsx';
 import AboutUs from './components/AboutUs';
 import './App.css';
@@ -18,6 +18,7 @@ import UserList from './admincomponents/UserList.jsx';
 import ProductList from './admincomponents/productList.jsx';
 import Detailsproducts from './admincomponents/detailsproduct.jsx'
 import Accessories from './components/Accessories.jsx';
+import Profile from './components/Profil.jsx';
 
 import Payment from './components/Payment.jsx';
 import SuccessPage from './components/SuccessPage.jsx';
@@ -29,7 +30,7 @@ import ScrollToTop from './components/ScrollToTop.jsx';
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('token')
   if (!token) {
-    return <Navigate to="/login" />
+    return <Navigate to="/" />
   }
   return children
 }
@@ -84,7 +85,7 @@ const App = () => {
         <Route path="/products/:id" element={<Detailsproduct el={prod} />} />
         <Route path="/shop" element={<Products prod={prod} setprod={setprod} cat={cat} />} />
         <Route path="/games/:id" element={<Detailsproduct />} />
-        <Route path="/electronics/:id" element={<Detailsproduct />} />
+        <Route path="/product/:id" element={<Detailsproduct />} />
         <Route path="/electronics" element={<Electronics prod={prod} setprod={setprod} cat={cat} />} />
         <Route path="/accessories" element={<Accessories  setprod={setprod}  />} />
         <Route path="/payment" element={<Payment />} />
@@ -97,6 +98,8 @@ const App = () => {
         <Route path="/product-list" element={<ProductList  />} />
 
         <Route path='/admin-product/:id' element={<Detailsproducts el={adminproduct}/>}/>
+        <Route path="/Profile" element={<Profile />} />
+        <Route path="*" element={<Navigate to="/" />} />
        
 
 

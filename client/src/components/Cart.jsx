@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../css/Cart.css';
 
-const Cart = ({setprod}) => {
+const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -29,8 +29,9 @@ const Cart = ({setprod}) => {
           Authorization: `Bearer ${token}`
         }
       });
-      console.log('Raw cart response:', response.data);
+      // console.log('Raw cart response:', response.data);
       setCartItems(response.data);
+      console.log("items",response.data)
       
     } catch (error) {
       console.error('Error fetching cart:', error);
@@ -46,12 +47,8 @@ const Cart = ({setprod}) => {
     try {
       setDeleteLoading(itemId);
       const token = localStorage.getItem('token');
-      if (!token) {
-        setError('Please login to delete items');
-        return;
-      }
-
-      const response = await axios.delete(`http://localhost:2080/api/cart/${itemId}`, {
+   
+      const response = await axios.delete(`http://localhost:2080/api/cart/`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -70,97 +67,9 @@ const Cart = ({setprod}) => {
     }
   };
 
-  const handleViewDetails = (item) => {
-    console.log('Cart item:', item);
-    const product = item.Game || item.Electronics;
-    console.log('Product data:', product);
-    if (!product) {
-      alert('Product details not available');
-      return;
-    }
-    
-    // Determine the correct route based on the product type
-    const route = item.Game ? `/games/${product.id}` : `/electronics/${product.id}`;
-    navigate(route);
-  }
 
-  // Helper function to process images
-  const processImage = (image) => {
-    console.log('Processing cart image input:', image);
-    
-    if (!image) {
-      console.log('No cart image provided, using placeholder');
-      return '/placeholder.jpg';
-    }
-    
-    try {
-      // If image is a string that looks like an array, parse it
-      if (typeof image === 'string') {
-        console.log('Cart image is string:', image);
-        if (image.startsWith('[')) {
-          console.log('Attempting to parse JSON array');
-          const parsed = JSON.parse(image);
-          const result = Array.isArray(parsed) ? parsed[0]:parsed;
-          console.log('Parsed result:', result);
-          return result;
-        }
-        // If it's a URL string, return it directly
-        return image;
-      }
-      
-      // If image is already an array, take first image
-      if (Array.isArray(image)) {
-        console.log('Cart image is array:', image);
-        return image[0];
-      }
-      
-      // If image is a single string URL, use it directly
-      console.log('Using cart image directly:', image);
-      return image;
-    } catch (e) {
-      console.error('Error processing cart image:', e);
-      return '/placeholder.jpg';
-    }
-  }
 
-  const getItemDetails = (cartItem) => {
-    console.log('Processing cart item:', cartItem);
-    const product = cartItem.Game || cartItem.Electronics;
-    console.log('Product from cart item:', product);
-    
-    if (!product) {
-      console.log('No product found in cart item');
-      return {
-        id: cartItem.id,
-        name: 'Unknown Product',
-        price: 0,
-        image: '/placeholder.jpg',
-        quantity: cartItem.quantity || 0,
-        totalPrice: cartItem.totalPrice || 0
-      };
-    }
-
-    // Get the first image from the array or use the single image
-    let imageUrl = '/placeholder.jpg';
-    if (product.image) {
-      if (Array.isArray(product.image)) {
-        imageUrl = product.image[0];
-      } else if (typeof product.image === 'string') {
-        imageUrl = product.image;
-      }
-    }
-
-    console.log('Using image URL:', imageUrl);
-
-    return {
-      id: cartItem.id,
-      name: product.name,
-      price: product.price,
-      image: imageUrl,
-      quantity: cartItem.quantity || 0,
-      totalPrice: cartItem.totalPrice || 0
-    };
-  };
+ 
 
   const calculateTotal = () => {
     return cartItems.reduce((total, item) => total + Number(item.totalPrice || 0), 0);
@@ -207,30 +116,31 @@ const Cart = ({setprod}) => {
       ) : (
         <>
           <div className="cart-items">
-            {cartItems.map((cartItem) => {
-              const item = getItemDetails(cartItem);
+            {cartItems.map((item) => {
+              console.log("image",item.Game?item.Game.image:item.Electronic.image);
+              
               return (
                 <div key={item.id} className="cart-item">
                   <div className="item-image">
                     <img 
-                      src={item.image} 
-                      alt={item.name} 
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = '/placeholder.jpg';
-                      }}
+                      src={item.Game?item.Game.image:item.Electronic.image} 
+                      alt={item.Game?item.Game.name:item.Electronic.name} 
+                     
                     />
                   </div>
                   <div className="item-details">
-                    <h3>{item.name}</h3>
-                    <p className="item-price">${item.price}</p>
+                    <h3>{item.Game?item.Game.name:item.Electronic.name}</h3>
+                    <p className="item-price">${item.Game?item.Game.price:item.Electronic.price}</p>
                     <p className="item-quantity">Quantity: {item.quantity}</p>
                     <p className="item-total">Total: ${item.totalPrice}</p>
                   </div>
                   <div className="item-actions">
                     <button 
                       className="view-details-btn"
-                      onClick={() => handleViewDetails(cartItem)}
+                     
+                      onClick={() =>{
+                        localStorage.setItem("product", JSON.stringify(item.Game?item.Game:item.Electronic))
+                        navigate(`/product/${item.Game?item.Game.id:item.Electronic.id}`)} }
                     >
                       View Details
                     </button>

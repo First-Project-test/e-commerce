@@ -65,7 +65,7 @@ const AboutUs = () => {
                             <p>Community Manager</p>
                         </div>
                         <div className="team-member">
-                            <div className="member-avatar">N</div>
+                            <div className="member-avatar">NG</div>
                             <h3>Nassira Gara</h3>
                             <p>Technical Director</p>
                         </div>

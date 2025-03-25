@@ -2,10 +2,10 @@ const { Category } = require('../index');
 
 const categorySeeds = async () => {
     try {
-        // Clear existing categories
-        await Category.destroy({ where: {} });
+        
+        await Category.destroy({ where:{}})
 
-        // Create sample categories
+       
         const categories = [
             {
                 name: 'Gaming Consoles',
@@ -30,10 +30,10 @@ const categorySeeds = async () => {
         ];
 
         await Category.bulkCreate(categories);
-        console.log('Category seeds completed successfully');
+        console.log('Category seeds completed successfully')
     } catch (error) {
-        console.error('Error seeding categories:', error);
+        console.error('Error seeding categories:', error)
     }
-};
+}
 
 module.exports = categorySeeds; 

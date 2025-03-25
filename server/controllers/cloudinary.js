@@ -1,5 +1,5 @@
-const cloudinary = require("cloudinary").v2;
-require("dotenv").config();
+const cloudinary = require("cloudinary").v2
+require("dotenv").config()
 const streamifier = require("streamifier");
 
 cloudinary.config({
@@ -10,48 +10,48 @@ cloudinary.config({
 
 const uploadImage = async (req, res) => {
   try {
-    if (!req.file) return res.status(400).json({ error: "No file uploaded" });
+    if (!req.file) return res.status(400).json({ error: "No file uploaded" })
 
     const result = await new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         { folder: "uploads" },
         (error, uploadResult) => {
-          if (error) reject(error);
-          else resolve(uploadResult);
+          if (error) reject(error)
+          else resolve(uploadResult)
         }
-      );
-      streamifier.createReadStream(req.file.buffer).pipe(uploadStream);
-    });
+      )
+      streamifier.createReadStream(req.file.buffer).pipe(uploadStream)
+    })
 
-    res.json({ url: result.secure_url });
+    res.json({ url: result.secure_url })
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message })
   }
-};
+}
 
 const uploadMultipleImages = async (req, res) => {
   try {
     if (!req.files || req.files.length === 0)
-      return res.status(400).json({ error: "No files uploaded" });
+      return res.status(400).json({ error: "No files uploaded" })
 
     const uploadPromises = req.files.map((file) => {
       return new Promise((resolve, reject) => {
         const uploadStream = cloudinary.uploader.upload_stream(
           { folder: "uploads" },
           (error, uploadResult) => {
-            if (error) reject(error);
-            else resolve(uploadResult.secure_url);
+            if (error) reject(error)
+            else resolve(uploadResult.secure_url)
           }
-        );
-        streamifier.createReadStream(file.buffer).pipe(uploadStream);
-      });
-    });
+        )
+        streamifier.createReadStream(file.buffer).pipe(uploadStream)
+      })
+    })
 
-    const urls = await Promise.all(uploadPromises);
-    res.json({ urls }); 
+    const urls = await Promise.all(uploadPromises)
+    res.json({ urls })
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message })
   }
-};
+}
 
-module.exports = { uploadImage, uploadMultipleImages };
+module.exports = { uploadImage, uploadMultipleImages }

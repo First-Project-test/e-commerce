@@ -12,69 +12,71 @@ const connection = new Sequelize(
     }
 );
 
-// Test the connection
 const testConnection = async () => {
     try {
         await connection.authenticate();
-        console.log('Database connection has been established successfully.');
+        console.log('Database connection has been established successfully.')
     } catch (error) {
-        console.error('Unable to connect to the database:', error.message);
+        console.error('Unable to connect to the database:', error.message)
     }
 }
 
 testConnection();
 
-// Import and initialize models
-const User = require('./user')(connection, DataTypes);
-const Game = require('./game')(connection, DataTypes);
-const Electronics = require('./electronics')(connection, DataTypes);
-const Category = require('./category')(connection, DataTypes);
-const Cart = require('./cart')(connection, DataTypes);
-const GameCategory = require('./gameCategory')(connection, DataTypes);
+
+const User = require('./user')(connection, DataTypes)
+const Game = require('./game')(connection, DataTypes)
+const Electronics = require('./electronics')(connection, DataTypes)
+const Category = require('./category')(connection, DataTypes)
+const Cart = require('./cart')(connection, DataTypes)
+const GameCategory = require('./gameCategory')(connection, DataTypes)
 const Accessories = require('./accessories')(connection, DataTypes)
 
-// Set up relationships
-User.hasMany(Electronics);
-Electronics.belongsTo(User);
+User.hasMany(Electronics)
+Electronics.belongsTo(User)
 
-User.hasMany(Game);
-Game.belongsTo(User);
+User.hasMany(Game)
+Game.belongsTo(User)
+//
+Electronics.hasMany(Game)
+Game.belongsTo(Electronics)
 
-Electronics.hasMany(Game);
-Game.belongsTo(Electronics);
 
-// Category relationships
+//
 Category.hasMany(Electronics, {
     foreignKey: 'CategoryId'
-});
+})
+
 Electronics.belongsTo(Category, {
     foreignKey: 'CategoryId'
-});
+})
 
-// Game Category relationships
+//
+
 GameCategory.hasMany(Game, {
     foreignKey: 'GameCategoryId'
-});
+})
 Game.belongsTo(GameCategory, {
     foreignKey: 'GameCategoryId'
-});
+})
 
-// Cart relationships
-User.hasMany(Cart);
-Cart.belongsTo(User);
+// 
+User.hasMany(Cart)
+Cart.belongsTo(User)
 
-Electronics.hasMany(Cart);
-Cart.belongsTo(Electronics);
+Electronics.hasMany(Cart)
+Cart.belongsTo(Electronics)
 
-Game.hasMany(Cart);
+Game.hasMany(Cart)
 Cart.belongsTo(Game);
-//Accessories relations ships
-User.hasMany(Accessories);
-Accessories.belongsTo(User);
 
 
-Category.hasMany(Accessories);
-Accessories.belongsTo(Category);
+// User.hasMany(Accessories)
+// Accessories.belongsTo(User)
+
+
+// Category.hasMany(Accessories)
+// Accessories.belongsTo(Category)
 
 
 
