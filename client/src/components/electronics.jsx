@@ -13,9 +13,6 @@ function Electronics({setprod}) {
             console.log(d);
             setproducts(d.data.electronics)
             console.log("products",d.data.electronics);
-            
-
-            // will be filtered later according to our needs
 
             
         } catch (error) {

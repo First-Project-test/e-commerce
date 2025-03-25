@@ -19,7 +19,7 @@ function Detailsproduct() {
 
 
     useEffect(() => {
-        if (el?.image?.length) {
+        if (el?.image?.length&&Array.isArray(el.image)) {
             const interval = setInterval(() => {
                 const randomIndex = Math.floor(Math.random() * el.image.length)
                 setCurrentImage(el.image[randomIndex])
@@ -27,6 +27,8 @@ function Detailsproduct() {
 
             return () => clearInterval(interval)
         }
+        else{
+            setCurrentImage(el.image)}
     }, [el.image])
 
     const handleUpdate = async (endpoint, data, setHidden) => {
@@ -59,10 +61,13 @@ function Detailsproduct() {
         <div className="details-container">
             <div className="product-image">
                 <img 
-                    src={currentimage || (el.image && el.image[0])} 
-                    alt={el.name} 
+                    src={currentimage || (el.image )
+                        
+                    } 
+                    alt={currentimage} 
                     className="main-image"
                 />
+
             </div>
 
             <div className="product-info">

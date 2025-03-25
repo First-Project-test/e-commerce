@@ -1,5 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import '../css/Dashboard.css'
+
 
 function UserList() {
     const [banned, setbanned] = useState(Boolean)
@@ -42,7 +44,7 @@ function UserList() {
                         <th>Id</th>
                         <th>status</th>
                     </tr>
-                    {user.map((el,i) => (
+                    {user.filter((e)=>e.username.toLowerCase().includes(filtered.toLowerCase())).map((el,i) => (
                         <tr key={i} >
                             <th>{el.username}</th>
                             <th>{el.id}</th>

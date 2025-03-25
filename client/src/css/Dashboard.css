@@ -9,8 +9,8 @@
     background: white;
     padding: 2rem;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    height: 100vh;
+    position: relative;
+    height: 100vmax;
     overflow-y: auto;
 }
 
@@ -47,7 +47,6 @@
 
 .dashboard-content {
     flex: 1;
-    margin-left: 250px;
     padding: 2rem;
 }
 
