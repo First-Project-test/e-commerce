@@ -4,8 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Home.css';
 import TopGames from './TopGames.jsx';
 
-// Static categories data to match the design
-const staticCategories = [
+const categories = [
   {
     id: 1,
     name: 'Electronics',
@@ -14,7 +13,7 @@ const staticCategories = [
   {
     id: 2,
     name: 'Games',
-    image: 'https://million-wallpapers.ru/wallpapers/4/73/337701050226466/lots-of-pictures-from-different-games.jpg'
+    image: 'https://images2.alphacoders.com/124/thumb-1920-1245280.jpg'
   },
   {
     id: 3,
@@ -23,7 +22,6 @@ const staticCategories = [
   }
 ];
 
-// Carousel images with better structure
 const carouselImages = [
   {
     src: 'https://assets.xboxservices.com/assets/fb/d2/fbd2cb56-5c25-414d-9f46-e6a164cdf5be.png?n=XBX_A-BuyBoxBGImage01-D.png',
@@ -36,7 +34,8 @@ const carouselImages = [
   {
     src: 'https://pixelz.cc/wp-content/uploads/2018/06/nintendo-switch-handheld-console-uhd-4k-wallpaper..jpg',
     alt: 'Nintendo Switch'
-  },{
+  },
+  {
     src: 'https://gameszone.tn/494-large_default/xbox-series-s-digital-edition-console-tunisie.jpg',
     alt: 'xBox Series S'
   },
@@ -44,15 +43,13 @@ const carouselImages = [
     src: 'https://i5.walmartimages.com/seo/Sony-PlayStation-4-Limited-Edition-game-console-HDR-1-TB-HDD-gold_550d58ac-1b7c-4459-8d23-e23fd4b6f8e2_1.f50649af449335c03d864a4744bceee1.jpeg',
     alt: 'Playstation 4'
   }
-]
+];
 
 const Home = ({setcat}) => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
   const [previousImage, setPreviousImage] = useState(carouselImages.length - 1);
-
-  const user=JSON.parse(localStorage.getItem('user'))
+  const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -63,18 +60,8 @@ const Home = ({setcat}) => {
     return () => clearInterval(intervalId);
   }, [currentImage]);
 
-  if (loading) return (
-    <div className="d-flex justify-content-center align-items-center min-vh-100">
-      <div className="spinner-border text-primary" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </div>
-    </div>
-  );
-  
-
   return (
     <div className="main-container">
-      {/* Hero Section */}
       <section className="hero-section">
         <div className="container text-center">
           <div className="subtitle">GAMING STORE</div>
@@ -102,10 +89,9 @@ const Home = ({setcat}) => {
         </div>
       </section>
 
-      {/* Categories Section */}
       <section hidden={!user} className="categories-section">
         <div className="categories-grid">
-          {staticCategories.map((category) => (
+          {categories.map((category) => (
             <div key={category.id} className="category-item">
               <div className="category-content">
                 <h2>{category.name}</h2>  
@@ -131,7 +117,6 @@ const Home = ({setcat}) => {
           ))}
         </div>
       </section>
-      {/* Top Games Section */}
       <section hidden={!user} className="top-games-section">
         <TopGames />
       </section>

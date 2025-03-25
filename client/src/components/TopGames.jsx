@@ -81,8 +81,7 @@ const TopGames = () => {
         alert('Game added to cart successfully!')
       }
     } catch (error) {
-      const errorMessage = error.response?.data?.message || 'Failed to add game to cart. Please try again.'
-      alert(errorMessage)
+      alert(error.response?.data?.message || 'Failed to add game to cart. Please try again.')
     }
   }
 
@@ -101,7 +100,7 @@ const TopGames = () => {
           {games.map((game) => (
             <div key={game.id} className="game-card">
               <img
-                src={game.image || '/placeholder.jpg'}
+                src={game.image}
                 alt={game.name}
                 className="game-image"
                 onError={(e) => e.target.src = '/placeholder.jpg'}

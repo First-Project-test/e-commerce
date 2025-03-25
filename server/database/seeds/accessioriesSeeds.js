@@ -2,8 +2,7 @@ const { Accessories, Category } = require('../index');
 
 const accessoriesSeeds = async () => {
   try {
-    await Accessories.destroy({ where: {} });
-
+    await Accessories.destroy({ where:{}})
     const accessories = [
       {
         name: 'Gaming Headset Pro',
@@ -126,9 +125,9 @@ const accessoriesSeeds = async () => {
     ]
 
     await Accessories.bulkCreate(accessories);
-    console.log('Accessories seeds completed successfully');
+    console.log('Accessories seeds completed successfully')
   } catch (error) {
-    console.error('Error seeding accessories:', error);
+    console.error('Error seeding accessories:', error)
   }
 };
 
