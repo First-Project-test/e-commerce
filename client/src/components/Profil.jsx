@@ -45,7 +45,7 @@ const Profile = () => {
   return (
     <div className="profile-container">
       <div className="profile-header">
-        <h1>Welcome, {userData.name}</h1>
+        <h1>Welcome, {userData.username}</h1>
         <p className="profile-subtitle">Manage your account details</p>
       </div>
 
