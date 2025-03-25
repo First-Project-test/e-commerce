@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 const Payment = () => {
     const navigate = useNavigate();
 
+    const items = JSON.parse(localStorage.getItem('items')); 
+
     const handleSubmit = (e) => {
         e.preventDefault();
         navigate('/success');
@@ -58,7 +60,8 @@ const Payment = () => {
                     </label>
                 </div>
 
-                <button type="submit" className="pay-now-btn">
+                <button 
+                 type="submit" className="pay-now-btn">
                     Pay Now
                 </button>
             </form>

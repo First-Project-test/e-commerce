@@ -45,7 +45,12 @@ const Profile = () => {
   return (
     <div className="profile-container">
       <div className="profile-header">
-        <h1>Welcome, {userData.name}</h1>
+        <h1>Welcome, {userData.username}</h1>
+        <img
+          className="profile-image"
+          src="https://i.pinimg.com/1200x/2f/15/f2/2f15f2e8c688b3120d3d26467b06330c.jpg"
+          alt="User Profile"
+        />
         <p className="profile-subtitle">Manage your account details</p>
       </div>
 

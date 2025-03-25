@@ -169,7 +169,9 @@ const Cart = () => {
               <span>Total:</span>
               <span>${calculateTotal().toFixed(2)}</span>
             </div>
-            <button onClick={() => navigate("/payment")} className="checkout-btn">
+            <button onClick={() => {
+              localStorage.setItem("items", JSON.stringify(cartItems))
+              navigate("/payment")}} className="checkout-btn">
               Proceed to Checkout
             </button>
           </div>

@@ -16,6 +16,16 @@
     font-size: 2rem;
     color: #333;
   }
+  .profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; /* Makes the image round */
+    object-fit: cover;
+    margin: 10px auto;
+    display: block;
+    border: 3px solid #007bff; /* Optional: Add a border */
+  }
+  
   
   .profile-subtitle {
     font-size: 1rem;
