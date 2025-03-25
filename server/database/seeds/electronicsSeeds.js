@@ -1,21 +1,32 @@
+const category = require('../category');
 const { Electronics } = require('../index');
 
 const electronicsSeeds = async () => {
     try {
-        // Clear existing electronics
-        await Electronics.destroy({ where: {} });
+        
+        await Electronics.destroy({ where:{}})
 
-        // Create sample electronics
+    
         const electronics = [
             {
-                name: 'PlayStation 5',
+                name:"Sony PlayStation 5",
+                release:"2020-11-12",
+                quantity:20,
+                price:499.99,
+                rating:93,
+                description:"Next-gen gaming console with stunning graphics and fast loading times.",
+                image:"https://gameszone.tn/462-large_default/playstation-5-standard-ps5-tunisie.jpg",
+                category:["Gaming Console","Hardware"],
+            },
+            {
+                name: 'Sony PlayStation 5 Pro',
                 release: '2020-11-12',
                 quantity: 30,
-                price: 499.99,
+                price: 599.99,
                 category: ['Gaming Console', 'Hardware'],
                 rating: 95,
-                description: 'Next-gen gaming console with stunning graphics and fast loading times.' 
-                // image : "https://variety.com/wp-content/uploads/2024/09/PS5-Pro-Featured.jpg?w=1000&h=563&crop=1"
+                description: 'Next-gen gaming console with stunning graphics and fast loading times.' ,
+                image:"https://gameszone.tn/602-large_default/playstation-5-pro-ps5-tunisie.jpg"
             },
             {
                 name: 'Xbox Series X',
@@ -24,7 +35,19 @@ const electronicsSeeds = async () => {
                 price: 499.99,
                 category: ['Gaming Console', 'Hardware'],
                 rating: 94,
-                description: 'Powerful gaming console with Game Pass subscription service.'
+                description: 'Powerful gaming console with Game Pass subscription service.',
+                image:"https://cms-assets.xboxservices.com/assets/f0/8d/f08dfa50-f2ef-4873-bc8f-bcb6c34e48c0.png?n=642227_Hero-Gallery-0_C2_857x676.png"
+            }, 
+            {
+                name: 'Xbox Series S',
+                release: '2020-11-10',
+                quantity: 15,
+                price: 299.99,
+                category: ['Gaming Console', 'Hardware'],
+                rating: 90,
+                description: 'Affordable gaming console with Game Pass subscription service.',      
+                image:"https://gameszone.tn/494-large_default/xbox-series-s-digital-edition-console-tunisie.jpg"
+                
             },
             {
                 name: 'Nintendo Switch OLED',
@@ -33,34 +56,49 @@ const electronicsSeeds = async () => {
                 price: 349.99,
                 category: ['Gaming Console', 'Hardware'],
                 rating: 92,
-                description: 'Portable gaming console with enhanced OLED display.'
+                description: 'Portable gaming console with enhanced OLED display.',
+                image:"https://gameszone.tn/553-large_default/nintendo-switch-oled-edition-splatoon-3-tunisie.jpg"
             },
             {
-                name: 'Gaming Headset Pro',
-                release: '2023-01-15',
-                quantity: 100,
-                price: 129.99,
-                category: ['Accessories', 'Audio'],
-                rating: 88,
-                description: 'High-quality gaming headset with surround sound and noise cancellation.'
+                name:"Sony PlayStation 4",
+                release:"2013-11-15",
+                quantity:10,
+                price:299.99,
+                rating:88,
+                description:"Previous-gen gaming console with a vast library of games.",
+                image:"https://gameszone.tn/1050-large_default/playstation-4-slim-occasion.jpg",
+                category:["Gaming Console","Hardware"],
             },
             {
-                name: 'Gaming Mouse RGB',
-                release: '2023-03-20',
-                quantity: 150,
-                price: 79.99,
-                category: ['Accessories', 'Peripherals'],
-                rating: 90,
-                description: 'Precision gaming mouse with customizable RGB lighting.',
-                image:["https://ichef.bbci.co.uk/news/1024/cpsprodpb/f310/live/f36de0e0-6f86-11ef-b410-fbf02dca0fc5.png.webp","https://i5.walmartimages.com/seo/Sony-PlayStation-5-PS5-Gaming-Console-Disc-Version_a53802d8-7632-4530-8fc5-84b129845ee8.0a980f45d3e696c9661a6d23bcc0edc2.jpeg"]
+                name:"PC Gaming",
+                release:"2021-01-01",
+                quantity:50,
+                price:999.99,
+                rating:96,
+                description:"Customizable gaming PC with high performance and graphics.",
+                image:"https://www.sbsinformatique.com/16413/tunisie/large/pc-gamer-killer-ryzen-5-4500-gtx-1660-ti-16gb-512-gb-tunisie.jpg",
+                category:["Gaming Console","Hardware"],
+                
+            },
+            {
+                name:"Gaming Laptop",
+                release:"2021-02-01",
+                quantity:30,
+                price:1299.99,
+                rating:94,
+                description:"Portable gaming laptop with high refresh rate and RTX graphics.",
+                image:"https://www.asus.com/media/global/gallery/ibht3480pzgjpbde_setting_xxx_0_90_end_800.png", 
+                category:["Gaming Console","Hardware"], 
+
             }
+           
         ];
 
         await Electronics.bulkCreate(electronics);
-        console.log('Electronics seeds completed successfully');
+        console.log('Electronics seeds completed successfully')
     } catch (error) {
-        console.error('Error seeding electronics:', error);
+        console.error('Error seeding electronics:', error)
     }
-};
+}
 
 module.exports = electronicsSeeds; 

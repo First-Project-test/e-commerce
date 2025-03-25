@@ -4,10 +4,10 @@ const { User } = require('../index');
 const userSeeds = async () => {
     try {
         // Clear existing users
-        await User.destroy({ where: {} });
+        await User.destroy({ where:{}})
 
         // Create admin user
-        const adminPassword = await bcrypt.hash('admin123', 10);
+        const adminPassword = await bcrypt.hash('admin123', 10)
         await User.create({
             username: 'admin',
             email: 'admin@example.com',
@@ -17,7 +17,7 @@ const userSeeds = async () => {
         });
 
         // Create regular users
-        const userPassword = await bcrypt.hash('user123', 10);
+        const userPassword = await bcrypt.hash('user123',10)
         const users = [
             {
                 username: 'john_doe',
@@ -43,9 +43,9 @@ const userSeeds = async () => {
         ];
 
         await User.bulkCreate(users);
-        console.log('User seeds completed successfully');
+        console.log('User seeds completed successfully')
     } catch (error) {
-        console.error('Error seeding users:', error);
+        console.error('Error seeding users:',error)
     }
 };
 

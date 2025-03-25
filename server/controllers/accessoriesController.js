@@ -1,51 +1,67 @@
-const {Accessories} =require('../database/index')
+const { Accessories } = require('../database/index')
 
+module.exports = {
+    getAllAccessories: async (req, res) => {
+        try {
+            const accessories = await Accessories.findAll()
+            res.status(200).json(accessories)
+        } catch (error) {
+            res.status(500).json({ message: 'Error fetching accessories', error: error.message })
+        }
+    },
 
+    AddAccessories: async (req, res) => {
+        const { name, imageUrl, price, quantity, CategoryId } = req.body
+        try {
+            if (!name || !imageUrl || !price || !quantity || !CategoryId) {
+                return res.status(400).json({ message: 'Required fields are missing' })
+            }
+            const added = await Accessories.create({ name, imageUrl, price, quantity, CategoryId })
+            res.status(201).json(added)
+        } catch (error) {
+            res.status(500).json({ message: 'Error adding accessory', error: error.message })
+        }
+    },
 
-module.exports={
-    getAllAccessories : async(req,res)=>{
+    DeleteAccessories: async (req, res) => {
+        const { id } = req.params
         try {
-           const accessories=await Accessories.findAll()
-           res.status(200).send(accessories) 
+            const accessory = await Accessories.findByPk(id)
+            if (!accessory) {
+                return res.status(404).json({ message: 'Accessory not found' })
+            }
+            await accessory.destroy()
+            res.status(200).json({ message: 'Accessory deleted successfully' })
         } catch (error) {
-            console.log("error",error)
+            res.status(500).json({ message: 'Error deleting accessory', error: error.message })
         }
     },
-    AddAccessories:async(req,res)=>{
-        const {name,image,price,quantity}=req.body
+
+    UpdateAccessories: async (req, res) => {
+        const { id } = req.params
+        const { name, imageUrl, price, quantity, CategoryId } = req.body
         try {
-            const added=await Accessories.create({name,image,price,quantity})
-            res.status(201).send(added)
+            const accessory = await Accessories.findByPk(id)
+            if (!accessory) {
+                return res.status(404).json({ message: 'Accessory not found' })
+            }
+            await accessory.update({ name, imageUrl, price, quantity, CategoryId })
+            res.status(200).json({ message: 'Accessory updated successfully' })
         } catch (error) {
-            console.log("error",error)
+            res.status(500).json({ message: 'Error updating accessory', error: error.message })
         }
     },
-    DeleteAccessories:async(req,res)=>{
-        const {id}=req.params
+
+    getAccessoriesByOne: async (req, res) => {
+        const { id } = req.params
         try {
-            await Accessories.destroy({where:{id}})
-            res.status(200).send("deleted sucessfully")
+            const accessory = await Accessories.findByPk(id)
+            if (!accessory) {
+                return res.status(404).json({ message: 'Accessory not found' })
+            }
+            res.status(200).json(accessory)
         } catch (error) {
-            console.log("error",error)
-        }
-    },
-    UpdateAccessories:async(req,res)=>{
-        const {id}=req.params
-        const {name,image,price,quantity}=req.body
-        try {
-            const updated=await Accessories.update({name,image,price,quantity},{where:{id}})
-            res.status(200).send("Updated sucessfully")
-        } catch (error) {
-            console.log("error",error)
-        }
-    },
-    getAccessoriesByOne : async(req,res)=>{
-        const {id}=req.params
-        try {
-            const accessories=await Accessories.findOne({where:{id}})
-            res.status(200).send(accessories)
-        } catch (error) {
-            console.log("error",error)
+            res.status(500).json({ message: 'Error fetching accessory', error: error.message })
         }
     }
 }
