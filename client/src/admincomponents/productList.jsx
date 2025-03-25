@@ -54,7 +54,7 @@ function ProductList({setadminproduct}) {
                     </button>
                 </div>
                 <div hidden={addelectronicc}>
-                    <Addelectronic/>
+                    <Addelectronic x={x}/>
                 </div>
                 <div className="dashboard-table-container">
                     <table className="dashboard-table">
