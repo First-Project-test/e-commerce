@@ -13,7 +13,7 @@ const categories = [
   {
     id: 2,
     name: 'Games',
-    image: 'https://million-wallpapers.ru/wallpapers/4/73/337701050226466/lots-of-pictures-from-different-games.jpg'
+    image: 'https://images2.alphacoders.com/124/thumb-1920-1245280.jpg'
   },
   {
     id: 3,
