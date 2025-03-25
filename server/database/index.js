@@ -68,13 +68,14 @@ Cart.belongsTo(Electronics);
 
 Game.hasMany(Cart);
 Cart.belongsTo(Game);
-//Accessories relations ships
-User.hasMany(Accessories);
-Accessories.belongsTo(User);
 
 
-Category.hasMany(Accessories);
-Accessories.belongsTo(Category);
+// User.hasMany(Accessories);
+// Accessories.belongsTo(User);
+
+
+// Category.hasMany(Accessories);
+// Accessories.belongsTo(Category);
 
 
 

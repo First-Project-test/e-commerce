@@ -4,6 +4,7 @@ const gameSeeds = require('./gameSeeds');
 const electronicsSeeds = require('./electronicsSeeds');
 const categorySeeds = require('./categorySeeds');
 const gameCategorySeeds = require('./gameCategorySeeds');
+const accessoriesSeeds = require('./accessioriesSeeds')
 
 const runSeeds = async () => {
     try {
@@ -19,6 +20,7 @@ const runSeeds = async () => {
         await userSeeds();
         await gameSeeds();
         await electronicsSeeds();
+        await accessoriesSeeds()
         
         console.log('All seeds completed successfully!');
         process.exit(0);
