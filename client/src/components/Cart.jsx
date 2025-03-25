@@ -117,7 +117,7 @@ const Cart = () => {
         <>
           <div className="cart-items">
             {cartItems.map((item) => {
-              console.log("image",item.Game?item.Game.image:item.Electronic.image);
+              // console.log("image",item.Game?item.Game.image:item.Electronic.image);
               
               return (
                 <div key={item.id} className="cart-item">

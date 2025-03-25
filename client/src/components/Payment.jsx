@@ -1,6 +1,7 @@
 import React from 'react';
 import '../css/Payment.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Payment = () => {
     const navigate = useNavigate();
@@ -61,7 +62,33 @@ const Payment = () => {
                 </div>
 
                 <button 
-                 type="submit" className="pay-now-btn">
+                onClick={async()=>{
+                    const user = JSON.parse(localStorage.getItem('user'));
+                    const token = localStorage.getItem('token');
+                    
+                    if (!token) {
+                        alert('Please login to complete your purchase');
+                        navigate('/login');
+                        return;
+                    }
+
+                    try {
+                        await axios.post('http://localhost:2080/api/orders', {
+                            userId: user.id,
+                            items: items
+
+                        }, {
+                            headers: {
+                                Authorization: `Bearer ${token}`
+                            }
+                        })
+                        navigate('/success');
+                    } catch (error) {
+                        console.error('Error creating order:', error);
+                        alert(error.response?.data?.message || 'Failed to create order. Please try again.');
+                    }
+                }}
+                type="submit" className="pay-now-btn">
                     Pay Now
                 </button>
             </form>

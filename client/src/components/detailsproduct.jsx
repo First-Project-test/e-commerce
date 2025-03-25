@@ -9,7 +9,8 @@ function Detailsproduct() {
     
     
     const productt =JSON.parse(localStorage.getItem("product"))
-
+     useEffect(() => console.log(productt)
+     ,[])
    
 
     useEffect(() => {

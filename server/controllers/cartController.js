@@ -10,11 +10,11 @@ const cartController = {
                 include: [
                     {
                         model: Game,
-                        attributes: ['id', 'name', 'price', 'description', 'image']
+                        attributes: ['id', 'name', 'price', 'description', 'image','rating']
                     },
                     {
                         model: Electronics,
-                        attributes: ['id', 'name', 'price', 'description', 'image']
+                        attributes: ['id', 'name', 'price', 'description', 'image','rating']
                     }
                 ]
             });

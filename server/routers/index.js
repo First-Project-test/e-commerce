@@ -9,6 +9,7 @@ const categoryRoutes = require('./categoryRoutes')
 const cartRoutes = require('./cartRoutes')
 const gameCategoryRoutes = require('./gameCategoryRoutes')
 const accessoriesRoutes = require('./accessoriesRoutes')
+const orderRoutes = require('./ordersroutes')
 
 
 router.use('/users',userRoutes)
@@ -19,6 +20,7 @@ router.use('/categories',categoryRoutes)
 router.use('/cart',cartRoutes)
 router.use('/game-categories',gameCategoryRoutes)
 router.use('/accessories',accessoriesRoutes)
+router.use('/orders',orderRoutes)
 
 module.exports = router;
 
