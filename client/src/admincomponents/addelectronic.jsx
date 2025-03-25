@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import '../css/Dashboard.css';
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import '../css/Dashboard.css'
 
 function Addelectronic() {
   const [formData, setFormData] = useState({
@@ -12,49 +12,49 @@ function Addelectronic() {
     description: '',
     image: [],
     CategoryId: ''
-  });
+  })
 
-  const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([])
+  const [loading, setLoading] = useState(false)
   const token=localStorage.getItem("token")
 
   useEffect(() => {
-    fetchCategories();
-  }, []);
+    fetchCategories()
+  }, [])
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get('http://localhost:2080/api/categories');
-      setCategories(response.data);
+      const response = await axios.get('http://localhost:2080/api/categories')
+      setCategories(response.data)
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error:', error)
     }
-  };
+  }
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
       [name]: value
-    }));
-  };
+    }))
+  }
 
   const handleImageChange = async (e) => {
-    const files = Array.from(e.target.files);
-    if (files.length === 0) return;
+    const files = Array.from(e.target.files)
+    if (files.length === 0) return
     try {
-      const formData = new FormData();
+      const formData = new FormData()
       files.forEach((file) => {
-        formData.append("images", file);
-      });
+        formData.append("images", file)
+      })
 
       
       const response = await fetch("http://localhost:2080/api/cloudinary/upload-multiple", {
         method: "POST",
         body: formData
-      });
+      })
 
-      if (!response.ok) throw new Error("Failed to upload images");
+      if (!response.ok) throw new Error("Failed to upload images")
 
       const data = await response.json()
       console.log(data)
@@ -62,23 +62,23 @@ function Addelectronic() {
       setFormData(prev => ({
         ...prev,
         image: [...prev.image, ...data.urls] 
-      }));
+      }))
     } catch (error) {
-      console.error("Upload Error:", error.message);
+      console.error("Upload Error:", error.message)
     }
-  };
+  }
 
   const handleSubmit = async (e) => {
     // don't refresh the page on form submission
-    e.preventDefault();
-    setLoading(true);
+    e.preventDefault()
+    setLoading(true)
 
     try {
       await axios.post('http://localhost:2080/api/electronics', formData,{
         headers: {
           Authorization: `Bearer ${token}`
         }
-      });
+      })
       setFormData({
         name: '',
         release: '',
@@ -88,13 +88,13 @@ function Addelectronic() {
         description: '',
         image: [],
         CategoryId: ''
-      });
+      })
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error:', error)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <div className="add-product-form">
@@ -213,7 +213,7 @@ function Addelectronic() {
         </button>
       </form>
     </div>
-  );
+  )
 }
 
-export default Addelectronic; 
+export default Addelectronic 

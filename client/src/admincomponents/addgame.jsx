@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import '../css/Dashboard.css';
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import '../css/Dashboard.css'
 
 function Addgame() {
   const [formData, setFormData] = useState({
@@ -12,68 +12,68 @@ function Addgame() {
     description: '',
     image: [],
     categoryId: ''
-  });
+  })
 
-  const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const token = localStorage.getItem("token");
+  const [categories, setCategories] = useState([])
+  const [loading, setLoading] = useState(false)
+  const token = localStorage.getItem("token")
 
   useEffect(() => {
-    fetchCategories();
-  }, []);
+    fetchCategories()
+  }, [])
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get('http://localhost:2080/api/game-categories');
-      setCategories(response.data);
+      const response = await axios.get('http://localhost:2080/api/game-categories')
+      setCategories(response.data)
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error:', error)
     }
-  };
+  }
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
       [name]: value
-    }));
-  };
+    }))
+  }
 
   const handleImageChange = async (e) => {
-    const files = Array.from(e.target.files);
-    if (files.length === 0) return;
+    const files = Array.from(e.target.files)
+    if (files.length === 0) return
     
     try {
-      const formData = new FormData();
+      const formData = new FormData()
       files.forEach((file) => {
-        formData.append("images", file);
-      });
+        formData.append("images", file)
+      })
 
       const response = await fetch("http://localhost:2080/api/cloudinary/upload-multiple", {
         method: "POST",
         body: formData
-      });
+      })
 
-      if (!response.ok) throw new Error("Failed to upload images");
+      if (!response.ok) throw new Error("Failed to upload images")
 
-      const data = await response.json();
+      const data = await response.json()
       setFormData(prev => ({
         ...prev,
         image: [...prev.image, ...data.urls]
-      }));
+      }))
     } catch (error) {
-      console.error("Upload Error:", error.message);
+      console.error("Upload Error:", error.message)
     }
-  };
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+    e.preventDefault()
+    setLoading(true)
 
     try {
       if (!formData.name || !formData.releaseDate || !formData.quantity || !formData.price || !formData.categoryId || !formData.description) {
-        alert('Please fill in all required fields');
-        return;
+        alert('Please fill in all required fields')
+        return
       }
 
       const gameData = {
@@ -81,14 +81,14 @@ function Addgame() {
         quantity: Number(formData.quantity),
         price: Number(formData.price),
         rating: formData.rating ? Number(formData.rating) : null
-      };
+      }
 
       const response = await axios.post('http://localhost:2080/api/games', gameData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
-      });
+      })
 
       if (response.status === 201) {
         setFormData({
@@ -100,16 +100,16 @@ function Addgame() {
           description: '',
           image: [],
           categoryId: ''
-        });
-        alert('Game added successfully!');
+        })
+        alert('Game added successfully!')
       }
     } catch (error) {
-      console.error('Error:', error);
-      alert(error.response?.data?.message || 'Failed to add game. Please try again.');
+      console.error('Error:', error)
+      alert(error.response?.data?.message || 'Failed to add game. Please try again.')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <div className="add-product-form">
@@ -231,7 +231,7 @@ function Addgame() {
         </button>
       </form>
     </div>
-  );
+  )
 }
 
-export default Addgame;
+export default Addgame
