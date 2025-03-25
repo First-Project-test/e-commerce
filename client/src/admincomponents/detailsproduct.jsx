@@ -40,20 +40,8 @@ function Detailsproduct() {
             })
             setHidden(true)
         } catch (error) {
-            if (error.response?.status === 404) {
-                try {
-                    await axios.put(`http://localhost:2080/api/games/${el.id}`, data, {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    })
-                    setHidden(true)
-                } catch (err) {
-                    console.error(err)
-                }
-            } else {
-                console.error(error)
-            }
+          console.log(error);
+          
         }
     }
 
@@ -91,7 +79,7 @@ function Detailsproduct() {
                             <div className="button-group">
                                 <button
                                     className="save-btn"
-                                    onClick={() => handleUpdate('electronics', { price }, sethiddenprice)}
+                                    onClick={() => handleUpdate(el.role==='electronics'?'electronics':'games', { price }, sethiddenprice)}
                                 >
                                     Save
                                 </button>

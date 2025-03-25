@@ -54,7 +54,7 @@ function Addgame() {
     setLoading(true);
 
     try {
-      await axios.post('http://localhost:208/api/games', formData,{
+      await axios.post('http://localhost:2080/api/games', formData,{
         headers: {
           Authorization: `Bearer ${token}`
         }
