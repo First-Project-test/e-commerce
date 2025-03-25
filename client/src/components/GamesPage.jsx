@@ -26,12 +26,12 @@ const GamesPage = () => {
   }, [])
 
   // Handle category click to filter games
-  const handleCategoryClick = (category) => {
+  const handleCategoryClick=(category) => {
     if (category === "all") {
-      setFilteredGames(games) // Show all games
+      setFilteredGames(games)
     } else {
       const filtered = games.filter((game) => game.GameCategoryId === category.id)
-      setFilteredGames(filtered) // Show filtered games
+      setFilteredGames(filtered) 
     }
   }
 

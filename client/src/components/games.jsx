@@ -17,11 +17,11 @@ function Games({setprod}) {
         } else {
           response = await axios.get(`http://localhost:2080/api/games`)
         }
-        console.log("Games data:",response.data)
+        // console.log("Games data:",response.data)
         setGames(response.data)
-        } catch (error) {
-        console.error('Error fetching games:',error)
-        }
+      } catch (error) {
+        console.error('Error',error)
+      }
     }
 
     fetchGames()

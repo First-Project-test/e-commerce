@@ -4,7 +4,7 @@ require('dotenv').config();
 const connection = new Sequelize(
     process.env.DB_NAME || "store",
     process.env.DB_USER || "root",
-    process.env.DB_PASSWORD || "oussama",     
+    process.env.DB_PASSWORD || "root",     
     {
         host: "localhost",
         dialect: "mysql",
@@ -68,13 +68,14 @@ Cart.belongsTo(Electronics);
 
 Game.hasMany(Cart);
 Cart.belongsTo(Game);
-//Accessories relations ships
-User.hasMany(Accessories);
-Accessories.belongsTo(User);
 
 
-Category.hasMany(Accessories);
-Accessories.belongsTo(Category);
+// User.hasMany(Accessories);
+// Accessories.belongsTo(User);
+
+
+// Category.hasMany(Accessories);
+// Accessories.belongsTo(Category);
 
 
 
