@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import Addgame from './addgame'
 import Addelectronic from './addelectronic'
+import AddAccessories from './AddAccessories'
 import '../css/Dashboard.css'
 
 function ProductList({setadminproduct}) {
@@ -15,15 +16,22 @@ function ProductList({setadminproduct}) {
     const[addgamehidden,setaddgamehideen]=useState(true)
     const[addelectronicc,setaddelectronic]=useState(true)
     const[x,setx]=useState(false)
+    const[accessories,setaccessories]=useState([])
+    const[addacchidden,setaddacchideen]=useState(true)
+
 
     useEffect(()=>(async()=>{
         try {
             let data = await axios.get(`http://localhost:2080/api/electronics`)
             let datag = await axios.get(`http://localhost:2080/api/games`)
-            let d = data.data.electronics.concat(datag.data)
+            let dataacc = await axios.get(`http://localhost:2080/api/accessories`)
+            let d = data.data.electronics.concat(datag.data).concat(dataacc.data)
+            console.log(dataacc.data);
+            
             setproducts(d)
             setgames(datag.data)
             setelectronic(data.data.electronics)
+            setaccessories(dataacc.data)
             
         } catch (error) {
             console.log(error)
@@ -58,13 +66,15 @@ function ProductList({setadminproduct}) {
                     <h2>Electronics</h2>
                     <button 
                         className="action-button"
-                        onClick={()=>(setaddelectronic(!addelectronicc))}
+                        onClick={
+                            ()=>setaddelectronic(!addelectronicc)
+                        }
                     >
                         Add Electronic
                     </button>
                 </div>
                 <div hidden={addelectronicc}>
-                    <Addelectronic x={x}/>
+                    <Addelectronic setx={setx} x={x} />
                 </div>
                 <div className="dashboard-table-container">
                     <table className="dashboard-table">
@@ -85,7 +95,7 @@ function ProductList({setadminproduct}) {
                                     <td>
                                         <div className="product-image-cell">
                                             <img 
-                                                src={el.image[0]} 
+                                                src={Array.isArray(el.image)?el.image[0]:el.image} 
                                                 alt={el.name}
                                                 className="product-table-image"
                                             />
@@ -133,6 +143,7 @@ function ProductList({setadminproduct}) {
                 </div>
             </div>
 
+
             <div className="dashboard-section">
                 <div className="section-header">
                     <h2>Games</h2>
@@ -144,7 +155,7 @@ function ProductList({setadminproduct}) {
                     </button>
                 </div>
                 <div hidden={addgamehidden}>
-                    <Addgame/>
+                    <Addgame setx={setx} x={x} />
                 </div>
                 <div className="dashboard-table-container">
                     <table className="dashboard-table">
@@ -165,7 +176,7 @@ function ProductList({setadminproduct}) {
                                     <td>
                                         <div className="product-image-cell">
                                             <img 
-                                                src={el.image} 
+                                                src={Array.isArray(el.image)?el.image[0]:el.image} 
                                                 alt={el.name}
                                                 className="product-table-image"
                                             />
@@ -212,6 +223,87 @@ function ProductList({setadminproduct}) {
                     </table>
                 </div>
             </div>
+            
+            <div className="dashboard-section">
+                <div className="section-header">
+                    <h2>Accessoires</h2>
+                    <button 
+                        className="action-button"
+                        onClick={()=>(setaddacchideen(!addacchidden))}
+                    >
+                        Add Accessoires
+                    </button>
+                </div>
+                <div hidden={addacchidden}>
+                    <AddAccessories/>
+                </div>
+                <div className="dashboard-table-container">
+                    <table className="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Id</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {accessories.filter((e)=>e.name.toLowerCase().includes(search.toLowerCase())).map((el,i)=>(
+                                <tr key={i}>
+                                    <td>
+                                        <div className="product-image-cell">
+                                            <img 
+                                                src={Array.isArray(el.image)?el.image[0]:el.image} 
+                                                alt={el.name}
+                                                className="product-table-image"
+                                            />
+                                        </div>
+                                    </td>
+                                    <td>{el.name}</td>
+                                    <td>{el.id}</td>
+                                    <td>{el.quantity}</td>
+                                    <td>${el.price}</td>
+                                    <td>{el.description}</td>
+                                    <td>
+                                        <button 
+                                            className="action-button delete"
+                                            onClick={async()=>{
+                                                const token = localStorage.getItem('token')
+                                                try {
+                                                    await axios.delete(`http://localhost:2080/api/accessories/${el.id}`, {
+                                                        headers: {
+                                                          Authorization: `Bearer ${token}`
+                                                        }
+                                                      })
+                                                      setx(!x)
+                                                } catch (error) {
+                                                    console.log(error)
+                                                }
+                                            }}
+                                        >
+                                            Delete
+                                        </button>
+                                        <button 
+                                            className="action-button"
+                                            onClick={()=>{
+                                                navigate(`/admin-product/${el.id}`)
+                                                localStorage.setItem('product',JSON.stringify(el))
+                                                setadminproduct(el)
+                                            }}
+                                        >
+                                            Update
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
     )
 }

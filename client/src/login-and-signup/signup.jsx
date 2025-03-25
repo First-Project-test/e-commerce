@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import '../login-and-signup/auth.css'
+import './auth.css'
 
 const Signup = () => {
   const navigate = useNavigate()
