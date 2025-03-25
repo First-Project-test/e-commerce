@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../css/NavBar.css';
 import { useNavigate,Link } from 'react-router-dom';
+import Profile from './Profil';
 
 function NavBar() {
   const navigate = useNavigate()
@@ -42,16 +43,17 @@ else{sethidedashboard(true)} },[user])
             </button>
             <button className="btn-buy-now" onClick={() => { 
               if(user){
-                localStorage.removeItem('user')
-                navigate('/')
+                // localStorage.removeItem('user')
+                navigate('/Profile')
               }
               else{
                 navigate('/login')
               }
               }}>
-              {user ? 'Logout' : 'Login'}
+              {user ? 'Profile' : 'Login'}
             </button>
           </div>
+          
         </div>
       </nav>
   );
