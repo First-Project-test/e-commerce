@@ -55,13 +55,12 @@ const OneProduct = ({ el, i, setprod }) => {
           localStorage.setItem("product", JSON.stringify(el))
           navigate(`/products/${i}`)
         }} 
-        src={el.image} 
+        src={Array.isArray(el.image) ? el.image[0] : el.image} 
         alt={el.name} 
       />
       <div className="content">
         <h3 
           onClick={() => {
-            setprod(el)
             localStorage.setItem("product", JSON.stringify(el))
             
             navigate(`/products/${i}`)

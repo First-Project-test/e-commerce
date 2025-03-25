@@ -14,7 +14,7 @@ function Detailsproduct() {
 
     useEffect(() => {
         // Set up image rotation only if we have product data with multiple images
-        if (Array.isArray(productt.image) && productt.image.length > 1) {
+        if (Array.isArray(productt.image)) {
        
             const interval = setInterval(() => {
                 const randomIndex = Math.floor(Math.random() * productt.image.length)

@@ -137,7 +137,10 @@ const Cart = () => {
                   <div className="item-actions">
                     <button 
                       className="view-details-btn"
-                      onClick={() => navigate(`/product/${item.Game?item.Game.id:item.Electronic.id}`) }
+                     
+                      onClick={() =>{
+                        localStorage.setItem("product", JSON.stringify(item.Game?item.Game:item.Electronic))
+                        navigate(`/product/${item.Game?item.Game.id:item.Electronic.id}`)} }
                     >
                       View Details
                     </button>

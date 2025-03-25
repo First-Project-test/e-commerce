@@ -56,7 +56,9 @@ function Addelectronic() {
 
       if (!response.ok) throw new Error("Failed to upload images");
 
-      const data = await response.json();
+      const data = await response.json()
+      console.log(data)
+      
       setFormData(prev => ({
         ...prev,
         image: [...prev.image, ...data.urls] 
