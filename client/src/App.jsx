@@ -3,7 +3,7 @@ import Login from './login-and-signup/login';
 import Signup from './login-and-signup/signup';
 import Home from './components/Home';
 import GamesPage from './components/GamesPage.jsx';
-import Games from './components/Games.jsx';
+// import Games from './components/Games.jsx';
 import Electronics from './components/electronics.jsx';
 import AboutUs from './components/AboutUs';
 import './App.css';
