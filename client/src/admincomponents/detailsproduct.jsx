@@ -17,7 +17,7 @@ function Detailsproduct() {
     const [hiddendescription, sethiddendescription] = useState(true)
     const token = localStorage.getItem("token")
 
-    useEffect(() => {console.log(el.role);
+    useEffect(() => {console.log(el);
     }, [])
     useEffect(() => {
         if (el?.image?.length&&Array.isArray(el.image)) {
@@ -105,7 +105,7 @@ function Detailsproduct() {
 
                 <div className="info-section rating-section">
                     <div className="info-label">
-                        <span>Rating: {rating ? `${rating/20}/5` : 'No rating available'}</span>
+                        <span>Rating: {el.role==="electronic" ? `${rating/20}/5` : `${el.rating}/5`}</span>
                         <button className="modify-btn" onClick={() => sethidden(!hidden)}>
                             {hidden ? 'Modify' : 'Cancel'}
                         </button>
@@ -135,7 +135,7 @@ function Detailsproduct() {
 
                 <div className="info-section description-section">
                     <div className="info-label">
-                        <span>Description: {description}</span>
+                        <span>Description: {el.description}</span>
                         <button className="modify-btn" onClick={() => sethiddendescription(!hiddendescription)}>
                             {hiddendescription ? 'Modify' : 'Cancel'}
                         </button>
@@ -162,7 +162,7 @@ function Detailsproduct() {
 
                 <div className="info-section release-section">
                     <div className="info-label">
-                        <span>Release Date: {release || 'Not specified'}</span>
+                        <span>Release Date: {el.release||el.releaseDate}</span>
                         <button className="modify-btn" onClick={() => sethiddenrelease(!hiddenrelease)}>
                             {hiddenrelease ? 'Modify' : 'Cancel'}
                         </button>

@@ -28,6 +28,7 @@ function Detailsproduct() {
             setCurrentImage(productt.image)
         }
     }, [])
+    
 
    
 
@@ -69,7 +70,7 @@ function Detailsproduct() {
                 </div>
 
                 <div className="info-section release-section">
-                    <p className="info-label">Release Date: {productt.release || 'Not specified'}</p>
+                    <p className="info-label">Release Date: {productt.role==="game"? productt.releaseDate:productt.release || 'Not specified'}</p>
                 </div>
 
                 <div className="info-section quantity-section">
