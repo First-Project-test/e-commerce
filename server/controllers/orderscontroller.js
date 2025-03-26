@@ -1,5 +1,4 @@
- const { where } = require('sequelize')
-const {Orders}=require('../database/orders')
+const {Orders}=require('../database/index')
 const orderController={
 
     createorder:async(req,res)=>{

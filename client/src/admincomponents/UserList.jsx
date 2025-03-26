@@ -66,7 +66,7 @@ function UserList() {
                                 <th>Username</th>
                                 <th>ID</th>
                                 <th>Status</th>
-                                <th>Actions</th>
+                               
                             </tr>
                         </thead>
                         <tbody>
@@ -78,36 +78,11 @@ function UserList() {
                                         <td>{el.id}</td>
                                         <td>
                                             <span className={el.banned ? "status-banned" : "status-active"}>
-                                                {el.banned ? "Banned" : "Active"}
+                                                {el.role}
                                             </span>
                                         </td>
                                         <td>
-                                            <button
-                                                className={`action-button ${el.banned ? "delete-btn" : "view-details-btn"}`}
-                                                onClick={async () => {
-                                                    setbanned(!el.banned)
-                                                    try {
-                                                        await axios.put(
-                                                            `http://localhost:2080/api/users/ban/${el.id}`,
-                                                            { banned: !el.banned },
-                                                            {
-                                                                headers: {
-                                                                    Authorization: `Bearer ${token}`
-                                                                }
-                                                            }
-                                                        )
-                                                        // Update the user list after successful ban/unban
-                                                        const updatedUsers = user.map(u => 
-                                                            u.id === el.id ? {...u, banned: !el.banned} : u
-                                                        )
-                                                        setuser(updatedUsers)
-                                                    } catch (error) {
-                                                        console.log(error)
-                                                    }
-                                                }}
-                                            >
-                                                {el.banned ? "Unban" : "Ban"}
-                                            </button>
+                                           
                                         </td>
                                     </tr>
                                 ))}

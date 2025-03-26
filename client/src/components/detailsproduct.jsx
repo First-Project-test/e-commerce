@@ -61,7 +61,7 @@ function Detailsproduct() {
                 </div>
 
                 <div className="info-section rating-section">
-                    <p className="info-label">Rating: {productt.rating ? `${productt.rating}/5` : 'No rating available'}</p>
+                    <p className="info-label">Rating: {productt.rating ? productt.role==="electronic"? `${productt.rating/20}/5`:`${productt.rating}/5` : 'No rating available'}</p>
                 </div>
 
                 <div className="info-section description-section">

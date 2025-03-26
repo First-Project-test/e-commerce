@@ -17,28 +17,44 @@ function Detailsproduct() {
     const [hiddendescription, sethiddendescription] = useState(true)
     const token = localStorage.getItem("token")
 
-
+    useEffect(() => {console.log(el.role);
+    }, [])
     useEffect(() => {
         if (el?.image?.length&&Array.isArray(el.image)) {
             const interval = setInterval(() => {
                 const randomIndex = Math.floor(Math.random() * el.image.length)
                 setCurrentImage(el.image[randomIndex])
             }, 750)
-
             return () => clearInterval(interval)
         }
         else{
             setCurrentImage(el.image)}
     }, [el.image])
 
-    const handleUpdate = async (endpoint, data, setHidden) => {
+    const handleUpdate = async (data, setHidden) => {
         try {
-            await axios.put(`http://localhost:2080/api/${endpoint}/${el.id}`, data, {
+            // Ensure the role is correct (electronics instead of electronic)
+            const endpoint = el.role === 'electronic' ? 'electronic' : el.role;
+            
+            const response = await axios.put(`http://localhost:2080/api/${endpoint}s/${el.id}`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
-            })
-            setHidden(true)
+            });
+
+            if (response.status === 200) {
+                // Update local storage with new data
+                const updatedProduct = { ...el, ...data };
+                localStorage.setItem('product', JSON.stringify(updatedProduct));
+                console.log(updatedProduct);
+                
+                
+                // Show success message
+                alert('Product updated successfully!');
+                
+                // Hide the edit form
+                setHidden(true);
+            }
         } catch (error) {
           console.log(error);
           
@@ -50,7 +66,6 @@ function Detailsproduct() {
             <div className="product-image">
                 <img 
                     src={currentimage || (el.image )
-                        
                     } 
                     alt={currentimage} 
                     className="main-image"
@@ -79,7 +94,7 @@ function Detailsproduct() {
                             <div className="button-group">
                                 <button
                                     className="save-btn"
-                                    onClick={() => handleUpdate(el.role==='electronics'?'electronics':el.role==='games'?'games':'accessories', { price }, sethiddenprice)}
+                                    onClick={() => handleUpdate( { price }, sethiddenprice)}
                                 >
                                     Save
                                 </button>
@@ -90,7 +105,7 @@ function Detailsproduct() {
 
                 <div className="info-section rating-section">
                     <div className="info-label">
-                        <span>Rating: {rating ? `${rating}/5` : 'No rating available'}</span>
+                        <span>Rating: {rating ? `${rating/20}/5` : 'No rating available'}</span>
                         <button className="modify-btn" onClick={() => sethidden(!hidden)}>
                             {hidden ? 'Modify' : 'Cancel'}
                         </button>
@@ -109,7 +124,7 @@ function Detailsproduct() {
                             <div className="button-group">
                                 <button
                                     className="save-btn"
-                                    onClick={() => handleUpdate(el.role==='electronics'?'electronics':el.role==='games'?'games':'accessories', { rating }, sethidden)}
+                                    onClick={() => handleUpdate({ rating }, sethidden)}
                                 >
                                     Save
                                 </button>
@@ -136,7 +151,7 @@ function Detailsproduct() {
                             <div className="button-group">
                                 <button
                                     className="save-btn"
-                                    onClick={() => handleUpdate(el.role==='electronics'?'electronics':el.role==='games'?'games':'accessories', { description }, sethiddendescription)}
+                                    onClick={() => handleUpdate({ description }, sethiddendescription)}
                                 >
                                     Save
                                 </button>
@@ -163,7 +178,7 @@ function Detailsproduct() {
                             <div className="button-group">
                                 <button
                                     className="save-btn"
-                                    onClick={() => handleUpdate(el.role==='electronics'?'electronics':el.role==='games'?'games':'accessories', { release }, sethiddenrelease)}
+                                    onClick={() => handleUpdate({ release }, sethiddenrelease)}
                                 >
                                     Save
                                 </button>
@@ -191,7 +206,7 @@ function Detailsproduct() {
                             <div className="button-group">
                                 <button
                                     className="save-btn"
-                                    onClick={() => handleUpdate(el.role==='electronics'?'electronics':el.role==='games'?'games':'accessories', { quantity }, sethiddenquantity)}
+                                    onClick={() => handleUpdate({ quantity }, sethiddenquantity)}
                                 >
                                     Save
                                 </button>

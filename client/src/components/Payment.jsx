@@ -73,9 +73,9 @@ const Payment = () => {
                     }
 
                     try {
-                        await axios.post('http://localhost:2080/api/orders', {
-                            userId: user.id,
-                            items: items
+                        await axios.put('http://localhost:2080/api/users/', {
+                            
+                            cart: items
 
                         }, {
                             headers: {

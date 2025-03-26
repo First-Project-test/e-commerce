@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/Dashboard.css';
 
-function AddAccessories({ setx, x }) {
+function AddAccessories() {
   const [formData, setFormData] = useState({
     name: '',
     price: '',
@@ -180,7 +180,6 @@ function AddAccessories({ setx, x }) {
           type="submit"
           disabled={loading}
           className="submit-button"
-          onClick={() => setx(!x)}
         >
           {loading ? 'Adding...' : 'Add Accessory'}
         </button>

@@ -1,4 +1,5 @@
 const { Electronics, Category } = require('../database')
+const electronics = require('../database/electronics')
 
 const electronicsController = {
    
@@ -19,7 +20,7 @@ const electronicsController = {
 
             const electronics = await Electronics.create({
                 name,
-                release,
+                releaseDate: release,
                 quantity,
                 price,
                 CategoryId,
@@ -28,7 +29,7 @@ const electronicsController = {
                 image
             })
 
-            res.status(201).json(electronics)
+            res.status(201).json("body")
         } catch (error) {
             res.status(500).json({ message: 'Error creating electronic item', error: error.message })
         }
@@ -129,7 +130,11 @@ const electronicsController = {
                 message: 'Electronics item updated successfully',
                 electronics
             })
+            console.log(req.body)
+            
         } catch (error) {
+            console.log("body",electronics)
+            
             res.status(500).json({ message: 'Error updating electronics item', error: error.message })
         }
     },

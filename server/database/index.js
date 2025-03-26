@@ -75,8 +75,8 @@ Cart.belongsTo(Game);
 // Accessories.belongsTo(User)
 
 
-// Category.hasMany(Accessories)
-// Accessories.belongsTo(Category)
+Category.hasMany(Accessories)
+Accessories.belongsTo(Category)
 
 
 

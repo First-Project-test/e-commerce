@@ -6,7 +6,7 @@ module.exports = (connection, DataTypes) => {
             allowNull: false
         },
         items:{
-            type: DataTypes.Text
+            type: DataTypes.JSON,
         }
     }, {
         timestamps: true

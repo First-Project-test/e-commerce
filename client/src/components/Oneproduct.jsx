@@ -22,7 +22,9 @@ const OneProduct = ({ el, i, setprod }) => {
       setLoading(true)
       const payload = el.role === "game" 
         ? { gameId: el.id }
-        : { electronicsId: el.id }
+        // :role==="accessories" 
+        // ? { accessoriesId: el.id }
+        :{ electronicsId: el.id }
 
       const response = await axios.post(
         `http://localhost:2080/api/cart/add`,
